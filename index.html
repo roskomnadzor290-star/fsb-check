@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ФСБ РФ · Карточка объекта проверки</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0f1a; color: #d4dce8; font-family: 'Courier New', monospace;
+      padding: 2rem; min-height: 100vh; display: flex; justify-content: center;
+    }
+    .container { max-width: 700px; width: 100%; }
+    .header {
+      text-align: center; border-bottom: 2px solid #2a3a5c; padding-bottom: 1rem; margin-bottom: 2rem;
+    }
+    .header h1 { font-size: 1.2rem; color: #c41230; letter-spacing: 2px; }
+    .header p { font-size: 0.8rem; color: #7a8ba6; margin-top: 0.5rem; }
+    .table {
+      width: 100%; border-collapse: collapse; margin-bottom: 2rem;
+    }
+    .table th {
+      text-align: left; padding: 0.8rem; background: #111a2b;
+      border-bottom: 1px solid #2a3a5c; color: #7a8ba6; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .table td {
+      padding: 0.8rem; border-bottom: 1px solid #1a2540; font-size: 0.9rem;
+    }
+    .badge {
+      display: inline-block; padding: 0.3rem 0.8rem; border-radius: 3px;
+      font-size: 0.7rem; font-weight: bold; letter-spacing: 1px;
+    }
+    .badge-red { background: #3d1015; color: #f05a6a; border: 1px solid #5a2a30; }
+    .badge-yellow { background: #3d2e10; color: #f0c05a; border: 1px solid #5a4a2a; }
+    .badge-green { background: #103d1a; color: #5af07a; border: 1px solid #2a5a30; }
+    .footer {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #2a3a5c;
+      text-align: center; font-size: 0.7rem; color: #4a5a70;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>ФЕДЕРАЛЬНАЯ СЛУЖБА БЕЗОПАСНОСТИ РОССИЙСКОЙ ФЕДЕРАЦИИ</h1>
+      <p>Управление по борьбе с финансированием терроризма<br>Карточка объекта проверки № 488-ФТ-2025</p>
+    </div>
+
+    <table class="table">
+      <tr>
+        <th>Параметр</th>
+        <th>Значение</th>
+        <th>Статус</th>
+      </tr>
+      <tr>
+        <td>ФИО объекта</td>
+        <td><strong>Рудакова Людмила Александровна</strong></td>
+        <td><span class="badge badge-green">Подтверждено</span></td>
+      </tr>
+      <tr>
+        <td>Дата рождения</td>
+        <td>27.04.1955</td>
+        <td><span class="badge badge-green">Совпадает</span></td>
+      </tr>
+      <tr>
+        <td>Паспорт РФ</td>
+        <td>4514 123456</td>
+        <td><span class="badge badge-green">Совпадает</span></td>
+      </tr>
+      <tr>
+        <td>Электронная подпись</td>
+        <td>Выпущена 15.07.2025</td>
+        <td><span class="badge badge-red">Без согласия</span></td>
+      </tr>
+      <tr>
+        <td>Доверенность</td>
+        <td>№ 027-697-475-2 на Терновского Р.Л.</td>
+        <td><span class="badge badge-red">Активна</span></td>
+      </tr>
+      <tr>
+        <td>Счёт в Альфа-банке</td>
+        <td>40817 810 3 0000 1234567</td>
+        <td><span class="badge badge-red">Активен</span></td>
+      </tr>
+      <tr>
+        <td>Зачисление от Лаптуховой Е.А.</td>
+        <td>500 000 + 450 000 руб.</td>
+        <td><span class="badge badge-red">Подтверждено</span></td>
+      </tr>
+      <tr>
+        <td>Перевод на Терновского Р.Л.</td>
+        <td>500 000 руб.</td>
+        <td><span class="badge badge-yellow">Приостановлен</span></td>
+      </tr>
+      <tr>
+        <td>Статус проверки ФСБ</td>
+        <td>Объект: подозреваемая</td>
+        <td><span class="badge badge-red">Активен</span></td>
+      </tr>
+      <tr>
+        <td>Статья УК РФ</td>
+        <td>205.1 (содействие терроризму)</td>
+        <td><span class="badge badge-red">Возбуждено</span></td>
+      </tr>
+      <tr>
+        <td>Мера пресечения</td>
+        <td>Подписка о невыезде</td>
+        <td><span class="badge badge-yellow">Ожидает решения</span></td>
+      </tr>
+      <tr>
+        <td>Залог для освобождения</td>
+        <td>1 200 000 руб.</td>
+        <td><span class="badge badge-yellow">Доступно</span></td>
+      </tr>
+    </table>
+
+    <div class="footer">
+      Сведения предоставлены Управлением ФСБ России по городу Москве<br>
+      Для служебного пользования · Разглашение преследуется по закону
+    </div>
+  </div>
+</body>
+</html>
