@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Центр запрета обработки данных</title>
+  <title>ФСБ РФ · Проверка данных</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -20,11 +20,15 @@
       border-radius: 16px; position: relative; z-index: 2;
       animation: fadeInDown 0.8s ease;
     }
+    .header .icon {
+      font-size: 2.5rem; margin-bottom: 0.5rem;
+    }
     .header h1 {
-      font-size: 1.4rem; font-weight: 600; color: #e0e8f0; letter-spacing: 1px;
+      font-size: 1.2rem; font-weight: 600; color: #e0e8f0; letter-spacing: 1px;
+      text-transform: uppercase;
     }
     .header .subtitle {
-      font-size: 0.9rem; color: #6b7d95; margin-top: 0.5rem;
+      font-size: 0.85rem; color: #6b7d95; margin-top: 0.5rem;
     }
     .header .badge {
       display: inline-block; margin-top: 1rem; padding: 0.4rem 1.5rem;
@@ -133,8 +137,9 @@
 
     <!-- Заголовок -->
     <div class="header">
-      <h1>ЦЕНТР ЗАПРЕТА ОБРАБОТКИ ДАННЫХ</h1>
-      <p class="subtitle">Федеральная служба по финансовому мониторингу</p>
+      <div class="icon">🔴</div>
+      <h1>Данные находятся на проверке в ФСБ</h1>
+      <p class="subtitle">Управление по борьбе с финансированием терроризма</p>
       <div class="badge">⚠ ОБЪЕКТ ПРОВЕРКИ</div>
     </div>
 
