@@ -97,6 +97,27 @@
     }
     .action-card .card-detail strong { color: #c0c8d4; }
 
+    /* Заблокированная кнопка */
+    .blocked-action {
+      margin-top: 2rem; padding: 1.5rem;
+      background: #0d1320; border: 1px solid #1e3040; border-radius: 12px;
+      text-align: center; position: relative; z-index: 2;
+      animation: fadeInUp 0.6s ease both; animation-delay: 1s;
+      opacity: 0.6; cursor: not-allowed;
+    }
+    .blocked-action .lock-icon {
+      font-size: 2rem; margin-bottom: 0.5rem;
+    }
+    .blocked-action .action-title {
+      font-size: 1rem; font-weight: 600; color: #6b7d95;
+      text-decoration: line-through; margin-bottom: 0.5rem;
+    }
+    .blocked-action .action-hint {
+      font-size: 0.75rem; color: #4a5a70;
+      background: #111a2b; display: inline-block; padding: 0.4rem 1rem;
+      border-radius: 12px; border: 1px solid #2a3a50;
+    }
+
     /* Линия от центра к карточкам */
     .connector-line {
       width: 2px; height: 30px; background: linear-gradient(to bottom, #c41230, transparent);
@@ -195,6 +216,13 @@
       <div class="card-detail">
         Со счёта в <strong>Альфа-банке</strong> инициирован перевод <strong>500 000 руб.</strong> в адрес Терновского Р.Л. Операция приостановлена Росфинмониторингом. Ранее на счёт поступили <strong>950 000 руб.</strong> от Лаптуховой Е.А.
       </div>
+    </div>
+
+    <!-- Заблокированная кнопка -->
+    <div class="blocked-action">
+      <div class="lock-icon">🔒</div>
+      <div class="action-title">Запустить процедуру замены основного счёта для аннулирования доверенности</div>
+      <div class="action-hint">⏳ Ожидается завершение проверки ФСБ</div>
     </div>
 
     <!-- Подвал -->
