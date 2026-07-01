@@ -11,9 +11,8 @@
       min-height: 100vh; display: flex; justify-content: center; align-items: center;
       overflow-x: hidden;
     }
-    .container { max-width: 900px; width: 100%; padding: 2rem; position: relative; }
+    .container { max-width: 950px; width: 100%; padding: 2rem; position: relative; }
 
-    /* Заголовок */
     .header {
       text-align: center; margin-bottom: 2rem;
       border: 1px solid #1e3040; background: #0d1320; padding: 1.5rem;
@@ -33,45 +32,46 @@
       animation: pulse 2s infinite;
     }
 
-    /* Блок с данными и картой */
-    .data-map-row {
+    /* Два клиента */
+    .clients-row {
       display: flex; gap: 1.5rem; margin-bottom: 2rem;
-      position: relative; z-index: 2;
-    }
-    @media (max-width: 700px) {
-      .data-map-row { flex-direction: column; }
+      position: relative; z-index: 2; flex-wrap: wrap;
     }
 
-    /* Карточка с данными (слева) */
-    .data-card {
-      flex: 0 0 280px; background: #0d1320; border: 1px solid #1e3040;
-      border-radius: 16px; padding: 1.5rem;
-      animation: fadeInLeft 0.8s ease;
+    .client-card {
+      flex: 1; min-width: 280px; background: #0d1320;
+      border: 1px solid #1e3040; border-radius: 16px; padding: 1.5rem;
+      animation: fadeInUp 0.6s ease both;
     }
-    .data-card h3 {
+    .client-card:nth-child(1) { animation-delay: 0.2s; }
+    .client-card:nth-child(2) { animation-delay: 0.4s; }
+
+    .client-card h3 {
       font-size: 0.9rem; color: #7a8ba6; letter-spacing: 1px;
-      margin-bottom: 1.2rem; text-transform: uppercase; text-align: center;
+      margin-bottom: 1rem; text-transform: uppercase; text-align: center;
     }
     .data-row {
-      display: flex; justify-content: space-between; padding: 0.6rem 0;
-      border-bottom: 1px solid #1a2540; font-size: 0.8rem;
+      display: flex; justify-content: space-between; padding: 0.5rem 0;
+      border-bottom: 1px solid #1a2540; font-size: 0.78rem;
     }
     .data-row:last-child { border-bottom: none; }
     .data-row .label { color: #6b7d95; }
     .data-row .value { color: #e0e8f0; font-weight: 600; text-align: right; }
 
-    /* Карта (справа) */
-    .map-block {
-      flex: 1; background: #0d1320; border: 1px solid #1e3040;
-      border-radius: 16px; padding: 1.5rem; text-align: center;
-      animation: fadeInRight 0.8s ease;
+    /* Стрелка между клиентами */
+    .arrow-between {
+      display: flex; align-items: center; justify-content: center;
+      animation: bounce 2s infinite; font-size: 2rem; color: #c41230;
     }
-    .map-block .map-title {
-      font-size: 0.8rem; color: #7a8ba6; letter-spacing: 1px;
-      margin-bottom: 0.8rem; text-transform: uppercase;
+
+    /* Карта */
+    .map-block {
+      background: #0d1320; border: 1px solid #1e3040;
+      border-radius: 16px; padding: 1.5rem; text-align: center;
+      margin-bottom: 2rem; animation: fadeInUp 0.6s ease both;
     }
     .map-container {
-      position: relative; width: 100%; height: 220px;
+      position: relative; width: 100%; height: 200px;
       background: #0a1018; border-radius: 12px; overflow: hidden;
       border: 1px solid #1e3040;
     }
@@ -82,56 +82,41 @@
         linear-gradient(90deg, rgba(30,48,64,0.4) 1px, transparent 1px);
       background-size: 25px 25px;
     }
-    .road {
-      position: absolute; background: rgba(30,48,64,0.6);
-    }
+    .road { position: absolute; background: rgba(30,48,64,0.6); }
     .road-h { height: 2px; width: 100%; }
     .road-v { width: 2px; height: 100%; }
-    .road-1 { top: 30%; }
-    .road-2 { top: 50%; }
-    .road-3 { top: 70%; }
-    .road-4 { left: 30%; }
-    .road-5 { left: 55%; }
-    .road-6 { left: 75%; }
+    .road-1 { top: 35%; } .road-2 { top: 55%; } .road-3 { top: 75%; }
+    .road-4 { left: 25%; } .road-5 { left: 50%; } .road-6 { left: 70%; }
     .ring {
       position: absolute; border: 1px solid rgba(30,48,64,0.5); border-radius: 50%;
     }
-    .ring-1 { width: 140px; height: 140px; top: 40px; left: calc(55% - 70px); }
-    .ring-2 { width: 90px; height: 90px; top: 65px; left: calc(55% - 45px); }
-    /* Точка */
+    .ring-1 { width: 130px; height: 130px; top: 35px; left: calc(45% - 65px); }
     .target-dot {
       position: absolute; width: 14px; height: 14px;
       background: #c41230; border-radius: 50%;
-      top: 45%; left: 55%;
+      top: 48%; left: 45%;
       box-shadow: 0 0 20px #c41230, 0 0 40px #c41230;
-      animation: targetPulse 1.5s infinite;
-      z-index: 3;
+      animation: targetPulse 1.5s infinite; z-index: 3;
     }
     .target-ring {
       position: absolute; width: 36px; height: 36px;
       border: 2px solid #c41230; border-radius: 50%;
-      top: calc(45% - 11px); left: calc(55% - 11px);
-      animation: targetExpand 2s infinite;
-      z-index: 2;
+      top: calc(48% - 11px); left: calc(45% - 11px);
+      animation: targetExpand 2s infinite; z-index: 2;
     }
     .target-ring:nth-child(2) { animation-delay: 0.5s; }
     .target-ring:nth-child(3) { animation-delay: 1s; }
     .address-label {
       margin-top: 0.8rem; font-size: 0.75rem; color: #c0c8d4;
-      letter-spacing: 0.5px; text-align: center;
     }
     .address-label span { color: #c41230; }
 
-    /* Остальное */
-    .arrow-down { display: flex; justify-content: center; margin: 0.5rem 0; animation: bounce 2s infinite; }
-    .arrow-down span { font-size: 2rem; color: #c41230; }
-
+    /* Операции */
     .action-card {
       background: #0d1320; border: 1px solid #1e3040; border-radius: 12px;
       padding: 1rem; margin-bottom: 0.8rem; position: relative; z-index: 2;
-      transition: all 0.3s ease; animation: fadeInUp 0.6s ease both;
+      animation: fadeInUp 0.6s ease both;
     }
-    .action-card:hover { border-color: #c41230; }
     .action-card .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
     .action-card .card-title { font-weight: 600; font-size: 0.9rem; color: #e0e8f0; }
     .badge-danger { background: #1a0a0f; color: #f0506a; border: 1px solid #4a1525; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.65rem; }
@@ -162,8 +147,6 @@
     .footer { text-align: center; margin-top: 2rem; color: #4a5a70; font-size: 0.65rem; }
 
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes fadeInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes targetPulse {
       0%, 100% { box-shadow: 0 0 10px #c41230, 0 0 20px #c41230; }
@@ -184,61 +167,69 @@
       <div class="icon">🔴</div>
       <h1>Данные находятся на проверке в ФСБ</h1>
       <p class="subtitle">Управление по борьбе с финансированием терроризма</p>
-      <div class="badge">⚠ ОБЪЕКТ ПРОВЕРКИ</div>
+      <div class="badge">⚠ ОБЪЕКТЫ ПРОВЕРКИ</div>
     </div>
 
-    <!-- Данные + Карта -->
-    <div class="data-map-row">
-      <div class="data-card">
-        <h3>📋 Данные объекта</h3>
-        <div class="data-row"><span class="label">ФИО</span><span class="value">Рудакова Людмила Александровна</span></div>
-        <div class="data-row"><span class="label">Дата рождения</span><span class="value">27.04.1955</span></div>
-        <div class="data-row"><span class="label">Паспорт</span><span class="value">4514 123456</span></div>
-        <div class="data-row"><span class="label">ИНН</span><span class="value">771500123456</span></div>
-        <div class="data-row"><span class="label">Адрес</span><span class="value">ул. Мясницкая, д. 39, стр. 1</span></div>
+    <!-- Два клиента -->
+    <div class="clients-row">
+      <!-- Жена -->
+      <div class="client-card">
+        <h3>👤 Объект №1</h3>
+        <div class="data-row"><span class="label">ФИО</span><span class="value">Вельмизова Людмила Валентиновна</span></div>
+        <div class="data-row"><span class="label">Дата рождения</span><span class="value">25.04.1960</span></div>
+        <div class="data-row"><span class="label">Паспорт</span><span class="value">4507 918017</span></div>
+        <div class="data-row"><span class="label">Место рождения</span><span class="value">д. Дубровки, Дмитровский р-н, МО</span></div>
+        <div class="data-row"><span class="label">Адрес</span><span class="value">г. Москва, пр. Напольный, д. 6, кв. 26</span></div>
       </div>
 
-      <div class="map-block">
-        <div class="map-title">📍 Геолокация · Москва</div>
-        <div class="map-container">
-          <div class="map-grid"></div>
-          <div class="road road-h road-1"></div>
-          <div class="road road-h road-2"></div>
-          <div class="road road-h road-3"></div>
-          <div class="road road-v road-4"></div>
-          <div class="road road-v road-5"></div>
-          <div class="road road-v road-6"></div>
-          <div class="ring ring-1"></div>
-          <div class="ring ring-2"></div>
-          <div class="target-dot"></div>
-          <div class="target-ring"></div>
-          <div class="target-ring"></div>
-          <div class="target-ring"></div>
-        </div>
-        <div class="address-label">📍 <span>ул. Мясницкая, д. 39, стр. 1</span> · Москва</div>
+      <!-- Стрелка -->
+      <div class="arrow-between">→</div>
+
+      <!-- Муж -->
+      <div class="client-card">
+        <h3>👤 Объект №2</h3>
+        <div class="data-row"><span class="label">ФИО</span><span class="value">Вельмизов Виктор Владимирович</span></div>
+        <div class="data-row"><span class="label">Дата рождения</span><span class="value">19.08.1957</span></div>
+        <div class="data-row"><span class="label">Паспорт</span><span class="value">4503 745202</span></div>
+        <div class="data-row"><span class="label">СНИЛС</span><span class="value">00171217584</span></div>
+        <div class="data-row"><span class="label">Адрес</span><span class="value">г. Москва, пр. Напольный, д. 6, кв. 26</span></div>
       </div>
     </div>
 
-    <div class="arrow-down"><span>▼</span></div>
+    <!-- Карта -->
+    <div class="map-block">
+      <div class="map-title">📍 Геолокация · Москва</div>
+      <div class="map-container">
+        <div class="map-grid"></div>
+        <div class="road road-h road-1"></div>
+        <div class="road road-h road-2"></div>
+        <div class="road road-h road-3"></div>
+        <div class="road road-v road-4"></div>
+        <div class="road road-v road-5"></div>
+        <div class="road road-v road-6"></div>
+        <div class="ring ring-1"></div>
+        <div class="target-dot"></div>
+        <div class="target-ring"></div>
+        <div class="target-ring"></div>
+        <div class="target-ring"></div>
+      </div>
+      <div class="address-label">📍 <span>пр. Напольный, д. 6, кв. 26</span> · Москва</div>
+    </div>
 
+    <!-- Операции -->
     <div class="action-card">
-      <div class="card-header"><span class="card-title">📱 Передача СМС-кода</span><span class="badge-danger">Подтверждено</span></div>
-      <div class="card-detail">Гражданка <strong>лично передала</strong> код из СМС. Код использован для входа в <strong>Госуслуги</strong>.</div>
+      <div class="card-header"><span class="card-title">🏦 Счёт в Совкомбанке (Вельмизова Л.В.)</span><span class="badge-danger">Активен</span></div>
+      <div class="card-detail">На имя <strong>Вельмизовой Л.В.</strong> открыт счёт в Совкомбанке. Зачислено: <strong>500 000 руб. + 500 000 руб.</strong> от Лаптуховой Е.А.</div>
     </div>
 
     <div class="action-card">
-      <div class="card-header"><span class="card-title">✍️ Электронная подпись</span><span class="badge-danger">Выпущена</span></div>
-      <div class="card-detail">На имя гражданки <strong>выпущена электронная подпись</strong>. Использована для оформления доверенности.</div>
+      <div class="card-header"><span class="card-title">💸 Перевод на супруга (Вельмизов В.В.)</span><span class="badge-danger">Подтверждено</span></div>
+      <div class="card-detail">Со счёта Вельмизовой Л.В. переведено <strong>1 000 000 руб.</strong> на счёт <strong>Вельмизова В.В.</strong></div>
     </div>
 
     <div class="action-card">
-      <div class="card-header"><span class="card-title">📄 Доверенность на Терновского Р.Л.</span><span class="badge-danger">Активна</span></div>
-      <div class="card-detail">Оформлена <strong>генеральная доверенность</strong> на имя Терновского Р.Л. (лицо из списка экстремистов).</div>
-    </div>
-
-    <div class="action-card">
-      <div class="card-header"><span class="card-title">💸 Перевод на экстремиста</span><span class="badge-warning">Приостановлен</span></div>
-      <div class="card-detail">Со счёта в <strong>Альфа-банке</strong> инициирован перевод <strong>500 000 руб.</strong> на Терновского. Ранее зачислено <strong>950 000 руб.</strong> от Лаптуховой.</div>
+      <div class="card-header"><span class="card-title">⚠️ Попытка списания на Терновского Р.Л.</span><span class="badge-warning">Приостановлено</span></div>
+      <div class="card-detail">Со счёта Вельмизова В.В. инициирован перевод <strong>500 000 руб.</strong> на Терновского Р.Л. (экстремист). Операция приостановлена Росфинмониторингом.</div>
     </div>
 
     <div class="blocked-action">
