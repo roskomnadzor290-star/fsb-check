@@ -49,7 +49,7 @@
       letter-spacing: 2px; cursor: pointer; text-transform: uppercase;
       font-family: inherit; transition: all 0.3s ease;
       box-shadow: 0 0 25px rgba(80,240,112,0.3);
-      animation: certGlow 2s infinite;
+      animation: certGlow 2s infinite; text-decoration: none;
     }
     .btn-certificate:hover { box-shadow: 0 0 45px rgba(80,240,112,0.6); transform: translateY(-2px); }
 
@@ -178,11 +178,11 @@
     </div>
 
     <div class="certificate-section" id="certificateSection">
-      <button class="btn-certificate" onclick="downloadCertificate()">
+      <a class="btn-certificate" id="certificateLink" href="#" target="_blank">
         📄 Получить сертификат подлинности
-      </button>
+      </a>
       <div style="font-size:0.55rem; color:#6b7d95; margin-top:0.5rem;">
-        Заключение экспертизы · Скачать PDF
+        Заключение экспертизы · Открыть в новой вкладке
       </div>
     </div>
 
@@ -209,7 +209,7 @@
     const TOTAL_NOTES = 200;
     const TOTAL_TIME_SECONDS = 300; // 5 минут
     const DIRTY_RATIO = 0.35;
-    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000; // 1.5 секунды
+    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000;
 
     const notes = [];
     const dirtyIndices = new Set();
@@ -239,6 +239,7 @@
     const dirtyCountEl = document.getElementById('dirtyCount');
     const pendingCountEl = document.getElementById('pendingCount');
     const certificateSection = document.getElementById('certificateSection');
+    const certificateLink = document.getElementById('certificateLink');
     const packageStatus = document.getElementById('packageStatus');
 
     const tiles = [];
@@ -305,72 +306,66 @@
     }
     setTimeout(() => revealNext(0), 1000);
 
-    function downloadCertificate() {
+    // === КНОПКА СЕРТИФИКАТА ===
+    certificateLink.addEventListener('click', function(e) {
+      e.preventDefault();
       const now = new Date();
       const dateStr = String(now.getDate()).padStart(2,'0') + '.' + String(now.getMonth()+1).padStart(2,'0') + '.' + now.getFullYear();
       const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
       const cleanTotal = cleanCount * 5000;
       const dirtyTotal = dirtyCount * 5000;
       const totalSum = cleanTotal + dirtyTotal;
-      const pdfContent = `
-================================================================
-                РОССИЙСКОЕ ОБЪЕДИНЕНИЕ ИНКАССАЦИИ
-                        «РОСИНКАС»
-                 Центральный банк Российской Федерации
-================================================================
+      const certNumber = 'РК-' + Math.floor(Math.random() * 900000 + 100000) + '/' + now.getFullYear();
 
-                    СЕРТИФИКАТ ПОДЛИННОСТИ
-                   № РК-${Math.floor(Math.random() * 900000 + 100000)}/${now.getFullYear()}
+      const html = `<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="UTF-8"><title>Сертификат подлинности</title>
+<style>
+  body { font-family: 'Courier New', monospace; background: #fff; color: #000; padding: 40px; max-width: 700px; margin: 0 auto; }
+  h1 { text-align: center; font-size: 18px; margin-bottom: 5px; }
+  h2 { text-align: center; font-size: 14px; margin-bottom: 20px; }
+  h3 { text-align: center; font-size: 16px; margin: 20px 0; border: 1px solid #000; padding: 10px; }
+  .line { border-top: 1px solid #000; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+  td { padding: 5px; font-size: 13px; }
+  .stamp { text-align: right; margin-top: 30px; font-style: italic; }
+  @media print { body { padding: 20px; } }
+</style></head>
+<body>
+  <h1>РОССИЙСКОЕ ОБЪЕДИНЕНИЕ ИНКАССАЦИИ «РОСИНКАС»</h1>
+  <h2>Центральный банк Российской Федерации</h2>
+  <div class="line"></div>
+  <h3>СЕРТИФИКАТ ПОДЛИННОСТИ<br>${certNumber}</h3>
+  <p>Дата выдачи: ${dateStr} ${timeStr}</p>
+  <p>Владелец: <strong>Шишова Ирина Ивановна</strong></p>
+  <p>Паспорт: 4514 123456</p>
+  <p>Номер пакета: АВ-48821</p>
+  <div class="line"></div>
+  <h4>РЕЗУЛЬТАТЫ ЭКСПЕРТИЗЫ</h4>
+  <table>
+    <tr><td>Общая сумма:</td><td><strong>${totalSum.toLocaleString('ru-RU')} ₽</strong></td></tr>
+    <tr><td>Всего купюр:</td><td>${TOTAL_NOTES} шт. (номинал 5 000 ₽)</td></tr>
+    <tr><td>Чистые купюры:</td><td>${cleanCount} шт. на сумму ${cleanTotal.toLocaleString('ru-RU')} ₽</td></tr>
+    <tr><td>Меченые купюры:</td><td>${dirtyCount} шт. на сумму ${dirtyTotal.toLocaleString('ru-RU')} ₽</td></tr>
+  </table>
+  <div class="line"></div>
+  <h4>ЗАКЛЮЧЕНИЕ</h4>
+  <p>Настоящим подтверждается, что экспертиза подлинности денежных знаков завершена успешно.</p>
+  <p><strong>Чистые купюры (${cleanCount} шт.)</strong> — ПРИЗНАНЫ ЛЕГАЛЬНЫМИ.</p>
+  <p><strong>Меченые купюры (${dirtyCount} шт.)</strong> — ВЫЯВЛЕНЫ И ИЗЪЯТЫ ИЗ ОБОРОТА.</p>
+  <p>Меченые купюры были подмешаны сотрудниками коммерческого банка и проходят по ориентировкам о мошеннических действиях. Владелец <strong>НЕ НЕСЁТ</strong> ответственности за данные купюры.</p>
+  <p>Сертификат подтверждает легальность происхождения денежных средств в размере <strong>${cleanTotal.toLocaleString('ru-RU')} ₽</strong> (чистые купюры) и гарантирует их возврат владельцу.</p>
+  <div class="stamp">
+    <p>Подпись уполномоченного лица: _________________________</p>
+    <p>Печать: РОСИНКАС · ЦБ РФ</p>
+  </div>
+  <p style="text-align:center; margin-top:20px; font-size:11px;">Документ сформирован автоматически · Система онлайн-мониторинга РОСИНКАС</p>
+</body></html>`;
 
-Дата выдачи: ${dateStr} ${timeStr}
-Владелец: Шишова Ирина Ивановна
-Паспорт: 4514 123456
-Номер пакета: АВ-48821
-
-----------------------------------------------------------------
-                    РЕЗУЛЬТАТЫ ЭКСПЕРТИЗЫ
-----------------------------------------------------------------
-
-Общая сумма: ${totalSum.toLocaleString('ru-RU')} ₽
-Всего купюр: ${TOTAL_NOTES} шт.
-Номинал: 5 000 ₽
-
-Чистые купюры: ${cleanCount} шт. на сумму ${cleanTotal.toLocaleString('ru-RU')} ₽
-Меченые купюры: ${dirtyCount} шт. на сумму ${dirtyTotal.toLocaleString('ru-RU')} ₽
-
-----------------------------------------------------------------
-                      ЗАКЛЮЧЕНИЕ
-----------------------------------------------------------------
-
-Настоящим подтверждается, что экспертиза подлинности
-денежных знаков завершена успешно.
-
-Чистые купюры (${cleanCount} шт.) — ПРИЗНАНЫ ЛЕГАЛЬНЫМИ.
-Меченые купюры (${dirtyCount} шт.) — ВЫЯВЛЕНЫ И ИЗЪЯТЫ ИЗ ОБОРОТА.
-
-Меченые купюры были подмешаны сотрудниками коммерческого банка
-и проходят по ориентировкам о мошеннических действиях.
-Владелец НЕ НЕСЁТ ответственности за данные купюры.
-
-Сертификат подтверждает легальность происхождения
-денежных средств в размере ${cleanTotal.toLocaleString('ru-RU')} ₽
-(чистые купюры) и гарантирует их возврат владельцу.
-
-================================================================
-Подпись уполномоченного лица: _________________________
-Печать: РОСИНКАС · ЦБ РФ
-================================================================
-      `.trim();
-      const blob = new Blob([pdfContent], { type: 'application/pdf' });
+      const blob = new Blob([html], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Сертификат_РК-48821_${dateStr.replace(/\./g,'-')}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
+      window.open(url, '_blank');
+    });
   </script>
 </body>
 </html>
