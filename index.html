@@ -14,93 +14,105 @@
         radial-gradient(ellipse at 50% 0%, rgba(0,120,60,0.08) 0%, transparent 70%),
         radial-gradient(ellipse at 50% 100%, rgba(0,20,40,0.8) 0%, transparent 70%);
     }
-    .container { max-width: 750px; width: 100%; margin: 0 auto; }
+    .container { max-width: 800px; width: 100%; margin: 0 auto; }
 
     /* ШАПКА */
     .header {
-      text-align: center; margin-bottom: 2rem; padding: 1.5rem;
+      text-align: center; margin-bottom: 1.5rem; padding: 1.2rem;
       background: rgba(10,15,26,0.8); border: 1px solid #1e3040; border-radius: 12px;
     }
     .header .logo {
-      font-size: 2rem; font-weight: 900; color: #c0a060; letter-spacing: 3px;
-      text-shadow: 0 0 20px rgba(192,160,96,0.4); margin-bottom: 0.5rem;
+      font-size: 1.8rem; font-weight: 900; color: #c0a060; letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(192,160,96,0.4); margin-bottom: 0.3rem;
     }
     .header .subtitle {
-      font-size: 0.7rem; color: #7a8ba6; letter-spacing: 2px;
+      font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px;
     }
 
     /* КАРТОЧКИ */
     .card {
       background: #0a101c; border: 1px solid #1e3040; border-radius: 10px;
-      padding: 1.2rem; margin-bottom: 1rem;
+      padding: 1rem; margin-bottom: 0.8rem;
     }
     .card.warning { border-color: #4a3a15; box-shadow: 0 0 20px rgba(192,160,96,0.1); }
     .card.danger { border-color: #4a1525; box-shadow: 0 0 20px rgba(196,18,48,0.1); }
     .card-title {
-      font-size: 0.7rem; color: #7a8ba6; letter-spacing: 2px;
-      margin-bottom: 1rem; text-transform: uppercase;
-      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px;
+      margin-bottom: 0.8rem; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.4rem;
     }
-    .card-title .dot { width: 8px; height: 8px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
-    .dot.green { background: #50f070; box-shadow: 0 0 10px rgba(80,240,112,0.5); }
-    .dot.red { background: #c41230; box-shadow: 0 0 10px rgba(196,18,48,0.5); }
-    .dot.yellow { background: #f0c040; box-shadow: 0 0 10px rgba(240,192,64,0.5); }
+    .card-title .dot { width: 6px; height: 6px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
+    .dot.green { background: #50f070; box-shadow: 0 0 8px rgba(80,240,112,0.5); }
+    .dot.red { background: #c41230; box-shadow: 0 0 8px rgba(196,18,48,0.5); }
+    .dot.yellow { background: #f0c040; box-shadow: 0 0 8px rgba(240,192,64,0.5); }
 
     /* ТАЙМЕР */
     .timer-card {
       background: #0a0f1a; border: 2px solid #4a3a15; border-radius: 12px;
-      padding: 1rem; text-align: center; margin-bottom: 1rem;
+      padding: 0.8rem; text-align: center; margin-bottom: 0.8rem;
       animation: timerGlow 3s infinite;
     }
     .timer-title {
-      font-size: 0.7rem; color: #f0c040; letter-spacing: 2px;
-      margin-bottom: 0.6rem; text-transform: uppercase;
+      font-size: 0.65rem; color: #f0c040; letter-spacing: 2px;
+      margin-bottom: 0.4rem; text-transform: uppercase;
     }
     .timer-value {
-      font-size: 1.8rem; font-weight: 700; color: #f0c040;
+      font-size: 1.6rem; font-weight: 700; color: #f0c040;
       text-shadow: 0 0 20px rgba(240,192,64,0.5); letter-spacing: 2px;
     }
     .timer-sub {
-      font-size: 0.6rem; color: #6b7d95; margin-top: 0.4rem;
+      font-size: 0.55rem; color: #6b7d95; margin-top: 0.3rem;
     }
 
     /* ПРОГРЕСС */
-    .progress-bar { margin: 0.8rem 0; }
-    .progress-label { display: flex; justify-content: space-between; font-size: 0.6rem; color: #6b7d95; margin-bottom: 0.3rem; }
-    .progress-track { height: 8px; background: #1a2540; border-radius: 4px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #50f070, #f0c040); border-radius: 4px; transition: width 0.5s; }
+    .progress-bar { margin: 0.6rem 0; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.55rem; color: #6b7d95; margin-bottom: 0.2rem; }
+    .progress-track { height: 6px; background: #1a2540; border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #50f070, #f0c040); border-radius: 3px; transition: width 0.3s; }
 
-    /* ТАБЛИЦА КУПЮР */
-    .banknote-table { width: 100%; border-collapse: collapse; }
-    .banknote-table th {
-      text-align: left; padding: 0.5rem; font-size: 0.6rem; color: #6b7d95;
-      border-bottom: 1px solid #1e3040; letter-spacing: 1px; text-transform: uppercase;
+    /* СЧЁТЧИКИ */
+    .counters {
+      display: flex; justify-content: space-around; margin: 0.8rem 0;
+      text-align: center;
     }
-    .banknote-table td {
-      padding: 0.5rem; font-size: 0.7rem; border-bottom: 1px solid #1a2540;
-    }
-    .banknote-table .serial { font-family: 'Courier New', monospace; letter-spacing: 1px; }
-    .banknote-table .status { font-weight: 700; }
-    .status-clean { color: #50f070; }
-    .status-dirty { color: #f0506a; }
-    .status-checking { color: #f0c040; animation: dotPulse 1s infinite; }
+    .counter-item { }
+    .counter-num { font-size: 1.1rem; font-weight: 700; }
+    .counter-label { font-size: 0.55rem; color: #6b7d95; margin-top: 0.1rem; }
 
-    /* ИТОГО */
-    .summary { display: flex; justify-content: space-around; margin-top: 1rem; text-align: center; }
-    .summary-item { }
-    .summary-num { font-size: 1.2rem; font-weight: 700; }
-    .summary-label { font-size: 0.6rem; color: #6b7d95; margin-top: 0.2rem; }
+    /* ПОТОК КУПЮР */
+    .banknote-flow {
+      display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;
+      max-height: 300px; overflow-y: auto; padding: 0.4rem;
+    }
+    .banknote-tile {
+      width: 36px; height: 22px; border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.5rem; font-weight: 700; letter-spacing: 0.5px;
+      opacity: 0; transform: scale(0); transition: all 0.3s ease;
+    }
+    .banknote-tile.show { opacity: 1; transform: scale(1); }
+    .banknote-tile.clean { background: #0a2a0f; color: #50f070; border: 1px solid #154a25; }
+    .banknote-tile.dirty { background: #2a0a0f; color: #f0506a; border: 1px solid #4a1525; }
+    .banknote-tile.pending { background: #1a1a0a; color: #f0c040; border: 1px solid #4a3a15; animation: dotPulse 1s infinite; }
+
+    /* ЛЕНТА */
+    .log {
+      max-height: 150px; overflow-y: auto; font-size: 0.55rem;
+      color: #6b7d95; margin-top: 0.6rem;
+    }
+    .log-entry { padding: 0.2rem 0; border-bottom: 1px solid #1a2540; }
+    .log-entry .time { color: #4a5a70; margin-right: 0.5rem; }
 
     /* ПРЕДУПРЕЖДЕНИЕ */
     .warning-box {
-      background: #1a0a0f; border: 1px solid #4a1525; border-radius: 8px;
-      padding: 0.8rem; margin-top: 1rem; font-size: 0.65rem; color: #f0506a;
+      background: #1a0a0f; border: 1px solid #4a1525; border-radius: 6px;
+      padding: 0.6rem; margin-top: 0.8rem; font-size: 0.6rem; color: #f0506a;
       text-align: center; letter-spacing: 1px;
     }
 
     .footer {
-      text-align: center; margin-top: 2rem; font-size: 0.55rem; color: #3a4a60;
-      border-top: 1px solid #1a2540; padding-top: 1rem;
+      text-align: center; margin-top: 1.5rem; font-size: 0.5rem; color: #3a4a60;
+      border-top: 1px solid #1a2540; padding-top: 0.8rem;
     }
 
     @keyframes dotPulse {
@@ -108,13 +120,13 @@
       50% { opacity: 0.3; }
     }
     @keyframes timerGlow {
-      0%, 100% { box-shadow: 0 0 10px rgba(240,192,64,0.3); }
-      50% { box-shadow: 0 0 25px rgba(240,192,64,0.6); }
+      0%, 100% { box-shadow: 0 0 8px rgba(240,192,64,0.3); }
+      50% { box-shadow: 0 0 20px rgba(240,192,64,0.6); }
     }
 
     @media (max-width: 500px) {
       body { padding: 0.5rem; }
-      .banknote-table th, .banknote-table td { padding: 0.3rem; font-size: 0.6rem; }
+      .banknote-tile { width: 28px; height: 18px; font-size: 0.4rem; }
     }
   </style>
 </head>
@@ -127,67 +139,56 @@
       <div class="subtitle">Российское объединение инкассации · Центральный банк РФ</div>
     </div>
 
-    <!-- ТАЙМЕР -->
+    <!-- ТАЙМЕР + ПРОГРЕСС -->
     <div class="timer-card">
       <div class="timer-title">⏳ Проверка завершится через</div>
-      <div class="timer-value" id="timer">23:59:59</div>
+      <div class="timer-value" id="timer">1:59:59</div>
       <div class="timer-sub">идёт экспертиза подлинности купюр</div>
-    </div>
-
-    <!-- ПРОГРЕСС -->
-    <div class="card">
-      <div class="card-title"><span class="dot yellow"></span> Ход проверки</div>
       <div class="progress-bar">
-        <div class="progress-label"><span>Обработано купюр</span><span id="progressPercent">67%</span></div>
-        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:67%;"></div></div>
-      </div>
-      <div class="summary">
-        <div class="summary-item">
-          <div class="summary-num" style="color:#50f070;" id="cleanCount">127</div>
-          <div class="summary-label">Чистые</div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-num" style="color:#f0c040;" id="checkingCount">8</div>
-          <div class="summary-label">На проверке</div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-num" style="color:#f0506a;" id="dirtyCount">15</div>
-          <div class="summary-label">Меченые</div>
-        </div>
+        <div class="progress-label"><span>Обработано</span><span id="progressPercent">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
       </div>
     </div>
 
-    <!-- ТАБЛИЦА КУПЮР -->
+    <!-- СЧЁТЧИКИ -->
     <div class="card">
-      <div class="card-title"><span class="dot red"></span> Реестр купюр · Пачка №АВ-48821</div>
-      <table class="banknote-table">
-        <thead>
-          <tr><th>Номинал</th><th>Серийный номер</th><th>Статус</th></tr>
-        </thead>
-        <tbody id="banknoteBody">
-        </tbody>
-      </table>
-
-      <!-- ПРЕДУПРЕЖДЕНИЕ -->
-      <div class="warning-box">
-        ⚠ ВНИМАНИЕ: 15 купюр проходят по ориентировке как «меченые»<br>
-        Данные купюры были подмешаны сотрудниками банка и проходят по делам о мошенничестве
+      <div class="card-title"><span class="dot yellow"></span> Статистика проверки</div>
+      <div class="counters">
+        <div class="counter-item">
+          <div class="counter-num" style="color:#50f070;" id="cleanCount">0</div>
+          <div class="counter-label">Чистые</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter-num" style="color:#f0c040;" id="pendingCount">150</div>
+          <div class="counter-label">Ожидают</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter-num" style="color:#f0506a;" id="dirtyCount">0</div>
+          <div class="counter-label">Меченые</div>
+        </div>
       </div>
     </div>
 
-    <!-- ИНФО -->
+    <!-- ПОТОК КУПЮР -->
+    <div class="card">
+      <div class="card-title"><span class="dot green"></span> Поток проверки купюр</div>
+      <div class="banknote-flow" id="banknoteFlow"></div>
+      <div class="log" id="logBox"></div>
+    </div>
+
+    <!-- ИТОГОВАЯ ИНФОРМАЦИЯ -->
     <div class="card">
       <div class="card-title">📋 Информация о пакете</div>
-      <table class="banknote-table">
-        <tr><td style="color:#6b7d95;">Номер пакета</td><td>АВ-48821</td></tr>
-        <tr><td style="color:#6b7d95;">Владелец</td><td>Шишова Ирина Ивановна</td></tr>
-        <tr><td style="color:#6b7d95;">Общая сумма</td><td>1 500 000 ₽</td></tr>
-        <tr><td style="color:#6b7d95;">Купюр всего</td><td>150 шт.</td></tr>
-        <tr><td style="color:#6b7d95;">Чистые</td><td style="color:#50f070;">127 шт. · 1 270 000 ₽</td></tr>
-        <tr><td style="color:#6b7d95;">Меченые</td><td style="color:#f0506a;">15 шт. · 150 000 ₽</td></tr>
-        <tr><td style="color:#6b7d95;">На проверке</td><td style="color:#f0c040;">8 шт. · 80 000 ₽</td></tr>
-        <tr><td style="color:#6b7d95;">Статус пакета</td><td style="color:#f0c040;">⏳ На экспертизе</td></tr>
+      <table style="width:100%; font-size:0.6rem; border-collapse:collapse;">
+        <tr><td style="color:#6b7d95; padding:0.3rem;">Номер пакета</td><td style="padding:0.3rem;">АВ-48821</td></tr>
+        <tr><td style="color:#6b7d95; padding:0.3rem;">Владелец</td><td style="padding:0.3rem;">Шишова Ирина Ивановна</td></tr>
+        <tr><td style="color:#6b7d95; padding:0.3rem;">Общая сумма</td><td style="padding:0.3rem;">1 500 000 ₽</td></tr>
+        <tr><td style="color:#6b7d95; padding:0.3rem;">Купюр всего</td><td style="padding:0.3rem;">150 шт.</td></tr>
       </table>
+      <div class="warning-box">
+        ⚠ Часть купюр проходит по ориентировке как «меченые»<br>
+        Данные купюры были подмешаны сотрудниками банка и проходят по делам о мошенничестве
+      </div>
     </div>
 
     <div class="footer">
@@ -198,95 +199,133 @@
   </div>
 
   <script>
-    // Таймер
-    let totalSeconds = 23 * 3600 + 59 * 60 + 59;
-    function updateTimer() {
-      const h = Math.floor(totalSeconds / 3600);
-      const m = Math.floor((totalSeconds % 3600) / 60);
-      const s = totalSeconds % 60;
-      document.getElementById('timer').textContent = 
-        String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-      if (totalSeconds > 0) { totalSeconds--; setTimeout(updateTimer, 1000); }
+    // === КОНФИГУРАЦИЯ ===
+    const TOTAL_NOTES = 150;
+    const TOTAL_TIME_SECONDS = 2 * 3600; // 2 часа в секундах
+    const DIRTY_RATIO = 0.10; // 10% меченых купюр (15 шт)
+    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000; // интервал между купюрами в мс
+
+    // === ДАННЫЕ ===
+    const notes = [];
+    const dirtyIndices = new Set();
+    
+    // Выбираем случайные индексы для меченых купюр
+    while (dirtyIndices.size < Math.floor(TOTAL_NOTES * DIRTY_RATIO)) {
+      dirtyIndices.add(Math.floor(Math.random() * TOTAL_NOTES));
     }
-    updateTimer();
 
-    // Генерация купюр
-    const banknotes = [];
-    const statuses = ['clean', 'clean', 'clean', 'clean', 'clean', 'dirty', 'checking'];
-    const totalNotes = 150;
-    let cleanCount = 0, dirtyCount = 0, checkingCount = 0;
-
-    for (let i = 0; i < totalNotes; i++) {
-      const status = statuses[Math.floor(Math.random() * statuses.length)];
-      const letters = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ';
+    // Генерируем купюры
+    const letters = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ';
+    for (let i = 0; i < TOTAL_NOTES; i++) {
       const l1 = letters[Math.floor(Math.random() * letters.length)];
       const l2 = letters[Math.floor(Math.random() * letters.length)];
       const num = String(Math.floor(Math.random() * 9000000 + 1000000));
-      const serial = l1 + l2 + ' ' + num;
-      const nominal = Math.random() > 0.3 ? '5000 ₽' : '1000 ₽';
-      
-      if (status === 'clean') cleanCount++;
-      else if (status === 'dirty') dirtyCount++;
-      else checkingCount++;
-
-      banknotes.push({ nominal, serial, status });
+      const isDirty = dirtyIndices.has(i);
+      notes.push({
+        serial: l1 + l2 + ' ' + num,
+        nominal: Math.random() > 0.3 ? '5000' : '1000',
+        dirty: isDirty,
+        revealed: false
+      });
     }
 
-    // Рендер таблицы
-    const tbody = document.getElementById('banknoteBody');
-    banknotes.forEach((note, i) => {
-      const tr = document.createElement('tr');
-      let statusText, statusClass;
-      if (note.status === 'clean') { statusText = '✓ Чистая'; statusClass = 'status-clean'; }
-      else if (note.status === 'dirty') { statusText = '✗ Меченая'; statusClass = 'status-dirty'; }
-      else { statusText = '… Проверка'; statusClass = 'status-checking'; }
+    // === DOM-ЭЛЕМЕНТЫ ===
+    const flow = document.getElementById('banknoteFlow');
+    const logBox = document.getElementById('logBox');
+    const timerEl = document.getElementById('timer');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressFill = document.getElementById('progressFill');
+    const cleanCountEl = document.getElementById('cleanCount');
+    const dirtyCountEl = document.getElementById('dirtyCount');
+    const pendingCountEl = document.getElementById('pendingCount');
+
+    // Создаём плитки
+    const tiles = [];
+    for (let i = 0; i < TOTAL_NOTES; i++) {
+      const tile = document.createElement('div');
+      tile.className = 'banknote-tile';
+      tile.textContent = notes[i].nominal;
+      tile.title = notes[i].serial + (notes[i].dirty ? ' (МЕЧЕНАЯ)' : '');
+      flow.appendChild(tile);
+      tiles.push(tile);
+    }
+
+    // === СЧЁТЧИКИ ===
+    let cleanCount = 0;
+    let dirtyCount = 0;
+    let pendingCount = TOTAL_NOTES;
+    let revealedCount = 0;
+
+    // === ТАЙМЕР ===
+    let timeLeft = TOTAL_TIME_SECONDS;
+    function updateTimer() {
+      const h = Math.floor(timeLeft / 3600);
+      const m = Math.floor((timeLeft % 3600) / 60);
+      const s = timeLeft % 60;
+      timerEl.textContent = h + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
       
-      tr.innerHTML = `
-        <td>${note.nominal}</td>
-        <td class="serial">${note.serial}</td>
-        <td class="status ${statusClass}">${statusText}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-
-    // Обновление счетчиков
-    document.getElementById('cleanCount').textContent = cleanCount;
-    document.getElementById('dirtyCount').textContent = dirtyCount;
-    document.getElementById('checkingCount').textContent = checkingCount;
-
-    // Симуляция: постепенно уменьшаем число "на проверке"
-    let checkingLeft = checkingCount;
-    function simulateChecking() {
-      if (checkingLeft <= 0) return;
-      const rows = tbody.querySelectorAll('tr');
-      for (let row of rows) {
-        const statusCell = row.querySelector('.status');
-        if (statusCell && statusCell.textContent.includes('Проверка') && Math.random() < 0.3) {
-          if (Math.random() < 0.7) {
-            statusCell.textContent = '✓ Чистая';
-            statusCell.className = 'status status-clean';
-            cleanCount++; checkingLeft--;
-            document.getElementById('cleanCount').textContent = cleanCount;
-            document.getElementById('checkingCount').textContent = checkingLeft;
-          } else {
-            statusCell.textContent = '✗ Меченая';
-            statusCell.className = 'status status-dirty';
-            dirtyCount++; checkingLeft--;
-            document.getElementById('dirtyCount').textContent = dirtyCount;
-            document.getElementById('checkingCount').textContent = checkingLeft;
-          }
-        }
+      const pct = Math.round((revealedCount / TOTAL_NOTES) * 100);
+      progressPercent.textContent = pct + '%';
+      progressFill.style.width = pct + '%';
+      
+      if (timeLeft > 0) {
+        timeLeft--;
+        setTimeout(updateTimer, 1000);
       }
-      if (checkingLeft > 0) setTimeout(simulateChecking, 3000 + Math.random() * 5000);
     }
-    setTimeout(simulateChecking, 5000);
+    updateTimer();
 
-    // Прогресс
-    const totalCheck = cleanCount + dirtyCount + checkingCount;
-    const done = totalCheck - checkingCount;
-    const percent = Math.round((done / totalCheck) * 100);
-    document.getElementById('progressPercent').textContent = percent + '%';
-    document.getElementById('progressFill').style.width = percent + '%';
+    // === ДОБАВЛЕНИЕ В ЛОГ ===
+    function addLog(serial, nominal, dirty) {
+      const now = new Date();
+      const time = String(now.getHours()).padStart(2,'0') + ':' + 
+                   String(now.getMinutes()).padStart(2,'0') + ':' + 
+                   String(now.getSeconds()).padStart(2,'0');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      const status = dirty ? '✗ МЕЧЕНАЯ' : '✓ Чистая';
+      const color = dirty ? '#f0506a' : '#50f070';
+      entry.innerHTML = `<span class="time">${time}</span> ${serial} · ${nominal} ₽ · <span style="color:${color}">${status}</span>`;
+      logBox.appendChild(entry);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // === ПООЧЕРЁДНОЕ ПРОЯВЛЕНИЕ КУПЮР ===
+    function revealNext(index) {
+      if (index >= TOTAL_NOTES) return;
+
+      const note = notes[index];
+      note.revealed = true;
+      revealedCount++;
+      pendingCount--;
+
+      const tile = tiles[index];
+      
+      if (note.dirty) {
+        tile.classList.add('dirty', 'show');
+        dirtyCount++;
+      } else {
+        tile.classList.add('clean', 'show');
+        cleanCount++;
+      }
+
+      // Обновляем счётчики
+      cleanCountEl.textContent = cleanCount;
+      dirtyCountEl.textContent = dirtyCount;
+      pendingCountEl.textContent = pendingCount;
+
+      // Лог
+      addLog(note.serial, note.nominal, note.dirty);
+
+      // Следующая купюра
+      if (index + 1 < TOTAL_NOTES) {
+        setTimeout(() => revealNext(index + 1), INTERVAL);
+      }
+    }
+
+    // Запускаем через 2 секунды после загрузки
+    setTimeout(() => revealNext(0), 2000);
+
   </script>
 </body>
 </html>
