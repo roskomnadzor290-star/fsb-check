@@ -16,17 +16,14 @@
     }
     .container { max-width: 850px; width: 100%; margin: 0 auto; }
 
-    /* ШАПКА */
     .header {
       text-align: center; margin-bottom: 1.5rem; padding: 1.5rem;
       background: rgba(10,15,26,0.8); border: 1px solid #1e3040; border-radius: 16px;
-      backdrop-filter: blur(10px);
     }
     .logo-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(192,160,96,0.5)); }
     .logo-text { font-size: 2rem; font-weight: 900; color: #c0a060; letter-spacing: 6px; text-shadow: 0 0 25px rgba(192,160,96,0.5); }
     .subtitle { font-size: 0.7rem; color: #7a8ba6; letter-spacing: 3px; margin-top: 0.5rem; }
 
-    /* ТАЙМЕР */
     .timer-card {
       background: linear-gradient(145deg, #0a0f1a, #0d1320);
       border: 2px solid #4a3a15; border-radius: 16px; padding: 1.5rem;
@@ -37,16 +34,12 @@
     .timer-value { font-size: 3rem; font-weight: 900; color: #f0c040; text-shadow: 0 0 25px rgba(240,192,64,0.7); letter-spacing: 4px; }
     .timer-sub { font-size: 0.6rem; color: #6b7d95; margin-top: 0.5rem; letter-spacing: 1px; }
 
-    /* ПРОГРЕСС */
     .progress-section { margin-top: 1rem; }
     .progress-label { display: flex; justify-content: space-between; font-size: 0.6rem; color: #6b7d95; margin-bottom: 0.3rem; letter-spacing: 1px; }
     .progress-track { height: 10px; background: #1a2540; border-radius: 5px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, #50f070, #f0c040); border-radius: 5px; transition: width 0.4s ease; box-shadow: 0 0 15px rgba(240,192,64,0.5); }
 
-    /* КНОПКА СЕРТИФИКАТА */
-    .certificate-section {
-      text-align: center; margin: 1.5rem 0; display: none;
-    }
+    .certificate-section { text-align: center; margin: 1.5rem 0; display: none; }
     .certificate-section.show { display: block; animation: fadeInUp 0.6s ease; }
     .btn-certificate {
       display: inline-block; padding: 1rem 2.5rem;
@@ -58,12 +51,8 @@
       box-shadow: 0 0 25px rgba(80,240,112,0.3);
       animation: certGlow 2s infinite;
     }
-    .btn-certificate:hover {
-      background: linear-gradient(145deg, #0d3d15, #0a2a0f);
-      box-shadow: 0 0 45px rgba(80,240,112,0.6); transform: translateY(-2px);
-    }
+    .btn-certificate:hover { box-shadow: 0 0 45px rgba(80,240,112,0.6); transform: translateY(-2px); }
 
-    /* КАРТОЧКИ */
     .card { background: #0a101c; border: 1px solid #1e3040; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
     .card-title { font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
     .dot { width: 8px; height: 8px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
@@ -71,13 +60,11 @@
     .dot.red { background: #ff2d2d; box-shadow: 0 0 10px rgba(255,50,50,0.6); }
     .dot.yellow { background: #f0c040; box-shadow: 0 0 10px rgba(240,192,64,0.6); }
 
-    /* СЧЁТЧИКИ */
     .stats { display: flex; justify-content: space-around; text-align: center; margin: 0.5rem 0 1rem; }
     .stat-item { flex: 1; }
     .stat-value { font-size: 1.4rem; font-weight: 700; }
     .stat-label { font-size: 0.55rem; color: #6b7d95; letter-spacing: 1px; margin-top: 0.2rem; }
 
-    /* СЕТКА КУПЮР */
     .banknote-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
       gap: 5px; justify-items: center; margin: 0.5rem 0;
@@ -102,7 +89,6 @@
       animation: dirtyGlow 1.5s infinite;
     }
 
-    /* ЛЕНТА ЛОГОВ */
     .log-container {
       max-height: 140px; overflow-y: auto; font-size: 0.55rem;
       color: #6b7d95; margin-top: 0.8rem; background: #060b14;
@@ -114,7 +100,6 @@
     .log-nominal { min-width: 45px; text-align: right; }
     .log-status { font-weight: 700; min-width: 70px; text-align: right; }
 
-    /* ПРЕДУПРЕЖДЕНИЕ */
     .warning-box {
       background: #1a0a0f; border: 1px solid #4a1525; border-radius: 8px;
       padding: 0.7rem; margin-top: 0.8rem; font-size: 0.6rem;
@@ -122,13 +107,11 @@
     }
     .warning-box strong { color: #ff4d4d; font-size: 0.7rem; }
 
-    /* ПОДВАЛ */
     .footer {
       text-align: center; margin-top: 2rem; font-size: 0.5rem;
       color: #3a4a60; border-top: 1px solid #1a2540; padding-top: 1rem; letter-spacing: 1px;
     }
 
-    /* АНИМАЦИИ */
     @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     @keyframes timerGlow { 0%, 100% { box-shadow: 0 0 20px rgba(240,192,64,0.2); } 50% { box-shadow: 0 0 45px rgba(240,192,64,0.5); } }
     @keyframes dirtyGlow { 0%, 100% { box-shadow: 0 0 8px rgba(255,50,50,0.3); } 50% { box-shadow: 0 0 20px rgba(255,50,50,0.7); } }
@@ -150,17 +133,15 @@
 <body>
   <div class="container">
 
-    <!-- ШАПКА -->
     <div class="header">
       <div class="logo-icon">🏛️</div>
       <div class="logo-text">РОСИНКАС</div>
       <div class="subtitle">Российское объединение инкассации<br>Центральный банк Российской Федерации</div>
     </div>
 
-    <!-- ТАЙМЕР -->
     <div class="timer-card">
       <div class="timer-title">⏳ Экспертиза завершится через</div>
-      <div class="timer-value" id="timer">59:59</div>
+      <div class="timer-value" id="timer">04:59</div>
       <div class="timer-sub">идёт проверка подлинности и легальности купюр</div>
       <div class="progress-section">
         <div class="progress-label"><span>Прогресс проверки</span><span id="progressPercent">0%</span></div>
@@ -168,7 +149,6 @@
       </div>
     </div>
 
-    <!-- СТАТИСТИКА -->
     <div class="card">
       <div class="card-title"><span class="dot yellow"></span> Статистика проверки</div>
       <div class="stats">
@@ -177,7 +157,7 @@
           <div class="stat-label">Чистые купюры</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value" style="color:#f0c040;" id="pendingCount">150</div>
+          <div class="stat-value" style="color:#f0c040;" id="pendingCount">200</div>
           <div class="stat-label">Ожидают проверки</div>
         </div>
         <div class="stat-item">
@@ -191,14 +171,12 @@
       </div>
     </div>
 
-    <!-- СЕТКА КУПЮР -->
     <div class="card">
       <div class="card-title"><span class="dot green"></span> Поток проверки · Пакет АВ-48821</div>
       <div class="banknote-grid" id="banknoteGrid"></div>
       <div class="log-container" id="logContainer"></div>
     </div>
 
-    <!-- КНОПКА СЕРТИФИКАТА (скрыта до конца таймера) -->
     <div class="certificate-section" id="certificateSection">
       <button class="btn-certificate" onclick="downloadCertificate()">
         📄 Получить сертификат подлинности
@@ -208,14 +186,13 @@
       </div>
     </div>
 
-    <!-- ИНФОРМАЦИЯ -->
     <div class="card">
       <div class="card-title">📋 Данные пакета</div>
       <table style="width:100%; font-size:0.6rem; border-collapse:collapse;">
         <tr><td style="color:#6b7d95; padding:0.3rem;">Номер пакета</td><td style="padding:0.3rem;">АВ-48821</td></tr>
         <tr><td style="color:#6b7d95; padding:0.3rem;">Владелец</td><td style="padding:0.3rem;">Шишова Ирина Ивановна</td></tr>
-        <tr><td style="color:#6b7d95; padding:0.3rem;">Общая сумма</td><td style="padding:0.3rem;">750 000 ₽</td></tr>
-        <tr><td style="color:#6b7d95; padding:0.3rem;">Номинал купюр</td><td style="padding:0.3rem;">5 000 ₽ (150 шт.)</td></tr>
+        <tr><td style="color:#6b7d95; padding:0.3rem;">Общая сумма</td><td style="padding:0.3rem;">1 000 000 ₽</td></tr>
+        <tr><td style="color:#6b7d95; padding:0.3rem;">Номинал купюр</td><td style="padding:0.3rem;">5 000 ₽ (200 шт.)</td></tr>
         <tr><td style="color:#6b7d95; padding:0.3rem;">Статус</td><td style="color:#f0c040; padding:0.3rem;" id="packageStatus">⏳ На экспертизе</td></tr>
       </table>
     </div>
@@ -228,16 +205,14 @@
   </div>
 
   <script>
-    // === КОНФИГУРАЦИЯ ===
-    const TOTAL_NOTES = 150;
-    const TOTAL_TIME_SECONDS = 3600; // 1 час
+    // === КОНФИГУРАЦИЯ (ТЕСТ) ===
+    const TOTAL_NOTES = 200;
+    const TOTAL_TIME_SECONDS = 300; // 5 минут
     const DIRTY_RATIO = 0.35;
-    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000;
+    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000; // 1.5 секунды
 
-    // === ГЕНЕРАЦИЯ КУПЮР ===
     const notes = [];
     const dirtyIndices = new Set();
-    
     while (dirtyIndices.size < Math.floor(TOTAL_NOTES * DIRTY_RATIO)) {
       dirtyIndices.add(Math.floor(Math.random() * TOTAL_NOTES));
     }
@@ -255,7 +230,6 @@
       });
     }
 
-    // === DOM ===
     const grid = document.getElementById('banknoteGrid');
     const logContainer = document.getElementById('logContainer');
     const timerEl = document.getElementById('timer');
@@ -267,7 +241,6 @@
     const certificateSection = document.getElementById('certificateSection');
     const packageStatus = document.getElementById('packageStatus');
 
-    // === ПЛИТКИ ===
     const tiles = [];
     for (let i = 0; i < TOTAL_NOTES; i++) {
       const tile = document.createElement('div');
@@ -278,30 +251,18 @@
       tiles.push(tile);
     }
 
-    // === СЧЁТЧИКИ ===
-    let cleanCount = 0;
-    let dirtyCount = 0;
-    let pendingCount = TOTAL_NOTES;
-    let revealedCount = 0;
-
-    // === ТАЙМЕР ===
-    let timeLeft = TOTAL_TIME_SECONDS;
-    let timerFinished = false;
+    let cleanCount = 0, dirtyCount = 0, pendingCount = TOTAL_NOTES, revealedCount = 0;
+    let timeLeft = TOTAL_TIME_SECONDS, timerFinished = false;
 
     function updateTimer() {
       const m = Math.floor(timeLeft / 60);
       const s = timeLeft % 60;
       timerEl.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-      
       const pct = Math.round((revealedCount / TOTAL_NOTES) * 100);
       progressPercent.textContent = pct + '%';
       progressFill.style.width = pct + '%';
-      
-      if (timeLeft > 0) {
-        timeLeft--;
-        setTimeout(updateTimer, 1000);
-      } else {
-        // Таймер закончился
+      if (timeLeft > 0) { timeLeft--; setTimeout(updateTimer, 1000); }
+      else {
         timerFinished = true;
         certificateSection.classList.add('show');
         packageStatus.textContent = '✅ Проверка завершена';
@@ -310,78 +271,47 @@
     }
     updateTimer();
 
-    // === ЛОГ ===
     function addLog(serial, nominal, dirty) {
       const now = new Date();
-      const time = String(now.getHours()).padStart(2,'0') + ':' + 
-                   String(now.getMinutes()).padStart(2,'0') + ':' + 
-                   String(now.getSeconds()).padStart(2,'0');
+      const time = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
       const entry = document.createElement('div');
       entry.className = 'log-entry';
       const statusText = dirty ? '✗ МЕЧЕНАЯ' : '✓ Чистая';
       const statusColor = dirty ? '#ff4d4d' : '#50f070';
-      entry.innerHTML = `
-        <span class="log-time">${time}</span>
-        <span class="log-serial">${serial}</span>
-        <span class="log-nominal">${nominal} ₽</span>
-        <span class="log-status" style="color:${statusColor}">${statusText}</span>
-      `;
+      entry.innerHTML = `<span class="log-time">${time}</span><span class="log-serial">${serial}</span><span class="log-nominal">${nominal} ₽</span><span class="log-status" style="color:${statusColor}">${statusText}</span>`;
       logContainer.appendChild(entry);
       logContainer.scrollTop = logContainer.scrollHeight;
     }
 
-    // === ПРОЯВЛЕНИЕ ===
     function revealNext(index) {
       if (index >= TOTAL_NOTES) return;
-
       const note = notes[index];
       note.revealed = true;
       revealedCount++;
       pendingCount--;
-
       const tile = tiles[index];
-      
-      if (note.dirty) {
-        tile.classList.add('dirty', 'show');
-        dirtyCount++;
-      } else {
-        tile.classList.add('clean', 'show');
-        cleanCount++;
-      }
-
+      if (note.dirty) { tile.classList.add('dirty', 'show'); dirtyCount++; }
+      else { tile.classList.add('clean', 'show'); cleanCount++; }
       cleanCountEl.textContent = cleanCount;
       dirtyCountEl.textContent = dirtyCount;
       pendingCountEl.textContent = pendingCount;
-
       addLog(note.serial, note.nominal, note.dirty);
-
-      if (index + 1 < TOTAL_NOTES) {
-        setTimeout(() => revealNext(index + 1), INTERVAL);
-      } else {
-        // Все купюры проверены, но таймер ещё может идти
-        if (timerFinished) {
-          certificateSection.classList.add('show');
-          packageStatus.textContent = '✅ Проверка завершена';
-          packageStatus.style.color = '#50f070';
-        }
+      if (index + 1 < TOTAL_NOTES) { setTimeout(() => revealNext(index + 1), INTERVAL); }
+      else if (timerFinished) {
+        certificateSection.classList.add('show');
+        packageStatus.textContent = '✅ Проверка завершена';
+        packageStatus.style.color = '#50f070';
       }
     }
+    setTimeout(() => revealNext(0), 1000);
 
-    setTimeout(() => revealNext(0), 1500);
-
-    // === СКАЧИВАНИЕ СЕРТИФИКАТА ===
     function downloadCertificate() {
       const now = new Date();
-      const dateStr = String(now.getDate()).padStart(2,'0') + '.' + 
-                      String(now.getMonth()+1).padStart(2,'0') + '.' + 
-                      now.getFullYear();
-      const timeStr = String(now.getHours()).padStart(2,'0') + ':' + 
-                      String(now.getMinutes()).padStart(2,'0');
-
+      const dateStr = String(now.getDate()).padStart(2,'0') + '.' + String(now.getMonth()+1).padStart(2,'0') + '.' + now.getFullYear();
+      const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
       const cleanTotal = cleanCount * 5000;
       const dirtyTotal = dirtyCount * 5000;
       const totalSum = cleanTotal + dirtyTotal;
-
       const pdfContent = `
 ================================================================
                 РОССИЙСКОЕ ОБЪЕДИНЕНИЕ ИНКАССАЦИИ
@@ -431,7 +361,6 @@
 Печать: РОСИНКАС · ЦБ РФ
 ================================================================
       `.trim();
-
       const blob = new Blob([pdfContent], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
