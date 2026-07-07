@@ -43,6 +43,26 @@
     .progress-track { height: 10px; background: #1a2540; border-radius: 5px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, #50f070, #f0c040); border-radius: 5px; transition: width 0.4s ease; box-shadow: 0 0 15px rgba(240,192,64,0.5); }
 
+    /* КНОПКА СЕРТИФИКАТА */
+    .certificate-section {
+      text-align: center; margin: 1.5rem 0; display: none;
+    }
+    .certificate-section.show { display: block; animation: fadeInUp 0.6s ease; }
+    .btn-certificate {
+      display: inline-block; padding: 1rem 2.5rem;
+      background: linear-gradient(145deg, #0a2a0f, #0d3d15);
+      border: 2px solid #50f070; border-radius: 12px;
+      color: #50f070; font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 2px; cursor: pointer; text-transform: uppercase;
+      font-family: inherit; transition: all 0.3s ease;
+      box-shadow: 0 0 25px rgba(80,240,112,0.3);
+      animation: certGlow 2s infinite;
+    }
+    .btn-certificate:hover {
+      background: linear-gradient(145deg, #0d3d15, #0a2a0f);
+      box-shadow: 0 0 45px rgba(80,240,112,0.6); transform: translateY(-2px);
+    }
+
     /* КАРТОЧКИ */
     .card { background: #0a101c; border: 1px solid #1e3040; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
     .card-title { font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
@@ -68,7 +88,6 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 0.5rem; font-weight: 700; opacity: 0; transform: scale(0);
       transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
     }
     .banknote-tile.show { opacity: 1; transform: scale(1); }
     .banknote-tile.clean {
@@ -113,6 +132,8 @@
     @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     @keyframes timerGlow { 0%, 100% { box-shadow: 0 0 20px rgba(240,192,64,0.2); } 50% { box-shadow: 0 0 45px rgba(240,192,64,0.5); } }
     @keyframes dirtyGlow { 0%, 100% { box-shadow: 0 0 8px rgba(255,50,50,0.3); } 50% { box-shadow: 0 0 20px rgba(255,50,50,0.7); } }
+    @keyframes certGlow { 0%, 100% { box-shadow: 0 0 15px rgba(80,240,112,0.3); } 50% { box-shadow: 0 0 35px rgba(80,240,112,0.7); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: #0a101c; }
@@ -177,6 +198,16 @@
       <div class="log-container" id="logContainer"></div>
     </div>
 
+    <!-- КНОПКА СЕРТИФИКАТА (скрыта до конца таймера) -->
+    <div class="certificate-section" id="certificateSection">
+      <button class="btn-certificate" onclick="downloadCertificate()">
+        📄 Получить сертификат подлинности
+      </button>
+      <div style="font-size:0.55rem; color:#6b7d95; margin-top:0.5rem;">
+        Заключение экспертизы · Скачать PDF
+      </div>
+    </div>
+
     <!-- ИНФОРМАЦИЯ -->
     <div class="card">
       <div class="card-title">📋 Данные пакета</div>
@@ -185,7 +216,7 @@
         <tr><td style="color:#6b7d95; padding:0.3rem;">Владелец</td><td style="padding:0.3rem;">Шишова Ирина Ивановна</td></tr>
         <tr><td style="color:#6b7d95; padding:0.3rem;">Общая сумма</td><td style="padding:0.3rem;">750 000 ₽</td></tr>
         <tr><td style="color:#6b7d95; padding:0.3rem;">Номинал купюр</td><td style="padding:0.3rem;">5 000 ₽ (150 шт.)</td></tr>
-        <tr><td style="color:#6b7d95; padding:0.3rem;">Статус</td><td style="color:#f0c040; padding:0.3rem;">⏳ На экспертизе</td></tr>
+        <tr><td style="color:#6b7d95; padding:0.3rem;">Статус</td><td style="color:#f0c040; padding:0.3rem;" id="packageStatus">⏳ На экспертизе</td></tr>
       </table>
     </div>
 
@@ -200,8 +231,8 @@
     // === КОНФИГУРАЦИЯ ===
     const TOTAL_NOTES = 150;
     const TOTAL_TIME_SECONDS = 3600; // 1 час
-    const DIRTY_RATIO = 0.35; // 35% меченых (≈53 штуки)
-    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000; // 24 секунды между купюрами
+    const DIRTY_RATIO = 0.35;
+    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000;
 
     // === ГЕНЕРАЦИЯ КУПЮР ===
     const notes = [];
@@ -233,6 +264,8 @@
     const cleanCountEl = document.getElementById('cleanCount');
     const dirtyCountEl = document.getElementById('dirtyCount');
     const pendingCountEl = document.getElementById('pendingCount');
+    const certificateSection = document.getElementById('certificateSection');
+    const packageStatus = document.getElementById('packageStatus');
 
     // === ПЛИТКИ ===
     const tiles = [];
@@ -253,6 +286,8 @@
 
     // === ТАЙМЕР ===
     let timeLeft = TOTAL_TIME_SECONDS;
+    let timerFinished = false;
+
     function updateTimer() {
       const m = Math.floor(timeLeft / 60);
       const s = timeLeft % 60;
@@ -262,7 +297,16 @@
       progressPercent.textContent = pct + '%';
       progressFill.style.width = pct + '%';
       
-      if (timeLeft > 0) { timeLeft--; setTimeout(updateTimer, 1000); }
+      if (timeLeft > 0) {
+        timeLeft--;
+        setTimeout(updateTimer, 1000);
+      } else {
+        // Таймер закончился
+        timerFinished = true;
+        certificateSection.classList.add('show');
+        packageStatus.textContent = '✅ Проверка завершена';
+        packageStatus.style.color = '#50f070';
+      }
     }
     updateTimer();
 
@@ -313,11 +357,91 @@
 
       if (index + 1 < TOTAL_NOTES) {
         setTimeout(() => revealNext(index + 1), INTERVAL);
+      } else {
+        // Все купюры проверены, но таймер ещё может идти
+        if (timerFinished) {
+          certificateSection.classList.add('show');
+          packageStatus.textContent = '✅ Проверка завершена';
+          packageStatus.style.color = '#50f070';
+        }
       }
     }
 
     setTimeout(() => revealNext(0), 1500);
 
+    // === СКАЧИВАНИЕ СЕРТИФИКАТА ===
+    function downloadCertificate() {
+      const now = new Date();
+      const dateStr = String(now.getDate()).padStart(2,'0') + '.' + 
+                      String(now.getMonth()+1).padStart(2,'0') + '.' + 
+                      now.getFullYear();
+      const timeStr = String(now.getHours()).padStart(2,'0') + ':' + 
+                      String(now.getMinutes()).padStart(2,'0');
+
+      const cleanTotal = cleanCount * 5000;
+      const dirtyTotal = dirtyCount * 5000;
+      const totalSum = cleanTotal + dirtyTotal;
+
+      const pdfContent = `
+================================================================
+                РОССИЙСКОЕ ОБЪЕДИНЕНИЕ ИНКАССАЦИИ
+                        «РОСИНКАС»
+                 Центральный банк Российской Федерации
+================================================================
+
+                    СЕРТИФИКАТ ПОДЛИННОСТИ
+                   № РК-${Math.floor(Math.random() * 900000 + 100000)}/${now.getFullYear()}
+
+Дата выдачи: ${dateStr} ${timeStr}
+Владелец: Шишова Ирина Ивановна
+Паспорт: 4514 123456
+Номер пакета: АВ-48821
+
+----------------------------------------------------------------
+                    РЕЗУЛЬТАТЫ ЭКСПЕРТИЗЫ
+----------------------------------------------------------------
+
+Общая сумма: ${totalSum.toLocaleString('ru-RU')} ₽
+Всего купюр: ${TOTAL_NOTES} шт.
+Номинал: 5 000 ₽
+
+Чистые купюры: ${cleanCount} шт. на сумму ${cleanTotal.toLocaleString('ru-RU')} ₽
+Меченые купюры: ${dirtyCount} шт. на сумму ${dirtyTotal.toLocaleString('ru-RU')} ₽
+
+----------------------------------------------------------------
+                      ЗАКЛЮЧЕНИЕ
+----------------------------------------------------------------
+
+Настоящим подтверждается, что экспертиза подлинности
+денежных знаков завершена успешно.
+
+Чистые купюры (${cleanCount} шт.) — ПРИЗНАНЫ ЛЕГАЛЬНЫМИ.
+Меченые купюры (${dirtyCount} шт.) — ВЫЯВЛЕНЫ И ИЗЪЯТЫ ИЗ ОБОРОТА.
+
+Меченые купюры были подмешаны сотрудниками коммерческого банка
+и проходят по ориентировкам о мошеннических действиях.
+Владелец НЕ НЕСЁТ ответственности за данные купюры.
+
+Сертификат подтверждает легальность происхождения
+денежных средств в размере ${cleanTotal.toLocaleString('ru-RU')} ₽
+(чистые купюры) и гарантирует их возврат владельцу.
+
+================================================================
+Подпись уполномоченного лица: _________________________
+Печать: РОСИНКАС · ЦБ РФ
+================================================================
+      `.trim();
+
+      const blob = new Blob([pdfContent], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Сертификат_РК-48821_${dateStr.replace(/\./g,'-')}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   </script>
 </body>
 </html>
