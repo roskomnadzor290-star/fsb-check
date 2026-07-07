@@ -9,265 +9,215 @@
     body {
       background: #0a0e17; color: #c0c8d4; font-family: 'Segoe UI', system-ui, sans-serif;
       min-height: 100vh; display: flex; justify-content: center; align-items: center;
-      overflow-x: hidden;
     }
-    .container { max-width: 950px; width: 100%; padding: 2rem; position: relative; }
+    .container {
+      max-width: 600px; width: 100%; padding: 2rem; text-align: center;
+    }
 
+    /* Заголовок */
     .header {
-      text-align: center; margin-bottom: 2rem;
-      border: 1px solid #1e3040; background: #0d1320; padding: 1.5rem;
-      border-radius: 16px; position: relative; z-index: 2;
-      animation: fadeInDown 0.8s ease;
+      margin-bottom: 2.5rem;
     }
-    .header .icon { font-size: 2rem; margin-bottom: 0.3rem; }
-    .header h1 {
-      font-size: 1.1rem; font-weight: 600; color: #e0e8f0; letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    .header .subtitle { font-size: 0.8rem; color: #6b7d95; margin-top: 0.3rem; }
-    .header .badge {
-      display: inline-block; margin-top: 0.8rem; padding: 0.3rem 1.2rem;
-      background: #1a0a0f; border: 1px solid #4a1525; color: #f0506a;
-      border-radius: 20px; font-size: 0.75rem; letter-spacing: 2px;
+    .header .icon {
+      font-size: 3rem; margin-bottom: 0.5rem;
       animation: pulse 2s infinite;
     }
-
-    /* Два клиента */
-    .clients-row {
-      display: flex; gap: 1.5rem; margin-bottom: 2rem;
-      position: relative; z-index: 2; flex-wrap: wrap;
+    .header h1 {
+      font-size: 1.4rem; font-weight: 700; color: #e0e8f0;
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+    .header .subtitle {
+      font-size: 0.8rem; color: #6b7d95; margin-top: 0.5rem;
+      letter-spacing: 1px;
     }
 
-    .client-card {
-      flex: 1; min-width: 280px; background: #0d1320;
-      border: 1px solid #1e3040; border-radius: 16px; padding: 1.5rem;
-      animation: fadeInUp 0.6s ease both;
+    /* Силуэт человека */
+    .silhouette {
+      width: 100px; height: 120px; margin: 0 auto 1.5rem;
+      position: relative;
     }
-    .client-card:nth-child(1) { animation-delay: 0.2s; }
-    .client-card:nth-child(2) { animation-delay: 0.4s; }
-
-    .client-card h3 {
-      font-size: 0.9rem; color: #7a8ba6; letter-spacing: 1px;
-      margin-bottom: 1rem; text-transform: uppercase; text-align: center;
-    }
-    .data-row {
-      display: flex; justify-content: space-between; padding: 0.5rem 0;
-      border-bottom: 1px solid #1a2540; font-size: 0.78rem;
-    }
-    .data-row:last-child { border-bottom: none; }
-    .data-row .label { color: #6b7d95; }
-    .data-row .value { color: #e0e8f0; font-weight: 600; text-align: right; }
-
-    /* Стрелка между клиентами */
-    .arrow-between {
-      display: flex; align-items: center; justify-content: center;
-      animation: bounce 2s infinite; font-size: 2rem; color: #c41230;
-    }
-
-    /* Карта */
-    .map-block {
-      background: #0d1320; border: 1px solid #1e3040;
-      border-radius: 16px; padding: 1.5rem; text-align: center;
-      margin-bottom: 2rem; animation: fadeInUp 0.6s ease both;
-    }
-    .map-container {
-      position: relative; width: 100%; height: 200px;
-      background: #0a1018; border-radius: 12px; overflow: hidden;
-      border: 1px solid #1e3040;
-    }
-    .map-grid {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: 
-        linear-gradient(rgba(30,48,64,0.4) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(30,48,64,0.4) 1px, transparent 1px);
-      background-size: 25px 25px;
-    }
-    .road { position: absolute; background: rgba(30,48,64,0.6); }
-    .road-h { height: 2px; width: 100%; }
-    .road-v { width: 2px; height: 100%; }
-    .road-1 { top: 35%; } .road-2 { top: 55%; } .road-3 { top: 75%; }
-    .road-4 { left: 25%; } .road-5 { left: 50%; } .road-6 { left: 70%; }
-    .ring {
-      position: absolute; border: 1px solid rgba(30,48,64,0.5); border-radius: 50%;
-    }
-    .ring-1 { width: 130px; height: 130px; top: 35px; left: calc(45% - 65px); }
-    .target-dot {
-      position: absolute; width: 14px; height: 14px;
-      background: #c41230; border-radius: 50%;
-      top: 48%; left: 45%;
-      box-shadow: 0 0 20px #c41230, 0 0 40px #c41230;
-      animation: targetPulse 1.5s infinite; z-index: 3;
-    }
-    .target-ring {
-      position: absolute; width: 36px; height: 36px;
+    .silhouette .head {
+      width: 40px; height: 40px; background: #1a2540;
       border: 2px solid #c41230; border-radius: 50%;
-      top: calc(48% - 11px); left: calc(45% - 11px);
-      animation: targetExpand 2s infinite; z-index: 2;
+      margin: 0 auto;
     }
-    .target-ring:nth-child(2) { animation-delay: 0.5s; }
-    .target-ring:nth-child(3) { animation-delay: 1s; }
-    .address-label {
-      margin-top: 0.8rem; font-size: 0.75rem; color: #c0c8d4;
+    .silhouette .body {
+      width: 60px; height: 50px; background: #1a2540;
+      border: 2px solid #c41230; border-radius: 10px 10px 0 0;
+      margin: 5px auto 0;
     }
-    .address-label span { color: #c41230; }
+    .silhouette .legs {
+      display: flex; justify-content: center; gap: 10px; margin-top: 2px;
+    }
+    .silhouette .leg {
+      width: 8px; height: 25px; background: #1a2540;
+      border: 1px solid #c41230; border-radius: 0 0 4px 4px;
+    }
 
-    /* Операции */
-    .action-card {
-      background: #0d1320; border: 1px solid #1e3040; border-radius: 12px;
-      padding: 1rem; margin-bottom: 0.8rem; position: relative; z-index: 2;
-      animation: fadeInUp 0.6s ease both;
+    /* Индикатор тревоги над силуэтом */
+    .alert-dot {
+      width: 12px; height: 12px; background: #c41230;
+      border-radius: 50%; margin: -10px auto 0;
+      box-shadow: 0 0 15px #c41230, 0 0 30px #c41230, 0 0 50px #c41230;
+      animation: alertPulse 1s infinite;
+      position: relative; top: -10px;
     }
-    .action-card .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
-    .action-card .card-title { font-weight: 600; font-size: 0.9rem; color: #e0e8f0; }
-    .badge-danger { background: #1a0a0f; color: #f0506a; border: 1px solid #4a1525; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.65rem; }
-    .badge-warning { background: #1a1405; color: #f0c040; border: 1px solid #4a3a15; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.65rem; }
-    .action-card .card-detail { font-size: 0.78rem; color: #7a8ba6; }
 
-    .blocked-action {
-      margin-top: 1.5rem; padding: 1rem;
-      background: #0d1320; border: 1px solid #1e3040; border-radius: 12px;
-      text-align: center; opacity: 0.6;
+    /* Иконки вокруг силуэта */
+    .icons-row {
+      display: flex; justify-content: center; gap: 1rem;
+      margin-bottom: 1.5rem; flex-wrap: wrap;
     }
-    .blocked-action .action-title { font-size: 0.9rem; color: #6b7d95; text-decoration: line-through; }
+    .icon-card {
+      width: 60px; height: 60px; background: #0d1320;
+      border: 1px solid #2a3a50; border-radius: 12px;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      font-size: 1.5rem;
+    }
+    .icon-card .label {
+      font-size: 0.55rem; color: #6b7d95; margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+    .icon-card.warning {
+      border-color: #c41230;
+      box-shadow: 0 0 15px rgba(196, 18, 48, 0.3);
+    }
 
-    .appeal-form {
-      margin-top: 1.5rem; padding: 1.2rem;
-      background: #0d1320; border: 1px solid #2a3a5c; border-radius: 12px;
+    /* Статус-бар */
+    .status-bar {
+      background: #0d1320; border: 1px solid #2a3a50; border-radius: 12px;
+      padding: 1rem; margin-bottom: 1.5rem; text-align: left;
     }
-    .form-group { margin-bottom: 0.8rem; }
-    .form-group label { display: block; font-size: 0.75rem; color: #7a8ba6; }
-    .form-group input, .form-group textarea {
-      width: 100%; padding: 0.6rem; background: #111a2b; border: 1px solid #2a3a50;
-      border-radius: 6px; color: #c0c8d4; font-size: 0.85rem;
+    .status-row {
+      display: flex; justify-content: space-between; padding: 0.4rem 0;
+      border-bottom: 1px solid #1a2540; font-size: 0.75rem;
     }
-    .submit-btn {
-      width: 100%; padding: 0.7rem; background: #1a0a0f; border: 1px solid #c41230;
-      color: #f0506a; font-weight: 600; border-radius: 6px; cursor: pointer;
-    }
-    .footer { text-align: center; margin-top: 2rem; color: #4a5a70; font-size: 0.65rem; }
+    .status-row:last-child { border-bottom: none; }
+    .status-row .key { color: #6b7d95; }
+    .status-row .val { color: #e0e8f0; font-weight: 600; text-align: right; }
+    .status-row .val.danger { color: #f0506a; }
 
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes targetPulse {
+    /* Печать ФСБ */
+    .fsb-stamp {
+      width: 90px; height: 90px; margin: 0 auto 1.5rem;
+      border: 3px solid #c41230; border-radius: 50%;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      font-size: 0.55rem; font-weight: 700; color: #c41230;
+      letter-spacing: 1px; opacity: 0.8;
+      transform: rotate(-10deg);
+      box-shadow: 0 0 20px rgba(196, 18, 48, 0.2);
+    }
+    .fsb-stamp .fsb-text { font-size: 0.7rem; }
+    .fsb-stamp .fsb-sub { font-size: 0.45rem; }
+
+    /* Заблокированная кнопка */
+    .blocked-btn {
+      display: inline-block; padding: 0.7rem 1.5rem;
+      background: #111a2b; border: 1px solid #2a3a50; border-radius: 8px;
+      color: #4a5a70; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 1px; text-decoration: line-through;
+      cursor: not-allowed; opacity: 0.7;
+    }
+    .blocked-btn .lock { margin-right: 0.3rem; }
+
+    /* Подвал */
+    .footer {
+      margin-top: 2rem; font-size: 0.6rem; color: #3a4a60;
+      letter-spacing: 1px;
+    }
+
+    /* Анимации */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    @keyframes alertPulse {
       0%, 100% { box-shadow: 0 0 10px #c41230, 0 0 20px #c41230; }
-      50% { box-shadow: 0 0 30px #c41230, 0 0 60px #c41230; }
+      50% { box-shadow: 0 0 30px #c41230, 0 0 60px #c41230, 0 0 90px #c41230; }
     }
-    @keyframes targetExpand {
-      0% { transform: scale(1); opacity: 0.8; }
-      100% { transform: scale(3); opacity: 0; }
-    }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
   </style>
 </head>
 <body>
   <div class="container">
 
+    <!-- Заголовок -->
     <div class="header">
       <div class="icon">🔴</div>
       <h1>Данные находятся на проверке в ФСБ</h1>
       <p class="subtitle">Управление по борьбе с финансированием терроризма</p>
-      <div class="badge">⚠ ОБЪЕКТЫ ПРОВЕРКИ</div>
     </div>
 
-    <!-- Два клиента -->
-    <div class="clients-row">
-      <!-- Жена -->
-      <div class="client-card">
-        <h3>👤 Объект №1</h3>
-        <div class="data-row"><span class="label">ФИО</span><span class="value">Вельмизова Людмила Валентиновна</span></div>
-        <div class="data-row"><span class="label">Дата рождения</span><span class="value">25.04.1960</span></div>
-        <div class="data-row"><span class="label">Паспорт</span><span class="value">4507 918017</span></div>
-        <div class="data-row"><span class="label">Место рождения</span><span class="value">д. Дубровки, Дмитровский р-н, МО</span></div>
-        <div class="data-row"><span class="label">Адрес</span><span class="value">г. Москва, пр. Напольный, д. 6, кв. 26</span></div>
-      </div>
-
-      <!-- Стрелка -->
-      <div class="arrow-between">→</div>
-
-      <!-- Муж -->
-      <div class="client-card">
-        <h3>👤 Объект №2</h3>
-        <div class="data-row"><span class="label">ФИО</span><span class="value">Вельмизов Виктор Владимирович</span></div>
-        <div class="data-row"><span class="label">Дата рождения</span><span class="value">19.08.1957</span></div>
-        <div class="data-row"><span class="label">Паспорт</span><span class="value">4503 745202</span></div>
-        <div class="data-row"><span class="label">СНИЛС</span><span class="value">00171217584</span></div>
-        <div class="data-row"><span class="label">Адрес</span><span class="value">г. Москва, пр. Напольный, д. 6, кв. 26</span></div>
+    <!-- Силуэт человека с индикатором тревоги -->
+    <div class="silhouette">
+      <div class="alert-dot"></div>
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="legs">
+        <div class="leg"></div>
+        <div class="leg"></div>
       </div>
     </div>
 
-    <!-- Карта -->
-    <div class="map-block">
-      <div class="map-title">📍 Геолокация · Москва</div>
-      <div class="map-container">
-        <div class="map-grid"></div>
-        <div class="road road-h road-1"></div>
-        <div class="road road-h road-2"></div>
-        <div class="road road-h road-3"></div>
-        <div class="road road-v road-4"></div>
-        <div class="road road-v road-5"></div>
-        <div class="road road-v road-6"></div>
-        <div class="ring ring-1"></div>
-        <div class="target-dot"></div>
-        <div class="target-ring"></div>
-        <div class="target-ring"></div>
-        <div class="target-ring"></div>
+    <!-- Иконки -->
+    <div class="icons-row">
+      <div class="icon-card warning">
+        <span>📕</span>
+        <span class="label">Паспорт</span>
       </div>
-      <div class="address-label">📍 <span>пр. Напольный, д. 6, кв. 26</span> · Москва</div>
-    </div>
-
-    <!-- Операции -->
-    <div class="action-card">
-      <div class="card-header"><span class="card-title">🏦 Счёт в Совкомбанке (Вельмизова Л.В.)</span><span class="badge-danger">Активен</span></div>
-      <div class="card-detail">На имя <strong>Вельмизовой Л.В.</strong> открыт счёт в Совкомбанке. Зачислено: <strong>500 000 руб. + 500 000 руб.</strong> от Лаптуховой Е.А.</div>
-    </div>
-
-    <div class="action-card">
-      <div class="card-header"><span class="card-title">💸 Перевод на супруга (Вельмизов В.В.)</span><span class="badge-danger">Подтверждено</span></div>
-      <div class="card-detail">Со счёта Вельмизовой Л.В. переведено <strong>1 000 000 руб.</strong> на счёт <strong>Вельмизова В.В.</strong></div>
-    </div>
-
-    <div class="action-card">
-      <div class="card-header"><span class="card-title">⚠️ Попытка списания на Терновского Р.Л.</span><span class="badge-warning">Приостановлено</span></div>
-      <div class="card-detail">Со счёта Вельмизова В.В. инициирован перевод <strong>500 000 руб.</strong> на Терновского Р.Л. (экстремист). Операция приостановлена Росфинмониторингом.</div>
-    </div>
-
-    <div class="blocked-action">
-      <div class="lock-icon">🔒</div>
-      <div class="action-title">Запустить процедуру замены основного счёта для аннулирования доверенности</div>
-      <div style="font-size:0.7rem; color:#4a5a70;">⏳ Ожидается завершение проверки ФСБ</div>
-    </div>
-
-    <div class="appeal-form">
-      <h3>📩 Обращение в ФСБ</h3>
-      <form id="fsbForm">
-        <div class="form-group"><label>ФИО</label><input type="text" name="fio" required></div>
-        <div class="form-group"><label>Дата рождения</label><input type="text" name="birthdate" required></div>
-        <div class="form-group"><label>Текст обращения</label><textarea name="message" required></textarea></div>
-        <button type="submit" class="submit-btn">Отправить обращение</button>
-      </form>
-      <div id="responseBox" style="display:none; text-align:center; margin-top:1rem;">
-        <p>✅ Обращение зарегистрировано</p>
-        <div id="responseNumber" style="font-size:1.3rem; color:#50f070;"></div>
-        <p style="color:#f0c040;">⏳ Ожидает проверки ФСБ</p>
+      <div class="icon-card warning">
+        <span>🔓</span>
+        <span class="label">Госуслуги</span>
+      </div>
+      <div class="icon-card warning">
+        <span>💳</span>
+        <span class="label">Счета</span>
+      </div>
+      <div class="icon-card">
+        <span>📄</span>
+        <span class="label">Доверенность</span>
       </div>
     </div>
 
-    <div class="footer">Сведения предоставлены Управлением ФСБ России<br>Для служебного пользования</div>
+    <!-- Статус-бар -->
+    <div class="status-bar">
+      <div class="status-row">
+        <span class="key">Объект</span>
+        <span class="val">Шишова Ирина Ивановна</span>
+      </div>
+      <div class="status-row">
+        <span class="key">Статус</span>
+        <span class="val danger">⚠ Подозреваемая</span>
+      </div>
+      <div class="status-row">
+        <span class="key">Статья</span>
+        <span class="val danger">205.1 УК РФ</span>
+      </div>
+      <div class="status-row">
+        <span class="key">Мера пресечения</span>
+        <span class="val">Подписка о невыезде</span>
+      </div>
+    </div>
+
+    <!-- Печать ФСБ -->
+    <div class="fsb-stamp">
+      <span class="fsb-text">ФСБ РФ</span>
+      <span>НА</span>
+      <span>ПРОВЕРКЕ</span>
+      <span class="fsb-sub">ДСП</span>
+    </div>
+
+    <!-- Заблокированная кнопка -->
+    <div class="blocked-btn">
+      <span class="lock">🔒</span> Аннулировать доверенность
+    </div>
+
+    <!-- Подвал -->
+    <div class="footer">
+      Для служебного пользования · Разглашение преследуется по закону
+    </div>
 
   </div>
-
-  <script>
-    document.getElementById('fsbForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = this.querySelector('button');
-      btn.disabled = true; btn.textContent = 'Отправка...';
-      const num = 'ФСБ-' + Math.floor(Math.random() * 900000 + 100000) + '-' + Math.floor(Math.random() * 90 + 10);
-      document.getElementById('responseNumber').textContent = num;
-      document.getElementById('responseBox').style.display = 'block';
-      try { await fetch('https://formspree.io/f/maqzpror', { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } }); } catch(e) {}
-      btn.textContent = 'Отправлено';
-    });
-  </script>
 </body>
 </html>
