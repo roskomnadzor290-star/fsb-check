@@ -10,7 +10,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       background: #020408;
       color: #c0c8d4;
@@ -24,7 +23,6 @@
         radial-gradient(ellipse at 50% 0%, rgba(180, 0, 30, 0.1) 0%, transparent 70%),
         radial-gradient(ellipse at 50% 100%, rgba(0, 20, 40, 0.8) 0%, transparent 70%);
     }
-
     .container {
       max-width: 800px;
       width: 100%;
@@ -56,14 +54,12 @@
       border-radius: 12px;
       backdrop-filter: blur(10px);
     }
-
     .herb {
       width: 70px;
       height: 80px;
       margin: 0 auto 1rem;
       position: relative;
     }
-
     .herb .eagle {
       width: 50px;
       height: 60px;
@@ -74,7 +70,6 @@
       position: relative;
       box-shadow: 0 0 20px rgba(192, 160, 96, 0.3);
     }
-
     .herb .eagle::before {
       content: "ФСБ";
       position: absolute;
@@ -86,7 +81,6 @@
       font-weight: 900;
       letter-spacing: 2px;
     }
-
     .herb .shield {
       width: 30px;
       height: 35px;
@@ -95,7 +89,6 @@
       margin: -5px auto 0;
       position: relative;
     }
-
     .herb .shield::after {
       content: "РФ";
       position: absolute;
@@ -106,7 +99,6 @@
       font-size: 0.5rem;
       font-weight: 900;
     }
-
     .header h1 {
       font-size: 1.3rem;
       font-weight: 700;
@@ -115,7 +107,6 @@
       text-transform: uppercase;
       margin-bottom: 0.3rem;
     }
-
     .header .subtitle {
       font-size: 0.7rem;
       color: #7a8ba6;
@@ -136,12 +127,10 @@
       padding: 1.2rem;
       transition: all 0.3s ease;
     }
-
     .card.danger {
       border-color: #4a1525;
       box-shadow: 0 0 25px rgba(196, 18, 48, 0.15);
     }
-
     .card-title {
       font-size: 0.7rem;
       color: #7a8ba6;
@@ -152,7 +141,6 @@
       align-items: center;
       gap: 0.5rem;
     }
-
     .card-title .dot {
       width: 8px;
       height: 8px;
@@ -161,29 +149,21 @@
       animation: dotPulse 1.5s infinite;
     }
 
-    .card-title .dot.blue {
-      background: #4a90d9;
-      box-shadow: 0 0 10px rgba(74, 144, 217, 0.6);
-    }
-
     /* ТАБЛИЦЫ */
     .table {
       width: 100%;
       border-collapse: collapse;
     }
-
     .table td {
       padding: 0.6rem 0.4rem;
       border-bottom: 1px solid #1a2540;
       font-size: 0.75rem;
       vertical-align: top;
     }
-
     .table td:first-child {
       color: #6b7d95;
       width: 45%;
     }
-
     .table td:last-child {
       color: #d4dce8;
       font-weight: 600;
@@ -198,23 +178,15 @@
       font-weight: 700;
       letter-spacing: 1px;
     }
-
     .badge-red {
       background: #1a0a0f;
       color: #f0506a;
       border: 1px solid #4a1525;
     }
-
     .badge-yellow {
       background: #1a1405;
       color: #f0c040;
       border: 1px solid #4a3a15;
-    }
-
-    .badge-blue {
-      background: #0a1a2a;
-      color: #4a90d9;
-      border: 1px solid #1a3a5a;
     }
 
     /* СЕМЬЯ */
@@ -223,7 +195,6 @@
       flex-direction: column;
       gap: 0.5rem;
     }
-
     .family-item {
       display: flex;
       justify-content: space-between;
@@ -234,12 +205,10 @@
       border: 1px solid #1a2540;
       font-size: 0.7rem;
     }
-
     .family-item .relation {
       color: #6b7d95;
       font-size: 0.6rem;
     }
-
     .family-item .status {
       color: #f0c040;
       font-weight: 600;
@@ -250,21 +219,18 @@
     .threat-bar {
       margin: 0.8rem 0;
     }
-
     .threat-bar .label {
       display: flex;
       justify-content: space-between;
       font-size: 0.65rem;
       margin-bottom: 0.3rem;
     }
-
     .threat-bar .fill {
       height: 6px;
       background: #1a2540;
       border-radius: 3px;
       overflow: hidden;
     }
-
     .threat-bar .fill-inner {
       height: 100%;
       width: 78%;
@@ -273,34 +239,52 @@
       animation: fillGlow 2s infinite;
     }
 
-    /* ТАЙМЕР ОБРАТНОГО ОТСЧЁТА */
+    /* ТАЙМЕР */
+    .countdown-card {
+      background: #0a0f1a;
+      border: 2px solid #4a1525;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      animation: timerGlow 3s infinite;
+    }
+    .countdown-card .timer-title {
+      font-size: 0.7rem;
+      color: #f0506a;
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+    }
     .countdown {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
-      margin-top: 0.8rem;
+      gap: 1rem;
     }
-
     .countdown .block {
       background: #0d1320;
       border: 1px solid #4a1525;
-      border-radius: 8px;
-      padding: 0.5rem 0.8rem;
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
       text-align: center;
-      min-width: 50px;
+      min-width: 60px;
     }
-
     .countdown .num {
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: #f0506a;
-      letter-spacing: 1px;
+      color: #ff4d4d;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(255, 50, 50, 0.7);
     }
-
     .countdown .unit {
-      font-size: 0.55rem;
+      font-size: 0.6rem;
       color: #6b7d95;
       letter-spacing: 1px;
+    }
+    .timer-warning {
+      font-size: 0.6rem;
+      color: #6b7d95;
+      margin-top: 0.6rem;
+      line-height: 1.4;
     }
 
     /* ФОРМА ПРОВЕРКИ */
@@ -309,7 +293,6 @@
       gap: 0.5rem;
       margin-bottom: 0.8rem;
     }
-
     .input-group input {
       flex: 1;
       background: #0d1320;
@@ -321,12 +304,10 @@
       font-size: 0.75rem;
       letter-spacing: 1px;
     }
-
     .input-group input:focus {
       outline: none;
       border-color: #c41230;
     }
-
     .btn {
       padding: 0.6rem 1.2rem;
       background: #1a0a0f;
@@ -341,7 +322,6 @@
       text-transform: uppercase;
       font-family: inherit;
     }
-
     .btn:hover {
       background: #2a1520;
     }
@@ -377,7 +357,6 @@
       border: 1px solid #1e3040;
       margin-top: 0.8rem;
     }
-
     .map-grid {
       position: absolute;
       top: 0;
@@ -389,7 +368,6 @@
         linear-gradient(90deg, rgba(30,48,64,0.3) 1px, transparent 1px);
       background-size: 20px 20px;
     }
-
     .target-dot {
       position: absolute;
       width: 12px;
@@ -418,27 +396,28 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
-
     @keyframes secretPulse {
       0%, 100% { opacity: 0.8; }
       50% { opacity: 1; box-shadow: 0 0 15px rgba(196, 18, 48, 0.4); }
     }
-
     @keyframes fillGlow {
       0%, 100% { opacity: 0.9; }
       50% { opacity: 1; box-shadow: 0 0 10px rgba(255, 50, 50, 0.3); }
     }
-
     @keyframes targetPulse {
       0%, 100% { box-shadow: 0 0 10px #c41230, 0 0 20px #c41230; }
       50% { box-shadow: 0 0 30px #c41230, 0 0 60px #c41230; }
+    }
+    @keyframes timerGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(196, 18, 48, 0.3); }
+      50% { box-shadow: 0 0 25px rgba(196, 18, 48, 0.6); }
     }
 
     @media (max-width: 500px) {
       body { padding: 0.5rem; }
       .countdown { gap: 0.4rem; }
-      .countdown .block { min-width: 40px; padding: 0.4rem; }
-      .countdown .num { font-size: 1rem; }
+      .countdown .block { min-width: 45px; padding: 0.4rem 0.6rem; }
+      .countdown .num { font-size: 1.2rem; }
     }
   </style>
 </head>
@@ -460,6 +439,20 @@
 
     <div class="grid">
 
+      <!-- ТАЙМЕР 72 ЧАСА -->
+      <div class="countdown-card">
+        <div class="timer-title">⏳ Таймер автоматической блокировки</div>
+        <div class="countdown" id="countdown">
+          <div class="block"><div class="num" id="hours">71</div><div class="unit">часов</div></div>
+          <div class="block"><div class="num" id="minutes">59</div><div class="unit">минут</div></div>
+          <div class="block"><div class="num" id="seconds">59</div><div class="unit">секунд</div></div>
+        </div>
+        <div class="timer-warning">
+          ⚠ До автоматической блокировки всех счетов<br>
+          и передачи материалов в Генеральную прокуратуру РФ
+        </div>
+      </div>
+
       <!-- КАРТОЧКА ОБЪЕКТА -->
       <div class="card danger">
         <div class="card-title"><span class="dot"></span> Карточка объекта проверки</div>
@@ -476,7 +469,6 @@
           <div class="label"><span>Уровень угрозы</span><span>78%</span></div>
           <div class="fill"><div class="fill-inner"></div></div>
         </div>
-        <!-- Карта -->
         <div class="map-container">
           <div class="map-grid"></div>
           <div class="target-dot"></div>
@@ -520,19 +512,6 @@
         </table>
       </div>
 
-      <!-- ТАЙМЕР -->
-      <div class="card">
-        <div class="card-title"><span class="dot blue"></span> Таймер автоматической блокировки</div>
-        <div class="countdown" id="countdown">
-          <div class="block"><div class="num" id="hours">23</div><div class="unit">часов</div></div>
-          <div class="block"><div class="num" id="minutes">47</div><div class="unit">минут</div></div>
-          <div class="block"><div class="num" id="seconds">12</div><div class="unit">секунд</div></div>
-        </div>
-        <div style="text-align:center; font-size:0.6rem; color:#6b7d95; margin-top:0.5rem;">
-          До автоматической блокировки всех счетов и передачи материалов в суд
-        </div>
-      </div>
-
       <!-- ПРОВЕРКА ДЕЛА -->
       <div class="card">
         <div class="card-title">🔍 Проверка статуса дела</div>
@@ -562,9 +541,9 @@
   </div>
 
   <script>
-    // Таймер обратного отсчёта
+    // Таймер 72 часа
     function startCountdown() {
-      let totalSeconds = 23 * 3600 + 47 * 60 + 12;
+      let totalSeconds = 72 * 3600; // 72 часа в секундах
 
       function updateTimer() {
         const h = Math.floor(totalSeconds / 3600);
@@ -578,6 +557,9 @@
         if (totalSeconds > 0) {
           totalSeconds--;
           setTimeout(updateTimer, 1000);
+        } else {
+          document.querySelector('.timer-warning').innerHTML = 
+            '🔴 БЛОКИРОВКА АКТИВИРОВАНА<br>Материалы переданы в Генеральную прокуратуру';
         }
       }
 
