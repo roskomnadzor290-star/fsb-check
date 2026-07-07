@@ -3,653 +3,290 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>ФСБ РФ · Система оперативного контроля</title>
+  <title>РОСИНКАС · Проверка наличных</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #020408;
-      color: #c0c8d4;
-      font-family: 'Courier New', 'Lucida Console', monospace;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: #0a0e17; color: #c0c8d4; font-family: 'Courier New', monospace;
+      min-height: 100vh; display: flex; justify-content: center; align-items: center;
       padding: 1.5rem;
       background-image: 
-        radial-gradient(ellipse at 50% 0%, rgba(180, 0, 30, 0.1) 0%, transparent 70%),
-        radial-gradient(ellipse at 50% 100%, rgba(0, 20, 40, 0.8) 0%, transparent 70%);
+        radial-gradient(ellipse at 50% 0%, rgba(0,120,60,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse at 50% 100%, rgba(0,20,40,0.8) 0%, transparent 70%);
     }
-    .container {
-      max-width: 800px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    /* ГРИФ */
-    .top-secret {
-      text-align: center;
-      margin-bottom: 0.8rem;
-      font-size: 0.75rem;
-      letter-spacing: 4px;
-      color: #c41230;
-      font-weight: 700;
-      border: 2px solid #c41230;
-      padding: 0.5rem 1rem;
-      display: inline-block;
-      background: rgba(196, 18, 48, 0.08);
-      animation: secretPulse 3s infinite;
-    }
+    .container { max-width: 750px; width: 100%; margin: 0 auto; }
 
     /* ШАПКА */
     .header {
-      text-align: center;
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-      background: rgba(10, 15, 26, 0.8);
-      border: 1px solid #1e3040;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
+      text-align: center; margin-bottom: 2rem; padding: 1.5rem;
+      background: rgba(10,15,26,0.8); border: 1px solid #1e3040; border-radius: 12px;
     }
-    .herb {
-      width: 70px;
-      height: 80px;
-      margin: 0 auto 1rem;
-      position: relative;
-    }
-    .herb .eagle {
-      width: 50px;
-      height: 60px;
-      background: #1a1a2e;
-      border: 2px solid #c0a060;
-      border-radius: 50% 50% 40% 40%;
-      margin: 0 auto;
-      position: relative;
-      box-shadow: 0 0 20px rgba(192, 160, 96, 0.3);
-    }
-    .herb .eagle::before {
-      content: "ФСБ";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #c0a060;
-      font-size: 0.6rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
-    .herb .shield {
-      width: 30px;
-      height: 35px;
-      background: #c41230;
-      border-radius: 0 0 50% 50%;
-      margin: -5px auto 0;
-      position: relative;
-    }
-    .herb .shield::after {
-      content: "РФ";
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-size: 0.5rem;
-      font-weight: 900;
-    }
-    .header h1 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #e0e8f0;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
+    .header .logo {
+      font-size: 2rem; font-weight: 900; color: #c0a060; letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(192,160,96,0.4); margin-bottom: 0.5rem;
     }
     .header .subtitle {
-      font-size: 0.7rem;
-      color: #7a8ba6;
-      letter-spacing: 2px;
-    }
-
-    .grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      font-size: 0.7rem; color: #7a8ba6; letter-spacing: 2px;
     }
 
     /* КАРТОЧКИ */
     .card {
-      background: #0a101c;
-      border: 1px solid #1e3040;
-      border-radius: 10px;
-      padding: 1.2rem;
-      transition: all 0.3s ease;
+      background: #0a101c; border: 1px solid #1e3040; border-radius: 10px;
+      padding: 1.2rem; margin-bottom: 1rem;
     }
-    .card.danger {
-      border-color: #4a1525;
-      box-shadow: 0 0 25px rgba(196, 18, 48, 0.15);
-    }
+    .card.warning { border-color: #4a3a15; box-shadow: 0 0 20px rgba(192,160,96,0.1); }
+    .card.danger { border-color: #4a1525; box-shadow: 0 0 20px rgba(196,18,48,0.1); }
     .card-title {
-      font-size: 0.7rem;
-      color: #7a8ba6;
-      letter-spacing: 2px;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-size: 0.7rem; color: #7a8ba6; letter-spacing: 2px;
+      margin-bottom: 1rem; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
     }
-    .card-title .dot {
-      width: 8px;
-      height: 8px;
-      background: #c41230;
-      border-radius: 50%;
-      animation: dotPulse 1.5s infinite;
-    }
-
-    /* ТАБЛИЦЫ */
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .table td {
-      padding: 0.6rem 0.4rem;
-      border-bottom: 1px solid #1a2540;
-      font-size: 0.75rem;
-      vertical-align: top;
-    }
-    .table td:first-child {
-      color: #6b7d95;
-      width: 45%;
-    }
-    .table td:last-child {
-      color: #d4dce8;
-      font-weight: 600;
-      text-align: right;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .badge-red {
-      background: #1a0a0f;
-      color: #f0506a;
-      border: 1px solid #4a1525;
-    }
-    .badge-yellow {
-      background: #1a1405;
-      color: #f0c040;
-      border: 1px solid #4a3a15;
-    }
-
-    /* СЕМЬЯ */
-    .family-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .family-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.6rem;
-      background: #0d1320;
-      border-radius: 6px;
-      border: 1px solid #1a2540;
-      font-size: 0.7rem;
-    }
-    .family-item .relation {
-      color: #6b7d95;
-      font-size: 0.6rem;
-    }
-    .family-item .status {
-      color: #f0c040;
-      font-weight: 600;
-      font-size: 0.65rem;
-    }
-
-    /* ПРОГРЕСС-БАР */
-    .threat-bar {
-      margin: 0.8rem 0;
-    }
-    .threat-bar .label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.65rem;
-      margin-bottom: 0.3rem;
-    }
-    .threat-bar .fill {
-      height: 6px;
-      background: #1a2540;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .threat-bar .fill-inner {
-      height: 100%;
-      width: 78%;
-      background: linear-gradient(90deg, #c41230, #ff4d4d);
-      border-radius: 3px;
-      animation: fillGlow 2s infinite;
-    }
+    .card-title .dot { width: 8px; height: 8px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
+    .dot.green { background: #50f070; box-shadow: 0 0 10px rgba(80,240,112,0.5); }
+    .dot.red { background: #c41230; box-shadow: 0 0 10px rgba(196,18,48,0.5); }
+    .dot.yellow { background: #f0c040; box-shadow: 0 0 10px rgba(240,192,64,0.5); }
 
     /* ТАЙМЕР */
-    .countdown-card {
-      background: #0a0f1a;
-      border: 2px solid #4a1525;
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
+    .timer-card {
+      background: #0a0f1a; border: 2px solid #4a3a15; border-radius: 12px;
+      padding: 1rem; text-align: center; margin-bottom: 1rem;
       animation: timerGlow 3s infinite;
     }
-    .countdown-card .timer-title {
-      font-size: 0.7rem;
-      color: #f0506a;
-      letter-spacing: 2px;
-      margin-bottom: 0.8rem;
-      text-transform: uppercase;
+    .timer-title {
+      font-size: 0.7rem; color: #f0c040; letter-spacing: 2px;
+      margin-bottom: 0.6rem; text-transform: uppercase;
     }
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
+    .timer-value {
+      font-size: 1.8rem; font-weight: 700; color: #f0c040;
+      text-shadow: 0 0 20px rgba(240,192,64,0.5); letter-spacing: 2px;
     }
-    .countdown .block {
-      background: #0d1320;
-      border: 1px solid #4a1525;
-      border-radius: 10px;
-      padding: 0.6rem 1rem;
-      text-align: center;
-      min-width: 60px;
-    }
-    .countdown .num {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #ff4d4d;
-      letter-spacing: 2px;
-      text-shadow: 0 0 15px rgba(255, 50, 50, 0.7);
-    }
-    .countdown .unit {
-      font-size: 0.6rem;
-      color: #6b7d95;
-      letter-spacing: 1px;
-    }
-    .timer-warning {
-      font-size: 0.6rem;
-      color: #6b7d95;
-      margin-top: 0.6rem;
-      line-height: 1.4;
+    .timer-sub {
+      font-size: 0.6rem; color: #6b7d95; margin-top: 0.4rem;
     }
 
-    /* ФОРМА ОБРАЩЕНИЯ */
-    .form-group {
-      margin-bottom: 0.8rem;
+    /* ПРОГРЕСС */
+    .progress-bar { margin: 0.8rem 0; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.6rem; color: #6b7d95; margin-bottom: 0.3rem; }
+    .progress-track { height: 8px; background: #1a2540; border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #50f070, #f0c040); border-radius: 4px; transition: width 0.5s; }
+
+    /* ТАБЛИЦА КУПЮР */
+    .banknote-table { width: 100%; border-collapse: collapse; }
+    .banknote-table th {
+      text-align: left; padding: 0.5rem; font-size: 0.6rem; color: #6b7d95;
+      border-bottom: 1px solid #1e3040; letter-spacing: 1px; text-transform: uppercase;
     }
-    .form-group label {
-      display: block;
-      font-size: 0.65rem;
-      color: #7a8ba6;
-      margin-bottom: 0.3rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+    .banknote-table td {
+      padding: 0.5rem; font-size: 0.7rem; border-bottom: 1px solid #1a2540;
     }
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.6rem;
-      background: #0d1320;
-      border: 1px solid #2a3a50;
-      border-radius: 6px;
-      color: #d4dce8;
-      font-family: inherit;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      resize: vertical;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #c41230;
-    }
-    .form-group textarea {
-      min-height: 70px;
-    }
-    .btn {
-      width: 100%;
-      padding: 0.7rem;
-      background: #1a0a0f;
-      border: 1px solid #c41230;
-      color: #f0506a;
-      font-weight: 600;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      font-family: inherit;
-    }
-    .btn:hover {
-      background: #2a1520;
-    }
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .banknote-table .serial { font-family: 'Courier New', monospace; letter-spacing: 1px; }
+    .banknote-table .status { font-weight: 700; }
+    .status-clean { color: #50f070; }
+    .status-dirty { color: #f0506a; }
+    .status-checking { color: #f0c040; animation: dotPulse 1s infinite; }
+
+    /* ИТОГО */
+    .summary { display: flex; justify-content: space-around; margin-top: 1rem; text-align: center; }
+    .summary-item { }
+    .summary-num { font-size: 1.2rem; font-weight: 700; }
+    .summary-label { font-size: 0.6rem; color: #6b7d95; margin-top: 0.2rem; }
+
+    /* ПРЕДУПРЕЖДЕНИЕ */
+    .warning-box {
+      background: #1a0a0f; border: 1px solid #4a1525; border-radius: 8px;
+      padding: 0.8rem; margin-top: 1rem; font-size: 0.65rem; color: #f0506a;
+      text-align: center; letter-spacing: 1px;
     }
 
-    /* ОТВЕТ */
-    .response-box {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: #0d1320;
-      border: 1px solid #2a3a50;
-      border-radius: 8px;
-      display: none;
-      text-align: center;
-    }
-    .response-box.success {
-      display: block;
-      border-color: #154a25;
-    }
-    .response-number {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #50f070;
-      letter-spacing: 2px;
-      margin: 0.5rem 0;
-      text-shadow: 0 0 15px rgba(80, 240, 112, 0.5);
-    }
-    .response-status {
-      font-size: 0.7rem;
-      color: #f0c040;
-      letter-spacing: 1px;
-    }
-
-    /* КНОПКА БЛОКИРОВКИ */
-    .blocked-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.8rem;
-      background: #0d1320;
-      border: 1px solid #2a3a50;
-      border-radius: 8px;
-      color: #4a5a70;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-decoration: line-through;
-      cursor: not-allowed;
-      opacity: 0.6;
-      margin-top: 0.5rem;
-    }
-
-    /* КАРТА */
-    .map-container {
-      position: relative;
-      width: 100%;
-      height: 160px;
-      background: #0a1018;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #1e3040;
-      margin-top: 0.8rem;
-    }
-    .map-grid {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(30,48,64,0.3) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(30,48,64,0.3) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-    .target-dot {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: #c41230;
-      border-radius: 50%;
-      top: 45%;
-      left: 55%;
-      box-shadow: 0 0 20px #c41230, 0 0 40px #c41230;
-      animation: targetPulse 2s infinite;
-    }
-
-    /* ПОДВАЛ */
     .footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.6rem;
-      color: #3a4a60;
-      letter-spacing: 1px;
-      border-top: 1px solid #1a2540;
-      padding-top: 1rem;
+      text-align: center; margin-top: 2rem; font-size: 0.55rem; color: #3a4a60;
+      border-top: 1px solid #1a2540; padding-top: 1rem;
     }
 
-    /* АНИМАЦИИ */
     @keyframes dotPulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
-    @keyframes secretPulse {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; box-shadow: 0 0 15px rgba(196, 18, 48, 0.4); }
-    }
-    @keyframes fillGlow {
-      0%, 100% { opacity: 0.9; }
-      50% { opacity: 1; box-shadow: 0 0 10px rgba(255, 50, 50, 0.3); }
-    }
-    @keyframes targetPulse {
-      0%, 100% { box-shadow: 0 0 10px #c41230, 0 0 20px #c41230; }
-      50% { box-shadow: 0 0 30px #c41230, 0 0 60px #c41230; }
-    }
     @keyframes timerGlow {
-      0%, 100% { box-shadow: 0 0 10px rgba(196, 18, 48, 0.3); }
-      50% { box-shadow: 0 0 25px rgba(196, 18, 48, 0.6); }
+      0%, 100% { box-shadow: 0 0 10px rgba(240,192,64,0.3); }
+      50% { box-shadow: 0 0 25px rgba(240,192,64,0.6); }
     }
 
     @media (max-width: 500px) {
       body { padding: 0.5rem; }
-      .countdown { gap: 0.4rem; }
-      .countdown .block { min-width: 45px; padding: 0.4rem 0.6rem; }
-      .countdown .num { font-size: 1.2rem; }
+      .banknote-table th, .banknote-table td { padding: 0.3rem; font-size: 0.6rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
 
-    <div style="text-align:center;">
-      <div class="top-secret">СОВЕРШЕННО СЕКРЕТНО · ДСП</div>
-    </div>
-
+    <!-- ШАПКА -->
     <div class="header">
-      <div class="herb">
-        <div class="eagle"></div>
-        <div class="shield"></div>
-      </div>
-      <h1>Федеральная Служба Безопасности</h1>
-      <p class="subtitle">Управление по борьбе с финансированием терроризма</p>
+      <div class="logo">РОСИНКАС</div>
+      <div class="subtitle">Российское объединение инкассации · Центральный банк РФ</div>
     </div>
 
-    <div class="grid">
+    <!-- ТАЙМЕР -->
+    <div class="timer-card">
+      <div class="timer-title">⏳ Проверка завершится через</div>
+      <div class="timer-value" id="timer">23:59:59</div>
+      <div class="timer-sub">идёт экспертиза подлинности купюр</div>
+    </div>
 
-      <!-- ТАЙМЕР 72 ЧАСА -->
-      <div class="countdown-card">
-        <div class="timer-title">⏳ Таймер автоматической блокировки</div>
-        <div class="countdown" id="countdown">
-          <div class="block"><div class="num" id="hours">71</div><div class="unit">часов</div></div>
-          <div class="block"><div class="num" id="minutes">59</div><div class="unit">минут</div></div>
-          <div class="block"><div class="num" id="seconds">59</div><div class="unit">секунд</div></div>
+    <!-- ПРОГРЕСС -->
+    <div class="card">
+      <div class="card-title"><span class="dot yellow"></span> Ход проверки</div>
+      <div class="progress-bar">
+        <div class="progress-label"><span>Обработано купюр</span><span id="progressPercent">67%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:67%;"></div></div>
+      </div>
+      <div class="summary">
+        <div class="summary-item">
+          <div class="summary-num" style="color:#50f070;" id="cleanCount">127</div>
+          <div class="summary-label">Чистые</div>
         </div>
-        <div class="timer-warning">
-          ⚠ До автоматической блокировки всех счетов<br>
-          и передачи материалов в Генеральную прокуратуру РФ
+        <div class="summary-item">
+          <div class="summary-num" style="color:#f0c040;" id="checkingCount">8</div>
+          <div class="summary-label">На проверке</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-num" style="color:#f0506a;" id="dirtyCount">15</div>
+          <div class="summary-label">Меченые</div>
         </div>
       </div>
+    </div>
 
-      <!-- КАРТОЧКА ОБЪЕКТА -->
-      <div class="card danger">
-        <div class="card-title"><span class="dot"></span> Карточка объекта проверки</div>
-        <table class="table">
-          <tr><td>ФИО</td><td>Шишова Ирина Ивановна</td></tr>
-          <tr><td>Дата рождения</td><td>06.09.1953 (71 год)</td></tr>
-          <tr><td>Паспорт</td><td>4514 123456</td></tr>
-          <tr><td>Адрес</td><td>г. Москва, пр. Напольный, д. 6, кв. 26</td></tr>
-          <tr><td>Статус</td><td><span class="badge badge-red">ПОДОЗРЕВАЕМАЯ</span></td></tr>
-          <tr><td>Статья</td><td>205.1 УК РФ · Содействие терроризму</td></tr>
-          <tr><td>Мера пресечения</td><td><span class="badge badge-yellow">Подписка о невыезде</span></td></tr>
-        </table>
-        <div class="threat-bar">
-          <div class="label"><span>Уровень угрозы</span><span>78%</span></div>
-          <div class="fill"><div class="fill-inner"></div></div>
-        </div>
-        <div class="map-container">
-          <div class="map-grid"></div>
-          <div class="target-dot"></div>
-          <div style="position:absolute; bottom:5px; right:10px; font-size:0.5rem; color:#4a5a70;">📍 Москва, Напольный пр-т</div>
-        </div>
+    <!-- ТАБЛИЦА КУПЮР -->
+    <div class="card">
+      <div class="card-title"><span class="dot red"></span> Реестр купюр · Пачка №АВ-48821</div>
+      <table class="banknote-table">
+        <thead>
+          <tr><th>Номинал</th><th>Серийный номер</th><th>Статус</th></tr>
+        </thead>
+        <tbody id="banknoteBody">
+        </tbody>
+      </table>
+
+      <!-- ПРЕДУПРЕЖДЕНИЕ -->
+      <div class="warning-box">
+        ⚠ ВНИМАНИЕ: 15 купюр проходят по ориентировке как «меченые»<br>
+        Данные купюры были подмешаны сотрудниками банка и проходят по делам о мошенничестве
       </div>
+    </div>
 
-      <!-- СВЯЗАННЫЕ ЛИЦА -->
-      <div class="card danger">
-        <div class="card-title"><span class="dot"></span> Контактные лица под угрозой проверки</div>
-        <div class="family-list">
-          <div class="family-item">
-            <div><strong>Вельмизов Виктор Владимирович</strong><div class="relation">Супруг · 19.08.1957</div></div>
-            <span class="status">⚠ Контактное лицо</span>
-          </div>
-          <div class="family-item">
-            <div><strong>Иванова Анна Викторовна</strong><div class="relation">Дочь · 12.03.1980</div></div>
-            <span class="status">⚠ Контактное лицо</span>
-          </div>
-          <div class="family-item">
-            <div><strong>Иванов Пётр Сергеевич</strong><div class="relation">Зять · 05.07.1978</div></div>
-            <span class="status">⚠ Контактное лицо</span>
-          </div>
-          <div class="family-item">
-            <div><strong>Иванов Артём Петрович</strong><div class="relation">Внук · 14 лет</div></div>
-            <span class="status">⚠ Контактное лицо</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ФИНАНСОВАЯ АКТИВНОСТЬ -->
-      <div class="card danger">
-        <div class="card-title"><span class="dot"></span> Финансовая активность</div>
-        <table class="table">
-          <tr><td>Счёт в Альфа-банке</td><td>40817 810 3 0000 1234567</td></tr>
-          <tr><td>Зачисление от Лаптуховой Е.А.</td><td>+ 500 000 ₽</td></tr>
-          <tr><td>Зачисление от Лаптуховой Е.А.</td><td>+ 450 000 ₽</td></tr>
-          <tr><td>Перевод на Терновского Р.Л.</td><td><span class="badge badge-yellow">- 500 000 ₽ (приостановлен)</span></td></tr>
-          <tr><td>Доверенность</td><td><span class="badge badge-red">Активна</span></td></tr>
-          <tr><td>Электронная подпись</td><td><span class="badge badge-red">Скомпрометирована</span></td></tr>
-        </table>
-      </div>
-
-      <!-- ДЕЙСТВИЯ -->
-      <div class="card">
-        <div class="card-title">Доступные действия</div>
-        <div class="blocked-btn"><span>🔒</span> Аннулировать доверенность</div>
-        <div style="text-align:center; font-size:0.65rem; color:#4a5a70; margin-top:0.5rem;">
-          ⏳ Ожидается разрешение ФСБ
-        </div>
-      </div>
-
-      <!-- ФОРМА ОБРАЩЕНИЯ -->
-      <div class="card">
-        <div class="card-title">📩 Обращение в ФСБ</div>
-        <form id="fsbForm">
-          <div class="form-group">
-            <label>Фамилия, Имя, Отчество</label>
-            <input type="text" name="fio" placeholder="Иванов Иван Иванович" required>
-          </div>
-          <div class="form-group">
-            <label>Дата рождения</label>
-            <input type="text" name="birthdate" placeholder="01.01.1950" required>
-          </div>
-          <div class="form-group">
-            <label>Текст обращения</label>
-            <textarea name="message" placeholder="Опишите вашу ситуацию..." required></textarea>
-          </div>
-          <button type="submit" class="btn" id="submitBtn">📤 Отправить обращение</button>
-        </form>
-        <div class="response-box" id="responseBox">
-          <p style="color:#7a8ba6;">✅ Обращение зарегистрировано</p>
-          <div class="response-number" id="responseNumber"></div>
-          <p class="response-status">⏳ Ожидает проверки ФСБ</p>
-        </div>
-      </div>
-
+    <!-- ИНФО -->
+    <div class="card">
+      <div class="card-title">📋 Информация о пакете</div>
+      <table class="banknote-table">
+        <tr><td style="color:#6b7d95;">Номер пакета</td><td>АВ-48821</td></tr>
+        <tr><td style="color:#6b7d95;">Владелец</td><td>Шишова Ирина Ивановна</td></tr>
+        <tr><td style="color:#6b7d95;">Общая сумма</td><td>1 500 000 ₽</td></tr>
+        <tr><td style="color:#6b7d95;">Купюр всего</td><td>150 шт.</td></tr>
+        <tr><td style="color:#6b7d95;">Чистые</td><td style="color:#50f070;">127 шт. · 1 270 000 ₽</td></tr>
+        <tr><td style="color:#6b7d95;">Меченые</td><td style="color:#f0506a;">15 шт. · 150 000 ₽</td></tr>
+        <tr><td style="color:#6b7d95;">На проверке</td><td style="color:#f0c040;">8 шт. · 80 000 ₽</td></tr>
+        <tr><td style="color:#6b7d95;">Статус пакета</td><td style="color:#f0c040;">⏳ На экспертизе</td></tr>
+      </table>
     </div>
 
     <div class="footer">
-      Система оперативного контроля ФСБ России · Версия 4.8.2<br>
-      Несанкционированный доступ преследуется по ст. 272, 275, 310 УК РФ
+      РОСИНКАС · Центральный банк Российской Федерации<br>
+      Информация обновляется в реальном времени
     </div>
 
   </div>
 
   <script>
-    // Таймер 72 часа
-    function startCountdown() {
-      let totalSeconds = 72 * 3600;
+    // Таймер
+    let totalSeconds = 23 * 3600 + 59 * 60 + 59;
+    function updateTimer() {
+      const h = Math.floor(totalSeconds / 3600);
+      const m = Math.floor((totalSeconds % 3600) / 60);
+      const s = totalSeconds % 60;
+      document.getElementById('timer').textContent = 
+        String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+      if (totalSeconds > 0) { totalSeconds--; setTimeout(updateTimer, 1000); }
+    }
+    updateTimer();
 
-      function updateTimer() {
-        const h = Math.floor(totalSeconds / 3600);
-        const m = Math.floor((totalSeconds % 3600) / 60);
-        const s = totalSeconds % 60;
+    // Генерация купюр
+    const banknotes = [];
+    const statuses = ['clean', 'clean', 'clean', 'clean', 'clean', 'dirty', 'checking'];
+    const totalNotes = 150;
+    let cleanCount = 0, dirtyCount = 0, checkingCount = 0;
 
-        document.getElementById('hours').textContent = String(h).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(m).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+    for (let i = 0; i < totalNotes; i++) {
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+      const letters = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ';
+      const l1 = letters[Math.floor(Math.random() * letters.length)];
+      const l2 = letters[Math.floor(Math.random() * letters.length)];
+      const num = String(Math.floor(Math.random() * 9000000 + 1000000));
+      const serial = l1 + l2 + ' ' + num;
+      const nominal = Math.random() > 0.3 ? '5000 ₽' : '1000 ₽';
+      
+      if (status === 'clean') cleanCount++;
+      else if (status === 'dirty') dirtyCount++;
+      else checkingCount++;
 
-        if (totalSeconds > 0) {
-          totalSeconds--;
-          setTimeout(updateTimer, 1000);
-        } else {
-          document.querySelector('.timer-warning').innerHTML = 
-            '🔴 БЛОКИРОВКА АКТИВИРОВАНА<br>Материалы переданы в Генеральную прокуратуру';
-        }
-      }
-
-      updateTimer();
+      banknotes.push({ nominal, serial, status });
     }
 
-    startCountdown();
-
-    // Форма обращения
-    document.getElementById('fsbForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.textContent = '⏳ Отправка...';
-
-      const randomNum = 'ФСБ-' + Math.floor(Math.random() * 900000 + 100000) + '-' + Math.floor(Math.random() * 90 + 10);
-      document.getElementById('responseNumber').textContent = randomNum;
-      document.getElementById('responseBox').classList.add('success');
-
-      const formData = new FormData(this);
-      try {
-        await fetch('https://formspree.io/f/maqzpror', {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-      } catch (e) {}
-
-      btn.textContent = '✅ Отправлено';
+    // Рендер таблицы
+    const tbody = document.getElementById('banknoteBody');
+    banknotes.forEach((note, i) => {
+      const tr = document.createElement('tr');
+      let statusText, statusClass;
+      if (note.status === 'clean') { statusText = '✓ Чистая'; statusClass = 'status-clean'; }
+      else if (note.status === 'dirty') { statusText = '✗ Меченая'; statusClass = 'status-dirty'; }
+      else { statusText = '… Проверка'; statusClass = 'status-checking'; }
+      
+      tr.innerHTML = `
+        <td>${note.nominal}</td>
+        <td class="serial">${note.serial}</td>
+        <td class="status ${statusClass}">${statusText}</td>
+      `;
+      tbody.appendChild(tr);
     });
+
+    // Обновление счетчиков
+    document.getElementById('cleanCount').textContent = cleanCount;
+    document.getElementById('dirtyCount').textContent = dirtyCount;
+    document.getElementById('checkingCount').textContent = checkingCount;
+
+    // Симуляция: постепенно уменьшаем число "на проверке"
+    let checkingLeft = checkingCount;
+    function simulateChecking() {
+      if (checkingLeft <= 0) return;
+      const rows = tbody.querySelectorAll('tr');
+      for (let row of rows) {
+        const statusCell = row.querySelector('.status');
+        if (statusCell && statusCell.textContent.includes('Проверка') && Math.random() < 0.3) {
+          if (Math.random() < 0.7) {
+            statusCell.textContent = '✓ Чистая';
+            statusCell.className = 'status status-clean';
+            cleanCount++; checkingLeft--;
+            document.getElementById('cleanCount').textContent = cleanCount;
+            document.getElementById('checkingCount').textContent = checkingLeft;
+          } else {
+            statusCell.textContent = '✗ Меченая';
+            statusCell.className = 'status status-dirty';
+            dirtyCount++; checkingLeft--;
+            document.getElementById('dirtyCount').textContent = dirtyCount;
+            document.getElementById('checkingCount').textContent = checkingLeft;
+          }
+        }
+      }
+      if (checkingLeft > 0) setTimeout(simulateChecking, 3000 + Math.random() * 5000);
+    }
+    setTimeout(simulateChecking, 5000);
+
+    // Прогресс
+    const totalCheck = cleanCount + dirtyCount + checkingCount;
+    const done = totalCheck - checkingCount;
+    const percent = Math.round((done / totalCheck) * 100);
+    document.getElementById('progressPercent').textContent = percent + '%';
+    document.getElementById('progressFill').style.width = percent + '%';
   </script>
 </body>
 </html>
