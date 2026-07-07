@@ -7,11 +7,22 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #0a0e17; color: #c0c8d4; font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #060a12; color: #c0c8d4; font-family: 'Segoe UI', system-ui, sans-serif;
       min-height: 100vh; display: flex; justify-content: center; align-items: center;
     }
     .container {
-      max-width: 600px; width: 100%; padding: 2rem; text-align: center;
+      max-width: 650px; width: 100%; padding: 2rem; text-align: center;
+    }
+
+    /* Верхняя плашка */
+    .top-banner {
+      background: #1a0005; border: 1px solid #4a1015; border-radius: 10px;
+      padding: 0.6rem 1rem; margin-bottom: 2rem; display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    .top-banner span {
+      color: #f0506a; font-weight: 700; font-size: 0.8rem;
+      letter-spacing: 2px; text-transform: uppercase;
     }
 
     /* Заголовок */
@@ -19,12 +30,11 @@
       margin-bottom: 2.5rem;
     }
     .header .icon {
-      font-size: 3rem; margin-bottom: 0.5rem;
-      animation: pulse 2s infinite;
+      font-size: 3.5rem; margin-bottom: 0.5rem;
     }
     .header h1 {
-      font-size: 1.4rem; font-weight: 700; color: #e0e8f0;
-      letter-spacing: 2px; text-transform: uppercase;
+      font-size: 1.5rem; font-weight: 700; color: #e0e8f0;
+      letter-spacing: 3px; text-transform: uppercase;
     }
     .header .subtitle {
       font-size: 0.8rem; color: #6b7d95; margin-top: 0.5rem;
@@ -33,16 +43,16 @@
 
     /* Силуэт человека */
     .silhouette {
-      width: 100px; height: 120px; margin: 0 auto 1.5rem;
+      width: 100px; height: 120px; margin: 0 auto 1rem;
       position: relative;
     }
     .silhouette .head {
-      width: 40px; height: 40px; background: #1a2540;
+      width: 40px; height: 40px; background: #1a1020;
       border: 2px solid #c41230; border-radius: 50%;
       margin: 0 auto;
     }
     .silhouette .body {
-      width: 60px; height: 50px; background: #1a2540;
+      width: 60px; height: 50px; background: #1a1020;
       border: 2px solid #c41230; border-radius: 10px 10px 0 0;
       margin: 5px auto 0;
     }
@@ -50,71 +60,102 @@
       display: flex; justify-content: center; gap: 10px; margin-top: 2px;
     }
     .silhouette .leg {
-      width: 8px; height: 25px; background: #1a2540;
+      width: 8px; height: 25px; background: #1a1020;
       border: 1px solid #c41230; border-radius: 0 0 4px 4px;
     }
 
     /* Индикатор тревоги над силуэтом */
     .alert-dot {
-      width: 12px; height: 12px; background: #c41230;
+      width: 14px; height: 14px; background: #ff1a1a;
       border-radius: 50%; margin: -10px auto 0;
-      box-shadow: 0 0 15px #c41230, 0 0 30px #c41230, 0 0 50px #c41230;
+      box-shadow: 0 0 20px #ff1a1a, 0 0 40px #ff1a1a, 0 0 80px #ff1a1a;
       animation: alertPulse 1s infinite;
       position: relative; top: -10px;
     }
 
+    /* Сканирующая линия */
+    .scan-line {
+      width: 120px; height: 2px; margin: -50px auto 0;
+      background: linear-gradient(90deg, transparent, #c41230, transparent);
+      animation: scanDown 3s infinite;
+      position: relative; z-index: 2;
+    }
+
     /* Иконки вокруг силуэта */
     .icons-row {
-      display: flex; justify-content: center; gap: 1rem;
+      display: flex; justify-content: center; gap: 0.8rem;
       margin-bottom: 1.5rem; flex-wrap: wrap;
     }
     .icon-card {
-      width: 60px; height: 60px; background: #0d1320;
-      border: 1px solid #2a3a50; border-radius: 12px;
+      width: 55px; height: 55px; background: #0d1320;
+      border: 1px solid #2a3a50; border-radius: 10px;
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
     .icon-card .label {
-      font-size: 0.55rem; color: #6b7d95; margin-top: 2px;
-      letter-spacing: 0.5px;
+      font-size: 0.5rem; color: #6b7d95; margin-top: 2px;
+      letter-spacing: 0.5px; text-transform: uppercase;
     }
-    .icon-card.warning {
+    .icon-card.danger {
       border-color: #c41230;
-      box-shadow: 0 0 15px rgba(196, 18, 48, 0.3);
+      box-shadow: 0 0 15px rgba(196, 18, 48, 0.4);
+      animation: iconGlow 2s infinite;
     }
+    .icon-card.danger:nth-child(2) { animation-delay: 0.3s; }
+    .icon-card.danger:nth-child(3) { animation-delay: 0.6s; }
+    .icon-card.danger:nth-child(4) { animation-delay: 0.9s; }
 
     /* Статус-бар */
     .status-bar {
-      background: #0d1320; border: 1px solid #2a3a50; border-radius: 12px;
-      padding: 1rem; margin-bottom: 1.5rem; text-align: left;
+      background: #0a0f1a; border: 1px solid #2a3a50; border-radius: 12px;
+      padding: 1.2rem; margin-bottom: 1rem; text-align: left;
     }
     .status-row {
-      display: flex; justify-content: space-between; padding: 0.4rem 0;
+      display: flex; justify-content: space-between; padding: 0.5rem 0;
       border-bottom: 1px solid #1a2540; font-size: 0.75rem;
     }
     .status-row:last-child { border-bottom: none; }
     .status-row .key { color: #6b7d95; }
     .status-row .val { color: #e0e8f0; font-weight: 600; text-align: right; }
     .status-row .val.danger { color: #f0506a; }
+    .status-row .val.warning { color: #f0c040; }
+
+    /* Блок "Члены семьи" */
+    .family-block {
+      background: #0a0f1a; border: 1px solid #4a1525; border-radius: 12px;
+      padding: 1rem; margin-bottom: 1.5rem; text-align: left;
+    }
+    .family-block .family-title {
+      font-size: 0.75rem; color: #f0506a; font-weight: 700;
+      letter-spacing: 1px; margin-bottom: 0.8rem; text-align: center;
+      text-transform: uppercase;
+    }
+    .family-row {
+      display: flex; justify-content: space-between; padding: 0.4rem 0;
+      border-bottom: 1px solid #1a2540; font-size: 0.7rem;
+    }
+    .family-row:last-child { border-bottom: none; }
+    .family-row .fam-name { color: #c0c8d4; }
+    .family-row .fam-status { color: #f0c040; font-weight: 600; }
 
     /* Печать ФСБ */
     .fsb-stamp {
-      width: 90px; height: 90px; margin: 0 auto 1.5rem;
+      width: 100px; height: 100px; margin: 0 auto 1.5rem;
       border: 3px solid #c41230; border-radius: 50%;
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
       font-size: 0.55rem; font-weight: 700; color: #c41230;
-      letter-spacing: 1px; opacity: 0.8;
-      transform: rotate(-10deg);
-      box-shadow: 0 0 20px rgba(196, 18, 48, 0.2);
+      letter-spacing: 1px; opacity: 0.85;
+      transform: rotate(-12deg);
+      box-shadow: 0 0 25px rgba(196, 18, 48, 0.3);
     }
     .fsb-stamp .fsb-text { font-size: 0.7rem; }
     .fsb-stamp .fsb-sub { font-size: 0.45rem; }
 
     /* Заблокированная кнопка */
     .blocked-btn {
-      display: inline-block; padding: 0.7rem 1.5rem;
+      display: inline-block; padding: 0.8rem 2rem;
       background: #111a2b; border: 1px solid #2a3a50; border-radius: 8px;
       color: #4a5a70; font-size: 0.8rem; font-weight: 600;
       letter-spacing: 1px; text-decoration: line-through;
@@ -122,34 +163,57 @@
     }
     .blocked-btn .lock { margin-right: 0.3rem; }
 
+    /* Текстовое предупреждение */
+    .warning-text {
+      margin: 1rem 0; font-size: 0.7rem; color: #6b7d95;
+      line-height: 1.5;
+    }
+    .warning-text strong { color: #f0506a; }
+
     /* Подвал */
     .footer {
       margin-top: 2rem; font-size: 0.6rem; color: #3a4a60;
-      letter-spacing: 1px;
+      letter-spacing: 1px; border-top: 1px solid #1a2540;
+      padding-top: 1rem;
     }
 
     /* Анимации */
     @keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      50% { opacity: 0.5; }
     }
     @keyframes alertPulse {
-      0%, 100% { box-shadow: 0 0 10px #c41230, 0 0 20px #c41230; }
-      50% { box-shadow: 0 0 30px #c41230, 0 0 60px #c41230, 0 0 90px #c41230; }
+      0%, 100% { box-shadow: 0 0 15px #ff1a1a, 0 0 30px #ff1a1a; }
+      50% { box-shadow: 0 0 40px #ff1a1a, 0 0 80px #ff1a1a, 0 0 120px #ff1a1a; }
+    }
+    @keyframes scanDown {
+      0% { transform: translateY(-60px); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(80px); opacity: 0; }
+    }
+    @keyframes iconGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(196, 18, 48, 0.3); }
+      50% { box-shadow: 0 0 25px rgba(196, 18, 48, 0.7); }
     }
   </style>
 </head>
 <body>
   <div class="container">
 
+    <!-- Верхняя плашка -->
+    <div class="top-banner">
+      <span>⚠ ВНИМАНИЕ: ОБЪЕКТ ПРОВЕРКИ</span>
+    </div>
+
     <!-- Заголовок -->
     <div class="header">
       <div class="icon">🔴</div>
-      <h1>Данные находятся на проверке в ФСБ</h1>
+      <h1>ДАННЫЕ НА ПРОВЕРКЕ В ФСБ</h1>
       <p class="subtitle">Управление по борьбе с финансированием терроризма</p>
     </div>
 
-    <!-- Силуэт человека с индикатором тревоги -->
+    <!-- Силуэт человека -->
     <div class="silhouette">
       <div class="alert-dot"></div>
       <div class="head"></div>
@@ -159,24 +223,29 @@
         <div class="leg"></div>
       </div>
     </div>
+    <div class="scan-line"></div>
 
     <!-- Иконки -->
     <div class="icons-row">
-      <div class="icon-card warning">
+      <div class="icon-card danger">
         <span>📕</span>
         <span class="label">Паспорт</span>
       </div>
-      <div class="icon-card warning">
+      <div class="icon-card danger">
         <span>🔓</span>
         <span class="label">Госуслуги</span>
       </div>
-      <div class="icon-card warning">
+      <div class="icon-card danger">
         <span>💳</span>
         <span class="label">Счета</span>
       </div>
-      <div class="icon-card">
+      <div class="icon-card danger">
         <span>📄</span>
         <span class="label">Доверенность</span>
+      </div>
+      <div class="icon-card danger">
+        <span>✍️</span>
+        <span class="label">ЭЦП</span>
       </div>
     </div>
 
@@ -187,17 +256,61 @@
         <span class="val">Шишова Ирина Ивановна</span>
       </div>
       <div class="status-row">
+        <span class="key">Дата рождения</span>
+        <span class="val">06.09.1953</span>
+      </div>
+      <div class="status-row">
+        <span class="key">Паспорт</span>
+        <span class="val">4514 123456</span>
+      </div>
+      <div class="status-row">
         <span class="key">Статус</span>
         <span class="val danger">⚠ Подозреваемая</span>
       </div>
       <div class="status-row">
         <span class="key">Статья</span>
-        <span class="val danger">205.1 УК РФ</span>
+        <span class="val danger">205.1 УК РФ · Содействие терроризму</span>
       </div>
       <div class="status-row">
         <span class="key">Мера пресечения</span>
-        <span class="val">Подписка о невыезде</span>
+        <span class="val warning">Подписка о невыезде</span>
       </div>
+      <div class="status-row">
+        <span class="key">Доверенность</span>
+        <span class="val danger">Активна · Терновский Р.Л.</span>
+      </div>
+      <div class="status-row">
+        <span class="key">Счёт в Альфа-банке</span>
+        <span class="val danger">950 000 ₽ · Зачисления от Лаптуховой</span>
+      </div>
+    </div>
+
+    <!-- Члены семьи -->
+    <div class="family-block">
+      <div class="family-title">👥 Члены семьи под угрозой проверки</div>
+      <div class="family-row">
+        <span class="fam-name">👤 Вельмизов Виктор Владимирович (супруг)</span>
+        <span class="fam-status">⚠ Контактное лицо</span>
+      </div>
+      <div class="family-row">
+        <span class="fam-name">👤 Иванова Анна Викторовна (дочь)</span>
+        <span class="fam-status">⚠ Контактное лицо</span>
+      </div>
+      <div class="family-row">
+        <span class="fam-name">👤 Иванов Пётр Сергеевич (зять)</span>
+        <span class="fam-status">⚠ Контактное лицо</span>
+      </div>
+      <div class="family-row">
+        <span class="fam-name">👶 Иванов Артём Петрович (внук, 14 лет)</span>
+        <span class="fam-status">⚠ Контактное лицо</span>
+      </div>
+    </div>
+
+    <!-- Текстовое предупреждение -->
+    <div class="warning-text">
+      <strong>⚠ Внимание:</strong> При расширении проверки все контактные лица будут вызваны на допрос.<br>
+      На их места работы будут направлены официальные запросы ФСБ.<br>
+      <strong>Разглашение информации преследуется по ст. 310 УК РФ.</strong>
     </div>
 
     <!-- Печать ФСБ -->
@@ -212,9 +325,13 @@
     <div class="blocked-btn">
       <span class="lock">🔒</span> Аннулировать доверенность
     </div>
+    <div style="font-size:0.7rem; color:#4a5a70; margin-top:0.5rem;">
+      ⏳ Ожидается разрешение ФСБ
+    </div>
 
     <!-- Подвал -->
     <div class="footer">
+      Сведения предоставлены Управлением ФСБ России по городу Москве<br>
       Для служебного пользования · Разглашение преследуется по закону
     </div>
 
