@@ -5,128 +5,327 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>РОСИНКАС · Проверка наличных</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: #0a0e17; color: #c0c8d4; font-family: 'Courier New', monospace;
-      min-height: 100vh; display: flex; justify-content: center; align-items: center;
+      background: #020408;
+      color: #c0c8d4;
+      font-family: 'Courier New', 'Segoe UI', monospace;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 1.5rem;
       background-image: 
-        radial-gradient(ellipse at 50% 0%, rgba(0,120,60,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse at 50% 100%, rgba(0,20,40,0.8) 0%, transparent 70%);
+        radial-gradient(ellipse at 50% 0%, rgba(0,120,60,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse at 50% 100%, rgba(0,20,40,0.9) 0%, transparent 70%);
     }
-    .container { max-width: 800px; width: 100%; margin: 0 auto; }
 
-    /* ШАПКА */
+    .container {
+      max-width: 850px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* === ШАПКА === */
     .header {
-      text-align: center; margin-bottom: 1.5rem; padding: 1.2rem;
-      background: rgba(10,15,26,0.8); border: 1px solid #1e3040; border-radius: 12px;
-    }
-    .header .logo {
-      font-size: 1.8rem; font-weight: 900; color: #c0a060; letter-spacing: 3px;
-      text-shadow: 0 0 20px rgba(192,160,96,0.4); margin-bottom: 0.3rem;
-    }
-    .header .subtitle {
-      font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(10, 15, 26, 0.8);
+      border: 1px solid #1e3040;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
     }
 
-    /* КАРТОЧКИ */
-    .card {
-      background: #0a101c; border: 1px solid #1e3040; border-radius: 10px;
-      padding: 1rem; margin-bottom: 0.8rem;
+    .logo-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 15px rgba(192, 160, 96, 0.5));
     }
-    .card.warning { border-color: #4a3a15; box-shadow: 0 0 20px rgba(192,160,96,0.1); }
-    .card.danger { border-color: #4a1525; box-shadow: 0 0 20px rgba(196,18,48,0.1); }
-    .card-title {
-      font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px;
-      margin-bottom: 0.8rem; text-transform: uppercase;
-      display: flex; align-items: center; gap: 0.4rem;
-    }
-    .card-title .dot { width: 6px; height: 6px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
-    .dot.green { background: #50f070; box-shadow: 0 0 8px rgba(80,240,112,0.5); }
-    .dot.red { background: #c41230; box-shadow: 0 0 8px rgba(196,18,48,0.5); }
-    .dot.yellow { background: #f0c040; box-shadow: 0 0 8px rgba(240,192,64,0.5); }
 
-    /* ТАЙМЕР */
+    .logo-text {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #c0a060;
+      letter-spacing: 6px;
+      text-shadow: 0 0 25px rgba(192, 160, 96, 0.5);
+    }
+
+    .subtitle {
+      font-size: 0.7rem;
+      color: #7a8ba6;
+      letter-spacing: 3px;
+      margin-top: 0.5rem;
+    }
+
+    /* === ТАЙМЕР === */
     .timer-card {
-      background: #0a0f1a; border: 2px solid #4a3a15; border-radius: 12px;
-      padding: 0.8rem; text-align: center; margin-bottom: 0.8rem;
+      background: linear-gradient(145deg, #0a0f1a, #0d1320);
+      border: 2px solid #4a3a15;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 40px rgba(240, 192, 64, 0.15);
       animation: timerGlow 3s infinite;
     }
+
     .timer-title {
-      font-size: 0.65rem; color: #f0c040; letter-spacing: 2px;
-      margin-bottom: 0.4rem; text-transform: uppercase;
+      font-size: 0.7rem;
+      color: #f0c040;
+      letter-spacing: 3px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
     }
+
     .timer-value {
-      font-size: 1.6rem; font-weight: 700; color: #f0c040;
-      text-shadow: 0 0 20px rgba(240,192,64,0.5); letter-spacing: 2px;
+      font-size: 3rem;
+      font-weight: 900;
+      color: #f0c040;
+      text-shadow: 0 0 25px rgba(240, 192, 64, 0.7);
+      letter-spacing: 4px;
     }
+
     .timer-sub {
-      font-size: 0.55rem; color: #6b7d95; margin-top: 0.3rem;
+      font-size: 0.6rem;
+      color: #6b7d95;
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
     }
 
-    /* ПРОГРЕСС */
-    .progress-bar { margin: 0.6rem 0; }
-    .progress-label { display: flex; justify-content: space-between; font-size: 0.55rem; color: #6b7d95; margin-bottom: 0.2rem; }
-    .progress-track { height: 6px; background: #1a2540; border-radius: 3px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #50f070, #f0c040); border-radius: 3px; transition: width 0.3s; }
+    /* === ПРОГРЕСС === */
+    .progress-section {
+      margin-top: 1rem;
+    }
 
-    /* СЧЁТЧИКИ */
-    .counters {
-      display: flex; justify-content: space-around; margin: 0.8rem 0;
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6rem;
+      color: #6b7d95;
+      margin-bottom: 0.3rem;
+      letter-spacing: 1px;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: #1a2540;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #50f070, #f0c040);
+      border-radius: 5px;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 15px rgba(240, 192, 64, 0.5);
+    }
+
+    /* === КАРТОЧКИ === */
+    .card {
+      background: #0a101c;
+      border: 1px solid #1e3040;
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 0.65rem;
+      color: #7a8ba6;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: dotPulse 1.5s infinite;
+    }
+    .dot.green { background: #50f070; box-shadow: 0 0 10px rgba(80,240,112,0.6); }
+    .dot.red { background: #ff2d2d; box-shadow: 0 0 10px rgba(255,50,50,0.6); }
+    .dot.yellow { background: #f0c040; box-shadow: 0 0 10px rgba(240,192,64,0.6); }
+
+    /* === СЧЁТЧИКИ === */
+    .stats {
+      display: flex;
+      justify-content: space-around;
       text-align: center;
+      margin: 0.5rem 0 1rem;
     }
-    .counter-item { }
-    .counter-num { font-size: 1.1rem; font-weight: 700; }
-    .counter-label { font-size: 0.55rem; color: #6b7d95; margin-top: 0.1rem; }
 
-    /* ПОТОК КУПЮР */
-    .banknote-flow {
-      display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;
-      max-height: 300px; overflow-y: auto; padding: 0.4rem;
+    .stat-item {
+      flex: 1;
     }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 0.55rem;
+      color: #6b7d95;
+      letter-spacing: 1px;
+      margin-top: 0.2rem;
+    }
+
+    /* === СЕТКА КУПЮР === */
+    .banknote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+      gap: 5px;
+      justify-items: center;
+      margin: 0.5rem 0;
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 0.3rem;
+    }
+
     .banknote-tile {
-      width: 36px; height: 22px; border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.5rem; font-weight: 700; letter-spacing: 0.5px;
-      opacity: 0; transform: scale(0); transition: all 0.3s ease;
+      width: 38px;
+      height: 24px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
     }
-    .banknote-tile.show { opacity: 1; transform: scale(1); }
-    .banknote-tile.clean { background: #0a2a0f; color: #50f070; border: 1px solid #154a25; }
-    .banknote-tile.dirty { background: #2a0a0f; color: #f0506a; border: 1px solid #4a1525; }
-    .banknote-tile.pending { background: #1a1a0a; color: #f0c040; border: 1px solid #4a3a15; animation: dotPulse 1s infinite; }
 
-    /* ЛЕНТА */
-    .log {
-      max-height: 150px; overflow-y: auto; font-size: 0.55rem;
-      color: #6b7d95; margin-top: 0.6rem;
+    .banknote-tile.show {
+      opacity: 1;
+      transform: scale(1);
     }
-    .log-entry { padding: 0.2rem 0; border-bottom: 1px solid #1a2540; }
-    .log-entry .time { color: #4a5a70; margin-right: 0.5rem; }
 
-    /* ПРЕДУПРЕЖДЕНИЕ */
+    .banknote-tile.clean {
+      background: linear-gradient(145deg, #0a2a0f, #0d3d15);
+      color: #50f070;
+      border: 1px solid #154a25;
+      box-shadow: 0 0 10px rgba(80,240,112,0.3);
+    }
+
+    .banknote-tile.dirty {
+      background: linear-gradient(145deg, #2a0a0f, #3d1015);
+      color: #ff4d4d;
+      border: 1px solid #4a1525;
+      box-shadow: 0 0 12px rgba(255,50,50,0.4);
+      animation: dirtyGlow 1.5s infinite;
+    }
+
+    /* === ЛЕНТА ЛОГОВ === */
+    .log-container {
+      max-height: 140px;
+      overflow-y: auto;
+      font-size: 0.55rem;
+      color: #6b7d95;
+      margin-top: 0.8rem;
+      background: #060b14;
+      border-radius: 8px;
+      padding: 0.5rem;
+      border: 1px solid #1a2540;
+    }
+
+    .log-entry {
+      padding: 0.25rem 0;
+      border-bottom: 1px solid #111a28;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .log-time {
+      color: #4a5a70;
+      font-size: 0.5rem;
+      min-width: 45px;
+    }
+
+    .log-serial {
+      letter-spacing: 0.5px;
+      min-width: 70px;
+    }
+
+    .log-nominal {
+      min-width: 45px;
+      text-align: right;
+    }
+
+    .log-status {
+      font-weight: 700;
+      min-width: 70px;
+      text-align: right;
+    }
+
+    /* === ПРЕДУПРЕЖДЕНИЕ === */
     .warning-box {
-      background: #1a0a0f; border: 1px solid #4a1525; border-radius: 6px;
-      padding: 0.6rem; margin-top: 0.8rem; font-size: 0.6rem; color: #f0506a;
-      text-align: center; letter-spacing: 1px;
+      background: #1a0a0f;
+      border: 1px solid #4a1525;
+      border-radius: 8px;
+      padding: 0.7rem;
+      margin-top: 0.8rem;
+      font-size: 0.6rem;
+      color: #f0506a;
+      text-align: center;
+      letter-spacing: 1px;
     }
 
+    .warning-box strong {
+      color: #ff4d4d;
+      font-size: 0.7rem;
+    }
+
+    /* === ПОДВАЛ === */
     .footer {
-      text-align: center; margin-top: 1.5rem; font-size: 0.5rem; color: #3a4a60;
-      border-top: 1px solid #1a2540; padding-top: 0.8rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.5rem;
+      color: #3a4a60;
+      border-top: 1px solid #1a2540;
+      padding-top: 1rem;
+      letter-spacing: 1px;
     }
 
+    /* === АНИМАЦИИ === */
     @keyframes dotPulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
+
     @keyframes timerGlow {
-      0%, 100% { box-shadow: 0 0 8px rgba(240,192,64,0.3); }
-      50% { box-shadow: 0 0 20px rgba(240,192,64,0.6); }
+      0%, 100% { box-shadow: 0 0 20px rgba(240,192,64,0.2); }
+      50% { box-shadow: 0 0 45px rgba(240,192,64,0.5); }
     }
+
+    @keyframes dirtyGlow {
+      0%, 100% { box-shadow: 0 0 8px rgba(255,50,50,0.3); }
+      50% { box-shadow: 0 0 20px rgba(255,50,50,0.7); }
+    }
+
+    /* === СКРОЛЛБАР === */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0a101c; }
+    ::-webkit-scrollbar-thumb { background: #2a3a50; border-radius: 2px; }
 
     @media (max-width: 500px) {
       body { padding: 0.5rem; }
-      .banknote-tile { width: 28px; height: 18px; font-size: 0.4rem; }
+      .banknote-grid { grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); }
+      .banknote-tile { width: 30px; height: 20px; font-size: 0.4rem; }
+      .timer-value { font-size: 2rem; }
     }
   </style>
 </head>
@@ -135,65 +334,67 @@
 
     <!-- ШАПКА -->
     <div class="header">
-      <div class="logo">РОСИНКАС</div>
-      <div class="subtitle">Российское объединение инкассации · Центральный банк РФ</div>
+      <div class="logo-icon">🏛️</div>
+      <div class="logo-text">РОСИНКАС</div>
+      <div class="subtitle">Российское объединение инкассации<br>Центральный банк Российской Федерации</div>
     </div>
 
-    <!-- ТАЙМЕР + ПРОГРЕСС -->
+    <!-- ТАЙМЕР -->
     <div class="timer-card">
-      <div class="timer-title">⏳ Проверка завершится через</div>
+      <div class="timer-title">⏳ Экспертиза завершится через</div>
       <div class="timer-value" id="timer">1:59:59</div>
-      <div class="timer-sub">идёт экспертиза подлинности купюр</div>
-      <div class="progress-bar">
-        <div class="progress-label"><span>Обработано</span><span id="progressPercent">0%</span></div>
+      <div class="timer-sub">идёт проверка подлинности и легальности купюр</div>
+      <div class="progress-section">
+        <div class="progress-label"><span>Прогресс проверки</span><span id="progressPercent">0%</span></div>
         <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
       </div>
     </div>
 
-    <!-- СЧЁТЧИКИ -->
+    <!-- СТАТИСТИКА -->
     <div class="card">
       <div class="card-title"><span class="dot yellow"></span> Статистика проверки</div>
-      <div class="counters">
-        <div class="counter-item">
-          <div class="counter-num" style="color:#50f070;" id="cleanCount">0</div>
-          <div class="counter-label">Чистые</div>
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-value" style="color:#50f070;" id="cleanCount">0</div>
+          <div class="stat-label">Чистые купюры</div>
         </div>
-        <div class="counter-item">
-          <div class="counter-num" style="color:#f0c040;" id="pendingCount">150</div>
-          <div class="counter-label">Ожидают</div>
+        <div class="stat-item">
+          <div class="stat-value" style="color:#f0c040;" id="pendingCount">150</div>
+          <div class="stat-label">Ожидают проверки</div>
         </div>
-        <div class="counter-item">
-          <div class="counter-num" style="color:#f0506a;" id="dirtyCount">0</div>
-          <div class="counter-label">Меченые</div>
+        <div class="stat-item">
+          <div class="stat-value" style="color:#ff4d4d;" id="dirtyCount">0</div>
+          <div class="stat-label">Меченые купюры</div>
         </div>
+      </div>
+      <div class="warning-box">
+        <strong>⚠ ВНИМАНИЕ</strong><br>
+        Выявлены купюры с признаками компрометации. Данные банкноты были подмешаны сотрудниками банка и проходят по ориентировкам как «меченые» по делам о мошенничестве. <strong>35% купюр имеют статус «меченые».</strong> После завершения экспертизы будет выдано заключение и сертификат легальности.
       </div>
     </div>
 
-    <!-- ПОТОК КУПЮР -->
+    <!-- СЕТКА КУПЮР -->
     <div class="card">
-      <div class="card-title"><span class="dot green"></span> Поток проверки купюр</div>
-      <div class="banknote-flow" id="banknoteFlow"></div>
-      <div class="log" id="logBox"></div>
+      <div class="card-title"><span class="dot green"></span> Поток проверки · Пакет АВ-48821</div>
+      <div class="banknote-grid" id="banknoteGrid"></div>
+      <div class="log-container" id="logContainer"></div>
     </div>
 
-    <!-- ИТОГОВАЯ ИНФОРМАЦИЯ -->
+    <!-- ИНФОРМАЦИЯ -->
     <div class="card">
-      <div class="card-title">📋 Информация о пакете</div>
+      <div class="card-title">📋 Данные пакета</div>
       <table style="width:100%; font-size:0.6rem; border-collapse:collapse;">
         <tr><td style="color:#6b7d95; padding:0.3rem;">Номер пакета</td><td style="padding:0.3rem;">АВ-48821</td></tr>
         <tr><td style="color:#6b7d95; padding:0.3rem;">Владелец</td><td style="padding:0.3rem;">Шишова Ирина Ивановна</td></tr>
         <tr><td style="color:#6b7d95; padding:0.3rem;">Общая сумма</td><td style="padding:0.3rem;">1 500 000 ₽</td></tr>
         <tr><td style="color:#6b7d95; padding:0.3rem;">Купюр всего</td><td style="padding:0.3rem;">150 шт.</td></tr>
+        <tr><td style="color:#6b7d95; padding:0.3rem;">Статус</td><td style="color:#f0c040; padding:0.3rem;">⏳ На экспертизе</td></tr>
       </table>
-      <div class="warning-box">
-        ⚠ Часть купюр проходит по ориентировке как «меченые»<br>
-        Данные купюры были подмешаны сотрудниками банка и проходят по делам о мошенничестве
-      </div>
     </div>
 
     <div class="footer">
       РОСИНКАС · Центральный банк Российской Федерации<br>
-      Информация обновляется в реальном времени
+      Система онлайн-мониторинга экспертизы наличных · Версия 3.2.1
     </div>
 
   </div>
@@ -201,37 +402,34 @@
   <script>
     // === КОНФИГУРАЦИЯ ===
     const TOTAL_NOTES = 150;
-    const TOTAL_TIME_SECONDS = 2 * 3600; // 2 часа в секундах
-    const DIRTY_RATIO = 0.10; // 10% меченых купюр (15 шт)
-    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000; // интервал между купюрами в мс
+    const TOTAL_TIME_SECONDS = 2 * 3600; // 2 часа
+    const DIRTY_RATIO = 0.35; // 35% меченых (≈53 штуки)
+    const INTERVAL = (TOTAL_TIME_SECONDS / TOTAL_NOTES) * 1000;
 
-    // === ДАННЫЕ ===
+    // === ГЕНЕРАЦИЯ КУПЮР ===
     const notes = [];
     const dirtyIndices = new Set();
     
-    // Выбираем случайные индексы для меченых купюр
     while (dirtyIndices.size < Math.floor(TOTAL_NOTES * DIRTY_RATIO)) {
       dirtyIndices.add(Math.floor(Math.random() * TOTAL_NOTES));
     }
 
-    // Генерируем купюры
     const letters = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ';
     for (let i = 0; i < TOTAL_NOTES; i++) {
       const l1 = letters[Math.floor(Math.random() * letters.length)];
       const l2 = letters[Math.floor(Math.random() * letters.length)];
       const num = String(Math.floor(Math.random() * 9000000 + 1000000));
-      const isDirty = dirtyIndices.has(i);
       notes.push({
         serial: l1 + l2 + ' ' + num,
-        nominal: Math.random() > 0.3 ? '5000' : '1000',
-        dirty: isDirty,
+        nominal: Math.random() > 0.25 ? '5000' : '1000',
+        dirty: dirtyIndices.has(i),
         revealed: false
       });
     }
 
     // === DOM-ЭЛЕМЕНТЫ ===
-    const flow = document.getElementById('banknoteFlow');
-    const logBox = document.getElementById('logBox');
+    const grid = document.getElementById('banknoteGrid');
+    const logContainer = document.getElementById('logContainer');
     const timerEl = document.getElementById('timer');
     const progressPercent = document.getElementById('progressPercent');
     const progressFill = document.getElementById('progressFill');
@@ -239,14 +437,14 @@
     const dirtyCountEl = document.getElementById('dirtyCount');
     const pendingCountEl = document.getElementById('pendingCount');
 
-    // Создаём плитки
+    // === СОЗДАНИЕ ПЛИТОК ===
     const tiles = [];
     for (let i = 0; i < TOTAL_NOTES; i++) {
       const tile = document.createElement('div');
       tile.className = 'banknote-tile';
       tile.textContent = notes[i].nominal;
-      tile.title = notes[i].serial + (notes[i].dirty ? ' (МЕЧЕНАЯ)' : '');
-      flow.appendChild(tile);
+      tile.title = notes[i].serial + (notes[i].dirty ? ' ⚠ МЕЧЕНАЯ' : '');
+      grid.appendChild(tile);
       tiles.push(tile);
     }
 
@@ -283,14 +481,19 @@
                    String(now.getSeconds()).padStart(2,'0');
       const entry = document.createElement('div');
       entry.className = 'log-entry';
-      const status = dirty ? '✗ МЕЧЕНАЯ' : '✓ Чистая';
-      const color = dirty ? '#f0506a' : '#50f070';
-      entry.innerHTML = `<span class="time">${time}</span> ${serial} · ${nominal} ₽ · <span style="color:${color}">${status}</span>`;
-      logBox.appendChild(entry);
-      logBox.scrollTop = logBox.scrollHeight;
+      const statusText = dirty ? '✗ МЕЧЕНАЯ' : '✓ Чистая';
+      const statusColor = dirty ? '#ff4d4d' : '#50f070';
+      entry.innerHTML = `
+        <span class="log-time">${time}</span>
+        <span class="log-serial">${serial}</span>
+        <span class="log-nominal">${nominal} ₽</span>
+        <span class="log-status" style="color:${statusColor}">${statusText}</span>
+      `;
+      logContainer.appendChild(entry);
+      logContainer.scrollTop = logContainer.scrollHeight;
     }
 
-    // === ПООЧЕРЁДНОЕ ПРОЯВЛЕНИЕ КУПЮР ===
+    // === ПООЧЕРЁДНОЕ ПРОЯВЛЕНИЕ ===
     function revealNext(index) {
       if (index >= TOTAL_NOTES) return;
 
@@ -309,22 +512,19 @@
         cleanCount++;
       }
 
-      // Обновляем счётчики
       cleanCountEl.textContent = cleanCount;
       dirtyCountEl.textContent = dirtyCount;
       pendingCountEl.textContent = pendingCount;
 
-      // Лог
       addLog(note.serial, note.nominal, note.dirty);
 
-      // Следующая купюра
       if (index + 1 < TOTAL_NOTES) {
         setTimeout(() => revealNext(index + 1), INTERVAL);
       }
     }
 
-    // Запускаем через 2 секунды после загрузки
-    setTimeout(() => revealNext(0), 2000);
+    // Запуск через 1.5 секунды
+    setTimeout(() => revealNext(0), 1500);
 
   </script>
 </body>
