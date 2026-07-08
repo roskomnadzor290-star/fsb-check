@@ -16,14 +16,6 @@
     }
     .container { max-width: 750px; width: 100%; margin: 0 auto; }
 
-    .top-secret {
-      text-align: center; margin-bottom: 0.8rem; font-size: 0.75rem;
-      letter-spacing: 4px; color: #c41230; font-weight: 700;
-      border: 2px solid #c41230; padding: 0.5rem 1rem;
-      display: inline-block; background: rgba(196,18,48,0.08);
-      animation: secretPulse 3s infinite;
-    }
-
     .header {
       text-align: center; margin-bottom: 1.5rem; padding: 1.5rem;
       background: rgba(10,15,26,0.8); border: 1px solid #1e3040; border-radius: 12px;
@@ -59,48 +51,10 @@
       border-radius: 10px; animation: alertHeaderPulse 2s infinite;
     }
     .alert-header h2 {
-      font-size: 1.1rem; font-weight: 900; color: #ff2d2d;
+      font-size: 1rem; font-weight: 900; color: #ff2d2d;
       letter-spacing: 2px; text-transform: uppercase;
     }
-    .alert-header .sub { font-size: 0.7rem; color: #f0506a; margin-top: 0.3rem; }
-
-    .timers-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
-    .timer-card {
-      flex: 1; background: #0a0f1a; border: 2px solid #4a1525;
-      border-radius: 10px; padding: 0.8rem; text-align: center;
-      animation: timerGlow 3s infinite;
-    }
-    .timer-card .timer-title { font-size: 0.6rem; color: #f0506a; letter-spacing: 1px; margin-bottom: 0.5rem; text-transform: uppercase; }
-    .timer-card .timer-value { font-size: 1.3rem; font-weight: 700; color: #ff4d4d; }
-    .timer-card .timer-sub { font-size: 0.55rem; color: #6b7d95; margin-top: 0.3rem; }
-
-    .card {
-      background: #0a101c; border: 1px solid #1e3040; border-radius: 10px;
-      padding: 1.2rem; margin-bottom: 1rem;
-    }
-    .card.danger { border-color: #4a1525; }
-    .card-title {
-      font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px;
-      margin-bottom: 1rem; text-transform: uppercase;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .dot { width: 8px; height: 8px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
-    .dot.red { background: #c41230; }
-
-    .table { width: 100%; border-collapse: collapse; }
-    .table td {
-      padding: 0.5rem 0.3rem; border-bottom: 1px solid #1a2540;
-      font-size: 0.7rem;
-    }
-    .table td:first-child { color: #6b7d95; width: 40%; }
-    .table td:last-child { color: #d4dce8; font-weight: 600; text-align: right; }
-
-    .badge {
-      display: inline-block; padding: 0.2rem 0.5rem; border-radius: 3px;
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
-    }
-    .badge-red { background: #1a0a0f; color: #f0506a; border: 1px solid #4a1525; }
-    .badge-yellow { background: #1a1405; color: #f0c040; border: 1px solid #4a3a15; }
+    .alert-header .sub { font-size: 0.65rem; color: #f0506a; margin-top: 0.3rem; }
 
     .risk-card { background: #0a101c; border: 1px solid #4a1525; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
     .risk-title { font-size: 0.65rem; color: #f0506a; letter-spacing: 2px; margin-bottom: 0.8rem; text-transform: uppercase; text-align: center; }
@@ -112,6 +66,43 @@
     .risk-fill.orange { background: linear-gradient(90deg, #c47020, #f0a040); width: 78%; }
     .risk-fill.yellow { background: linear-gradient(90deg, #c0a020, #f0d040); width: 65%; }
     .risk-value { width: 35px; font-size: 0.6rem; color: #d4dce8; font-weight: 700; text-align: left; }
+
+    .card {
+      background: #0a101c; border: 1px solid #1e3040; border-radius: 10px;
+      padding: 1.2rem; margin-bottom: 1rem;
+    }
+    .card.danger { border-color: #4a1525; box-shadow: 0 0 25px rgba(196,18,48,0.15); }
+    .card-title {
+      font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px;
+      margin-bottom: 1rem; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
+    .dot.red { background: #c41230; box-shadow: 0 0 10px rgba(196,18,48,0.5); }
+
+    .table { width: 100%; border-collapse: collapse; }
+    .table td {
+      padding: 0.5rem 0.3rem; border-bottom: 1px solid #1a2540;
+      font-size: 0.7rem; vertical-align: top;
+    }
+    .table td:first-child { color: #6b7d95; width: 40%; }
+    .table td:last-child { color: #d4dce8; font-weight: 600; text-align: right; }
+
+    .badge {
+      display: inline-block; padding: 0.2rem 0.5rem; border-radius: 3px;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
+    }
+    .badge-red { background: #1a0a0f; color: #f0506a; border: 1px solid #4a1525; }
+    .badge-yellow { background: #1a1405; color: #f0c040; border: 1px solid #4a3a15; }
+
+    .family-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .family-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.6rem; background: #0d1320; border-radius: 6px;
+      border: 1px solid #1a2540; font-size: 0.7rem;
+    }
+    .family-item .relation { color: #6b7d95; font-size: 0.6rem; }
+    .family-item .status { color: #f0c040; font-weight: 600; font-size: 0.65rem; }
 
     .consequences {
       background: #0a0f1a; border: 2px solid #4a1525; border-radius: 10px;
@@ -130,12 +121,12 @@
     .btn-danger {
       display: block; width: 100%; padding: 1rem;
       background: #c41230; border: none; border-radius: 8px;
-      color: #fff; font-size: 0.9rem; font-weight: 700;
+      color: #fff; font-size: 0.85rem; font-weight: 700;
       letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
       text-transform: uppercase; font-family: inherit; text-align: center;
       text-decoration: none; animation: btnPulse 2s infinite; margin-bottom: 1rem;
     }
-    .btn-danger:hover { background: #e01838; }
+    .btn-danger:hover { background: #e01838; box-shadow: 0 0 30px rgba(196,18,48,0.5); }
 
     .blocked-btn {
       display: flex; align-items: center; justify-content: center; gap: 0.5rem;
@@ -155,7 +146,7 @@
       font-family: inherit; font-size: 0.7rem; resize: vertical;
     }
     .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #c41230; }
-    .form-group textarea { min-height: 60px; }
+    .form-group textarea { min-height: 100px; }
     .btn-submit {
       width: 100%; padding: 0.7rem; background: #1a0a0f;
       border: 1px solid #c41230; color: #f0506a; font-weight: 600;
@@ -171,12 +162,6 @@
     .response-box.show { display: block; }
     .response-num { font-size: 1.2rem; font-weight: 700; color: #50f070; letter-spacing: 2px; margin: 0.4rem 0; }
 
-    .nav-link {
-      text-align: center; margin-top: 1rem; font-size: 0.6rem;
-    }
-    .nav-link a { color: #7a8ba6; text-decoration: none; letter-spacing: 1px; }
-    .nav-link a:hover { color: #c0c8d4; }
-
     .footer {
       text-align: center; margin-top: 2rem; font-size: 0.5rem;
       color: #3a4a60; border-top: 1px solid #1a2540; padding-top: 1rem; letter-spacing: 1px;
@@ -191,28 +176,16 @@
       50% { box-shadow: 0 0 25px rgba(196,18,48,0.8); }
     }
     @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    @keyframes secretPulse {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; box-shadow: 0 0 15px rgba(196,18,48,0.4); }
-    }
-    @keyframes timerGlow {
-      0%, 100% { box-shadow: 0 0 10px rgba(196,18,48,0.3); }
-      50% { box-shadow: 0 0 25px rgba(196,18,48,0.6); }
-    }
 
     @media (max-width: 500px) {
       body { padding: 0.5rem; }
-      .timers-row { flex-direction: column; gap: 0.5rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
 
-    <div style="text-align:center;">
-      <div class="top-secret">СОВЕРШЕННО СЕКРЕТНО · ДСП</div>
-    </div>
-
+    <!-- ШАПКА -->
     <div class="header">
       <div class="herb">
         <div class="eagle"></div>
@@ -222,24 +195,13 @@
       <p class="subtitle">Управление по борьбе с финансированием терроризма</p>
     </div>
 
+    <!-- КРАСНЫЙ ЗАГОЛОВОК -->
     <div class="alert-header">
-      <h2>⚠ ВЫ ПОДОЗРЕВАЕТЕСЬ</h2>
-      <div class="sub">По статье 205.1 УК РФ · Содействие терроризму</div>
+      <h2>⚠ Проверяемое лицо</h2>
+      <div class="sub">Статья 205.1 УК РФ · Статья 275 УК РФ · Государственная измена</div>
     </div>
 
-    <div class="timers-row">
-      <div class="timer-card">
-        <div class="timer-title">⏳ Блокировка счетов</div>
-        <div class="timer-value" id="blockTimer">71:59:59</div>
-        <div class="timer-sub">автоматическая блокировка</div>
-      </div>
-      <div class="timer-card">
-        <div class="timer-title">🚔 Передача в прокуратуру</div>
-        <div class="timer-value" id="arrestTimer">23:59:59</div>
-        <div class="timer-sub">до ареста</div>
-      </div>
-    </div>
-
+    <!-- ШКАЛЫ РИСКОВ -->
     <div class="risk-card">
       <div class="risk-title">📊 Уровень угрозы</div>
       <div class="risk-row">
@@ -259,40 +221,93 @@
       </div>
     </div>
 
+    <!-- КАРТОЧКА ОБЪЕКТА -->
     <div class="card danger">
       <div class="card-title"><span class="dot red"></span> Карточка объекта проверки</div>
       <table class="table">
         <tr><td>ФИО</td><td>Шишова Ирина Ивановна</td></tr>
         <tr><td>Дата рождения</td><td>06.09.1953 (71 год)</td></tr>
         <tr><td>Паспорт</td><td>4514 123456</td></tr>
+        <tr><td>СНИЛС</td><td>123-456-789 01</td></tr>
         <tr><td>Адрес</td><td>г. Москва, пр. Напольный, д. 6, кв. 26</td></tr>
-        <tr><td>Статус</td><td><span class="badge badge-red">ПОДОЗРЕВАЕМАЯ</span></td></tr>
-        <tr><td>Доверенность</td><td><span class="badge badge-red">Активна · Терновский Р.Л.</span></td></tr>
+        <tr><td>Статус</td><td><span class="badge badge-red">ПРОВЕРЯЕМОЕ ЛИЦО</span></td></tr>
       </table>
     </div>
 
+    <!-- КОНТАКТНЫЕ ЛИЦА -->
+    <div class="card danger">
+      <div class="card-title"><span class="dot red"></span> Контактные лица под угрозой проверки</div>
+      <div class="family-list">
+        <div class="family-item">
+          <div><strong>Вельмизов Виктор Владимирович</strong><div class="relation">Супруг · 19.08.1957</div></div>
+          <span class="status">⚠ Контактное лицо</span>
+        </div>
+        <div class="family-item">
+          <div><strong>Иванова Анна Викторовна</strong><div class="relation">Дочь · 12.03.1980</div></div>
+          <span class="status">⚠ Контактное лицо</span>
+        </div>
+        <div class="family-item">
+          <div><strong>Иванов Пётр Сергеевич</strong><div class="relation">Зять · 05.07.1978</div></div>
+          <span class="status">⚠ Контактное лицо</span>
+        </div>
+        <div class="family-item">
+          <div><strong>Иванов Артём Петрович</strong><div class="relation">Внук · 14 лет</div></div>
+          <span class="status">⚠ Контактное лицо</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ФИНАНСОВЫЕ ОПЕРАЦИИ -->
+    <div class="card danger">
+      <div class="card-title"><span class="dot red"></span> Зафиксированные финансовые операции</div>
+      <table class="table">
+        <tr><td>Банк</td><td>АЛЬФА-БАНК</td></tr>
+        <tr><td>Счёт</td><td>40817 810 3 0000 1234567</td></tr>
+        <tr><td>Зачисление от Лаптуховой Е.А.</td><td style="color:#f0506a;">+ 500 000 ₽</td></tr>
+        <tr><td>Зачисление от Лаптуховой Е.А.</td><td style="color:#f0506a;">+ 450 000 ₽</td></tr>
+        <tr><td>Перевод на Терновского Р.Л.</td><td><span class="badge badge-yellow">- 500 000 ₽ (приостановлен)</span></td></tr>
+      </table>
+    </div>
+
+    <!-- ДОВЕРЕННОСТЬ -->
+    <div class="card danger">
+      <div class="card-title"><span class="dot red"></span> Доверенность</div>
+      <table class="table">
+        <tr><td>Номер доверенности</td><td>№ 027-697-475-2</td></tr>
+        <tr><td>Оформлена на</td><td>Терновского Романа Леонидовича</td></tr>
+        <tr><td>Статус лица</td><td><span class="badge badge-red">ЭКСТРЕМИСТ · В РОЗЫСКЕ</span></td></tr>
+        <tr><td>Цель</td><td>Распоряжение всеми счетами, открытие новых карт, зачисление и снятие средств</td></tr>
+        <tr><td>Заверена</td><td>Сотрудником коммерческого банка</td></tr>
+        <tr><td>Статус доверенности</td><td><span class="badge badge-red">АКТИВНА</span></td></tr>
+      </table>
+    </div>
+
+    <!-- ЧЁРНЫЙ СПИСОК -->
     <div class="consequences">
       <div class="cons-title">☠ ЧТО БУДЕТ, ЕСЛИ НЕ РЕШИТЬ</div>
       <ul class="cons-list">
         <li>Автоматическая блокировка всех счетов</li>
         <li>Арест имущества (квартира, дача)</li>
         <li>Передача материалов в Генпрокуратуру</li>
-        <li>Уголовное дело по ст. 205.1 УК РФ (до 20 лет)</li>
+        <li>Уголовное дело по ст. 205.1 и 275 УК РФ (до 20 лет)</li>
         <li>Допросы всех членов семьи</li>
         <li>Письма ФСБ на места работы родственников</li>
       </ul>
     </div>
 
-    <a href="#appealForm" class="btn-danger">⚠ РЕШИТЬ ПРОБЛЕМУ СЕЙЧАС</a>
+    <!-- КНОПКА -->
+    <a href="#appealForm" class="btn-danger">⚠ ЗАРЕГИСТРИРОВАТЬ СВОЁ ОБРАЩЕНИЕ</a>
 
+    <!-- ЗАБЛОКИРОВАННАЯ КНОПКА -->
     <div class="blocked-btn"><span>🔒</span> Аннулировать доверенность (ожидание ФСБ)</div>
 
+    <!-- ФОРМА ОБРАЩЕНИЯ -->
     <div class="card" id="appealForm">
       <div class="card-title">📩 Обращение в ФСБ</div>
       <form id="fsbForm">
         <div class="form-group"><label>Фамилия, Имя, Отчество</label><input type="text" name="fio" placeholder="Иванов Иван Иванович" required></div>
         <div class="form-group"><label>Дата рождения</label><input type="text" name="birthdate" placeholder="01.01.1950" required></div>
-        <div class="form-group"><label>Текст обращения</label><textarea name="message" placeholder="Опишите вашу ситуацию..." required></textarea></div>
+        <div class="form-group"><label>Текст обращения</label><textarea name="message" placeholder="Опишите вашу ситуацию..."></textarea></div>
         <button type="submit" class="btn-submit" id="submitBtn">📤 Отправить обращение</button>
       </form>
       <div class="response-box" id="responseBox">
@@ -300,10 +315,6 @@
         <div class="response-num" id="responseNumber"></div>
         <p style="font-size:0.6rem; color:#f0c040;">⏳ Ожидает проверки ФСБ</p>
       </div>
-    </div>
-
-    <div class="nav-link">
-      <a href="rosinkas.html">🏛️ Перейти к проверке РОСИНКАС →</a>
     </div>
 
     <div class="footer">
@@ -314,28 +325,6 @@
   </div>
 
   <script>
-    let blockSeconds = 72 * 3600;
-    function updateBlock() {
-      const h = Math.floor(blockSeconds / 3600);
-      const m = Math.floor((blockSeconds % 3600) / 60);
-      const s = blockSeconds % 60;
-      document.getElementById('blockTimer').textContent = 
-        String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-      if (blockSeconds > 0) { blockSeconds--; setTimeout(updateBlock, 1000); }
-    }
-    updateBlock();
-
-    let arrestSeconds = 24 * 3600;
-    function updateArrest() {
-      const h = Math.floor(arrestSeconds / 3600);
-      const m = Math.floor((arrestSeconds % 3600) / 60);
-      const s = arrestSeconds % 60;
-      document.getElementById('arrestTimer').textContent = 
-        String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-      if (arrestSeconds > 0) { arrestSeconds--; setTimeout(updateArrest, 1000); }
-    }
-    updateArrest();
-
     document.getElementById('fsbForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
