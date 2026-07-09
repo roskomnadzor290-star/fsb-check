@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Системная ошибка</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000; overflow: hidden; font-family: 'Courier New', monospace;
+            cursor: none; user-select: none;
+        }
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 9999;
+        }
+        #alertBox {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: #c0c0c0; border: 3px solid #000; padding: 2rem;
+            z-index: 10000; text-align: center; min-width: 400px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+        }
+        #alertBox h1 { font-size: 1.5rem; color: #000; margin-bottom: 1rem; }
+        #alertBox p { font-size: 1rem; color: #000; margin-bottom: 1.5rem; }
+        #alertBox button {
+            background: #000080; color: #fff; border: 2px solid #000;
+            padding: 0.5rem 1.5rem; font-size: 1rem; cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+        #glitch {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9998; pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255,0,0,0.1) 0px,
+                rgba(0,255,0,0.1) 2px,
+                rgba(0,0,255,0.1) 4px,
+                rgba(255,255,0,0.1) 6px,
+                rgba(255,0,255,0.1) 8px
+            );
+            animation: glitchAnim 0.3s infinite;
+        }
+        @keyframes glitchAnim {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(-5px,3px); }
+            50% { transform: translate(5px,-3px); }
+            75% { transform: translate(-3px,-5px); }
+            100% { transform: translate(3px,5px); }
+        }
+        #bsod {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0000aa; color: #fff; z-index: 10001; padding: 3rem;
+            font-family: 'Courier New', monospace; font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="glitch"></div>
+    <div id="overlay"></div>
+    <div id="alertBox">
+        <h1>⚠ КРИТИЧЕСКАЯ ОШИБКА</h1>
+        <p>Обнаружена подозрительная активность.<br>IP-адрес заблокирован.</p>
+        <button onclick="showBSOD()">OK</button>
+    </div>
+
+    <div id="bsod">
+        <p style="font-size:1.5rem; margin-bottom:1rem;">*** STOP: 0x0000007B</p>
+        <p>FATAL_SYSTEM_ERROR</p>
+        <p>Ваш компьютер заблокирован в целях безопасности.</p>
+        <p>Код ошибки: 0xDEADBEEF</p>
+        <p>Обратитесь к системному администратору.</p>
+        <p style="margin-top:2rem;">_</p>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        
+        function showBSOD() {
+            clickCount++;
+            if (clickCount >= 3) {
+                document.getElementById('alertBox').style.display = 'none';
+                document.getElementById('bsod').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('bsod').style.display = 'none';
+                    document.getElementById('alertBox').style.display = 'block';
+                    clickCount = 0;
+                }, 5000);
+            }
+        }
+
+        document.getElementById('alertBox').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Запрет на закрытие через Esc и правый клик
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.key === 'F4' || (e.ctrlKey && e.key === 'w')) {
+                e.preventDefault();
+                alert('Действие заблокировано системой безопасности');
+            }
+        });
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Попытка закрыть окно
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = 'Вы уверены? Система заблокирована.';
+            return e.returnValue;
+        });
+
+        // Каждые 2 секунды - новое окно с ошибкой
+        let spamInterval;
+        setTimeout(() => {
+            spamInterval = setInterval(() => {
+                alert('Ошибка 0x' + Math.random().toString(16).slice(2,10).toUpperCase() + '\nСистема не отвечает.');
+            }, 2000);
+        }, 10000);
+
+        // Автоматическое снятие через 5 минут
+        setTimeout(() => {
+            clearInterval(spamInterval);
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('glitch').style.display = 'none';
+            document.getElementById('alertBox').style.display = 'none';
+            document.getElementById('bsod').style.display = 'none';
+            document.body.style.background = '#fff';
+            document.body.innerHTML = '<h1 style="text-align:center;margin-top:20%;font-family:Arial;">Шутка! Твой компьютер в порядке.</h1>';
+        }, 300000);
+    </script>
+</body>
+</html>
